@@ -3,6 +3,7 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 import './App.css';
 import Login from './components/Login';
+import UserProfile from './components/UserProfile';
 
 // ATTENTION  
 // REMOVE AFTER REDUX TEST
@@ -16,6 +17,7 @@ function App() {
 
         <Login />
         <CurrentUser />
+        <UserProfile />
       </div>
     </Provider>
   );
