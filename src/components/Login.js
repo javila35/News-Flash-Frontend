@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { api } from '../services/api';
+import { connect } from 'react-redux';
+import { getCurrentUser } from '../redux'
 
 class Login extends Component {
     state = {
@@ -20,14 +22,15 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
         api.auth.login(this.state.fields).then(response => {
-            if (response.errors) {
+            if (response.error) {
                 this.setState({
                     error: response.error
                 },
                 () => alert(this.state.error))
             } else {
                 localStorage.setItem("token", response.jwt);
-                //set User in state.
+                console.log(response.user);
+                this.props.setCurrentUser(response.user);
             }
         });
     };
@@ -45,7 +48,13 @@ class Login extends Component {
                 </form>
             </div>
        );
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setCurrentUser: current_user => dispatch(getCurrentUser(current_user))
     }
 }
 
-export default Login;
+export default connect(null,mapDispatchToProps)(Login);
