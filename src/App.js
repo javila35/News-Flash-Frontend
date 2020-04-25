@@ -6,10 +6,12 @@ import './App.css';
 import Login from './components/Login';
 import UserProfile from './components/UserProfile';
 import WelcomePage from './containers/WelcomePage';
+import Navigation from './components/Navigation';
 
 function App() {
   return (
     <Provider store={store}>
+      <Navigation />
       <Router>
         <div className="App">
           <Route path="/">
