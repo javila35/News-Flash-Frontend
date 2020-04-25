@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Resources
+Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
+
 ## Available Scripts
 
 In the project directory, you can run:

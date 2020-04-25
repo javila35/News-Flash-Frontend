@@ -25,9 +25,17 @@ const getCurrentUser = () => {
     });
 };
 
+const getUserToDisplay = username => {
+    return fetch(`${API_ROOT}/users/${username}`, {headers:headers()})
+        .then(response=>response.json())
+};
+
 export const api = {
     auth: {
         login,
         getCurrentUser
+    },
+    users: {
+        getUserToDisplay
     }
 };
