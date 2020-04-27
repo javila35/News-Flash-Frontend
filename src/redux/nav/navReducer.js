@@ -7,12 +7,12 @@ const initialState = {
 const navReducer = (state = initialState, action ) => {
     switch (action.type) {
         case CHANGE_NAVIGATION_SHOW:
-            return {
+            return({
                 ...state,
                 show: action.payload
-            };
+            });
         default: 
-            return state
+            return state;
         };
 };
 

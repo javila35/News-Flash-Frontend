@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 import './App.css';
-import Login from './components/Login';
 import UserProfile from './components/UserProfile';
 import WelcomePage from './containers/WelcomePage';
 import Navigation from './components/Navigation';
+import ArticleBrowser from './components/ArticleBrowser';
 
 function App() {
   return (
@@ -14,10 +14,12 @@ function App() {
       <Navigation />
       <Router>
         <div className="App">
-          <Route path="/">
-            <WelcomePage />
-          </Route>
-          <Login />
+          <Route exact path="/articles"
+            render={() => <ArticleBrowser />}
+          />
+          <Route exact path="/"
+            render={()=> <WelcomePage />} 
+          />
           <Route 
             path="/users/:username"
             render={(props) => <UserProfile {...props} />} />

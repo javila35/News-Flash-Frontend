@@ -30,6 +30,16 @@ const getUserToDisplay = username => {
         .then(response=>response.json())
 };
 
+const getArticles = () => {
+    let url = 'http://newsapi.org/v2/top-headlines?' +
+          'country=us&' +
+          'apiKey=0a14a58999ab42358ae8ae02df4e0336';
+    let req = new Request(url);
+    return fetch(req)
+    .then(response => response.json()
+    )
+}
+
 export const api = {
     auth: {
         login,
@@ -37,5 +47,8 @@ export const api = {
     },
     users: {
         getUserToDisplay
+    },
+    articles: {
+        getArticles
     }
 };
