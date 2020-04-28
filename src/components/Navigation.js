@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeNavigationShow } from '../redux';
+import { changeNavigationShow, removeCurrentUser } from '../redux';
 import Login from './Login';
 
 class Navigation extends Component {
     openNav = () => {
-        document.getElementsByClassName("sideNav")[0].style.width = "250px";
+        document.getElementsByClassName("hidden side-nav")[0].className = "side-nav";
+        document.getElementsByClassName("App")[0].style.marginLeft = "250px";
         this.changeState();
     };
 
@@ -15,7 +16,8 @@ class Navigation extends Component {
     }
 
     closeNav = () => {
-        document.getElementsByClassName("sideNav")[0].style.width = "0";
+        document.getElementsByClassName("side-nav")[0].className = "hidden side-nav";
+        document.getElementsByClassName("App")[0].style.marginLeft = "0px";
         this.changeState();
     };
     
@@ -23,43 +25,49 @@ class Navigation extends Component {
         return <Login />;
     };
 
+    showLogout = () => {
+        localStorage.removeItem("token");
+        this.props.removeCurrentUser();
+    }
+
     renderNav() {
         const token = localStorage.getItem("token");
         return(
-            <div className="navLinks">   
+            <>   
                 <button className="closebtn" onClick={() => this.closeNav()}>&times;</button> 
-                {token ? null : this.showLogin()}
-                <div className="navLinks">
-                    <Router>
+                {token ? <Link to="/" onClick={() => this.showLogout()}>Log Out</Link> : this.showLogin()}
+                <div className="nav-links">
                         <Link to="/">Home</Link><br/>
                         <Link to="/articles">Articles</Link><br/>
-                    </Router>
+                        {token ? <Link to={`/users/joe`}>My Account</Link> : null}
                 </div>
-            </div>
+            </>
         );
     };
 
     render () {
         return(
-        <div>
-            {this.props.show ? null : <button className="navButton" onClick={() => this.openNav()}>☰</button>}
-            <div className="sideNav">
-                {this.renderNav()}
+        <>
+            {this.props.show ? null : <button className="nav-button" onClick={() => this.openNav()}>Menu ☰</button>}
+            <div className="hidden side-nav">
+                {this.props.show ? this.renderNav() : null}
             </div>
-        </div>
+        </>
         );
     };
 };
 
 const mapStateToProps = state => {
     return {
+        user: state.user.username,
         show: state.nav.show
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showNavigation: (boolean) => dispatch(changeNavigationShow(boolean))
+        showNavigation: (boolean) => dispatch(changeNavigationShow(boolean)),
+        removeCurrentUser: () => dispatch(removeCurrentUser())
     };
 };
 

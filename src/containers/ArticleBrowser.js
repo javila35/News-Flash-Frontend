@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
+import ArticleCard from '../components/ArticleCard';
 
 class ArticleBrowser extends Component {
     state={
@@ -17,24 +18,16 @@ class ArticleBrowser extends Component {
     };
 
     renderArticles() {
-        return this.state.articles.map(article=>{
-            console.log(article)
-            const {title, author, content} = article
-            return(
-                <div className="article">
-                    <h4>{title}</h4>
-                    <h5>by: {author}</h5>
-                    <p>{content}</p>
-                </div>
-            )
-        })
+        return this.state.articles.map((article, index)=>{
+            return <ArticleCard key={index} article={article}/>
+        });
     };
 
     //need to write showarticles method to show the articles i've grabbed now.
     render(){
         return(
             <div>
-                {this.state.updated?this.renderArticles():null}
+                {this.state.updated ? this.renderArticles() : null}
             </div>
         )
     }

@@ -38,7 +38,7 @@ class Login extends Component {
     render() {
         const { fields } = this.state;
         return(
-            <div id="loginForm">
+            <div className="login-form">
                 <form onSubmit={event => this.handleSubmit(event)} >
                     <label htmlFor="username" />
                     Username: <input type="text" name="username" onChange={this.handleChange} value={fields.username}></input>
@@ -51,10 +51,16 @@ class Login extends Component {
     };
 };
 
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         setCurrentUser: current_user => dispatch(getCurrentUser(current_user))
     }
 }
 
-export default connect(null,mapDispatchToProps)(Login);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

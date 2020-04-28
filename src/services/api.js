@@ -38,7 +38,15 @@ const getArticles = () => {
     return fetch(req)
     .then(response => response.json()
     )
-}
+};
+
+const postBookmark = data => {
+    return fetch(`${API_ROOT}/bookmarks`, {
+        method: 'POST', 
+        headers: headers(),
+        body: JSON.stringify(data)
+    }).then(response => response.json())
+};
 
 export const api = {
     auth: {
@@ -49,6 +57,7 @@ export const api = {
         getUserToDisplay
     },
     articles: {
-        getArticles
+        getArticles,
+        postBookmark
     }
 };

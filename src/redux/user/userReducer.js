@@ -1,4 +1,4 @@
-import { GET_CURRENT_USER } from './userTypes';
+import { GET_CURRENT_USER, REMOVE_CURRENT_USER } from './userTypes';
 
 const initialState = {
     user: {}
@@ -10,6 +10,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload
+            };
+        case REMOVE_CURRENT_USER:
+            return {
+                ...state,
+                user: {}
             };
         default:
             return state;

@@ -1,35 +1,60 @@
-.App {
+.title-bar h1 {
+  position: fixed;
   text-align: center;
+  background-color: #818181;
+  width:100%;
+  top:0px;
+  margin:0px;
+  padding:0px;
 }
 
-/* The side navigation menu */
-.sideNav {
-  height: 100%; /* 100% Full-height */
-  width: 0px; 
+.hidden {
+  display: none;
+  transition: 0.5s;
+}
+
+.App {
+  text-align: center;
+  /* Maybe change the font family before deployment. */
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-left: 250px;
+  transition: 0.3s;
+}
+
+.side-nav {
+  height: 100%;
+  width: 250px; 
   position: fixed; 
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-};
+  background-color: #111; 
+  overflow-x: hidden; 
+  padding-top: 60px;
+  transition: 0.3s;
+}
 
-.navLinks a {
+.nav-button {
+  background-color: #818181;
+  border: none;
+  position: fixed;
+  top: 0px;
+  font-size: 24px;
+  margin-left: 5%;
+}
+
+.nav-links a, a:visited {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
-  display: block;
   transition: 0.3s;
-};
+}
 
-.navLinks a:hover {
+.nav-links a:hover {
   color: #f1f1f1;
-};
+}
 
-.sideNav .closebtn {
+.closebtn {
   background-color: #818181;
   border: none;
   position: absolute;
@@ -37,33 +62,35 @@
   right: 25px;
   font-size: 24px;
   margin-left: 50px;
-};
-
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-  transition: margin-left .5s;
-  padding: 20px;
-};
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  #sidenav {padding-top: 15px;}
-  #sidenav a {font-size: 18px;}
-};
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-};
-
-/* .sideNav #loginForm {
-  border: 3px solid white;
-} */
+}
 
 .article {
   border: 1px solid black;
   width: 65%;
   margin: 2px;
   margin-left: 20%;
+}
+
+.article-card {
+  /* position: relative; */
+  margin: 10px;
+  border: 1px solid black;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.article-card a, a:visited {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  transition: 0.5s;
+}
+
+.article-card a:hover {
+  color: #818181;
+  transition: 0.5s;
+}
+
+.login-form {
+  border: 1px solid white;
+  color:white;
 }
