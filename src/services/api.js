@@ -45,7 +45,7 @@ const postBookmark = data => {
         method: 'POST', 
         headers: headers(),
         body: JSON.stringify(data)
-    }).then(response => response.json())
+    }).then(response => response.json());
 };
 
 export const api = {

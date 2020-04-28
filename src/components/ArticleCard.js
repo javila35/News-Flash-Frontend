@@ -11,8 +11,7 @@ function ArticleCard(props) {
             link: url,
             img_url: urlToImage
         };
-        api.articles.postBookmark(send)
-        alert("You're bookmark has posted. Check your profile.")
+        api.articles.postBookmark(send).then(data=>console.log(data))
     };
 
     const comment = () => {
