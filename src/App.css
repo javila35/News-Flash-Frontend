@@ -44,6 +44,7 @@
 }
 
 .nav-links a, a:visited {
+  color: #818181;
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -72,25 +73,59 @@
 }
 
 .article-card {
-  /* position: relative; */
   margin: 10px;
   border: 1px solid black;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.8);
 }
+
+/* .artile-card text {
+  make them all inline with image on left, text on right of image
+} */
 
 .article-card a, a:visited {
   font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: #818181;
   transition: 0.5s;
 }
 
 .article-card a:hover {
-  color: #818181;
+  color: black;
   transition: 0.5s;
 }
 
 .login-form {
   border: 1px solid white;
   color:white;
+}
+
+.bookmark-thumbnail {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+
+.bookmark-browser { 
+  position: relative;
+  margin:4px, 4px; 
+  padding:4px; 
+  background-color: #818181; 
+  width: 600px; 
+  height: 200px; 
+  overflow-x: hidden; 
+  overflow-x: auto; 
+  text-align:justify; 
+  border: 3px solid black;
+  border-radius: 5px;
+} 
+
+.bookmark-card {
+  border: 1px solid black;
+  margin: 2px;
+}
+
+a.bookmark_link {
+  color: black;
+  text-decoration: none;
 }

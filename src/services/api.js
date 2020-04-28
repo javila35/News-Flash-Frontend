@@ -9,11 +9,11 @@ const headers = () => {
     };
   };
 
-const login = data => {
-    return fetch(`${API_ROOT}/auth`, {
+const createUser = user_details =>{
+    return fetch(`${API_ROOT}/users`, {
         method: 'POST',
         headers: headers(),
-        body: JSON.stringify(data)
+        body: JSON.stringify(user_details)
     }).then(response => response.json());
 };
 
@@ -40,6 +40,14 @@ const getArticles = () => {
     )
 };
 
+const login = data => {
+    return fetch(`${API_ROOT}/auth`, {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify(data)
+    }).then(response => response.json());
+};
+
 const postBookmark = data => {
     return fetch(`${API_ROOT}/bookmarks`, {
         method: 'POST', 
@@ -51,7 +59,8 @@ const postBookmark = data => {
 export const api = {
     auth: {
         login,
-        getCurrentUser
+        getCurrentUser,
+        createUser
     },
     users: {
         getUserToDisplay

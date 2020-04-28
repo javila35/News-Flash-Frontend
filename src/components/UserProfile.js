@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
 import Loader from './Loader';
-// import BookmarksCard from '../components/BookmarksCard';
+import BookmarkCard from '../components/BookmarkCard';
 
 class UserProfile extends Component {
     state = {
@@ -22,6 +22,12 @@ class UserProfile extends Component {
             this.setState({user:userData, loading: false});
         });
     };
+
+    renderBookmarks() {
+        return this.state.user.bookmarks.map( (bookmark, index) => {
+            return <BookmarkCard key={index} bookmark={bookmark}/>
+        })
+    }
 
     showDetail = (user) => {
         const { username, first_name, location, twitter, website, bio } = user;
@@ -45,8 +51,14 @@ class UserProfile extends Component {
     render() {
         return(
             <div className="user-show">
-                {this.state.loading ? <Loader />:this.showDetail(this.state.user)}
-                {}
+                {this.state.loading ? <Loader />:
+                    <>
+                    {this.showDetail(this.state.user)}
+                    <div className="bookmark-browser">
+                        {this.renderBookmarks()}
+                    </div>
+                    </>
+                }
             </div>
         )
     }

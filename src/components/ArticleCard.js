@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import { connect } from 'react-redux';
 
 function ArticleCard(props) {
+    const token = localStorage.getItem("token");
     const {title, author, content, url, urlToImage} = props.article;
     const bookmark = () => {
         const send = {
@@ -27,8 +28,8 @@ function ArticleCard(props) {
             <p>{content}</p>
             <div className="user-interaction">
                 <a href={`${url}`}>Read article here</a>
-                <p className="bookmark" onClick={() => bookmark()}>Bookmark</p>
-                <p className="comment-icon" onClick={() => comment()}>Comment</p>
+                {token ? <p className="bookmark" onClick={() => bookmark()}>Bookmark</p> :null}
+                {token ? <p className="comment-icon" onClick={() => comment()}>Comment</p> :null}
             </div>
         </div>
     )
