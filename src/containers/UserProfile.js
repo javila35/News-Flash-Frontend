@@ -10,6 +10,7 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             user: {},
+            userProps: null,
             loading: true
         };
     }
@@ -24,19 +25,28 @@ class UserProfile extends Component {
 
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
-            this.setState({user:userData, loading: false});
+            // const {} destructure the stuff
+            console.log(userData);
+            this.setState({
+                user: userData.data, 
+                userProps: userData.included,
+                loading: false
+            });
         });
     };
 
     renderBookmarks() {
-        return this.state.user.bookmarks.map( (bookmark, index) => {
-            return <BookmarkCard key={index} bookmark={bookmark}/>
+        const bookmarks = this.state.userProps.filter(object => object.type === "bookmark")
+        return bookmarks.map( (bookmark, index) => {
+            return <BookmarkCard key={index} bookmark={bookmark.attributes}/>
         });
     };
 
     renderComments() {
-        return this.state.user.discussions.map((comment, index) => {
-            return <Comment key={index} comment={comment}/>
+        const comments = this.state.userProps.filter(object => object.type === "comment")
+        console.log(comments)
+        return comments.map((comment, index) => {
+            return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment}/>
         })
     }
 
@@ -61,7 +71,7 @@ class UserProfile extends Component {
             <>
                 {this.state.loading ? <Loader />:
                     <>
-                    {this.showDetail(this.state.user)}
+                    {this.showDetail(this.state.user.attributes)}
                     <div className="bookmark-browser">
                         {this.renderBookmarks()}
                     </div>
