@@ -9,9 +9,10 @@ class UserProfile extends Component {
         super(props);
         this.state = {
             errors: false,
+            comments: false,
             user: {},
             userProps: null,
-            loading: true
+            loading: true,
         };
     }
 
@@ -23,13 +24,20 @@ class UserProfile extends Component {
         alert("Add a text box that let's a user edit their bio.")
     };
 
+    fetchComments = bookmark_id => {
+        api.comments.getComments(bookmark_id)
+            .then(data=>{
+                this.setState({comments: data});
+            })
+    };
+
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
+            // Redirects to home page if a user doesn't exist.
             if (userData.errors) {
                 this.setState({
                     errors: userData.errors
                 },
-                // Redirect to home page if a user doesn't exist.
                 ()=> { 
                     alert(this.state.errors);
                     this.props.history.push('/');
@@ -47,17 +55,18 @@ class UserProfile extends Component {
     renderBookmarks() {
         const bookmarks = this.state.userProps.filter(object => object.type === "bookmark")
         return bookmarks.map( (bookmark, index) => {
-            return <BookmarkCard key={index} bookmark={bookmark.attributes}/>
+            return <BookmarkCard key={index} bookmark={bookmark.attributes} bmID={bookmark.id} fetchComments={this.fetchComments}/>
         });
     };
 
+
+
     renderComments() {
-        const comments = this.state.userProps.filter(object => object.type === "comment")
-        console.log(comments)
-        return comments.map((comment, index) => {
+        // const comments = this.state.userProps.filter(object => object.type === "comment")
+        return this.state.comments.map((comment, index) => {
             return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment}/>
-        })
-    }
+        });
+    };
 
     showDetail = (user) => {
         const { username, first_name, location, twitter, website, bio } = user;
@@ -84,9 +93,14 @@ class UserProfile extends Component {
                     <div className="bookmark-browser">
                         {this.renderBookmarks()}
                     </div>
-                    <div className="bookmark-browser">
-                        {this.renderComments()}
-                    </div>
+
+                    {/* CURRENTLY NOT ABLE TO RENDER A COMMENT AFTER THE FETCH CALL.... */}
+                    {/* {this.state.comments ? 
+                        <div className="comments-browser">
+                            {this.renderComments()}
+                        </div>
+                        : null 
+                    } */}
                     </>
                 }
             </>

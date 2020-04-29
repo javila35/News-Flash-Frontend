@@ -40,6 +40,11 @@ const getArticles = () => {
     )
 };
 
+const getComments = bookmark_id => {
+    return fetch(`${API_ROOT}/bookmarks/${bookmark_id}/comments`, {headers: headers()})
+        .then(response=>response.json());
+};
+
 const login = data => {
     return fetch(`${API_ROOT}/auth`, {
         method: 'POST',
@@ -64,6 +69,7 @@ const postComment = data => {
     }).then(response=> response.json());
 }
 
+
 export const api = {
     auth: {
         login,
@@ -78,6 +84,7 @@ export const api = {
         postBookmark
     },
     comments: {
-        postComment
+        postComment,
+        getComments
     }
 };
