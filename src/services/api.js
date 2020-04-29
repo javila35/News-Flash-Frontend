@@ -56,6 +56,14 @@ const postBookmark = data => {
     }).then(response => response.json());
 };
 
+const postComment = data => {
+    return fetch(`${API_ROOT}/comments`, {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify(data)
+    }).then(response=> response.json());
+}
+
 export const api = {
     auth: {
         login,
@@ -68,5 +76,8 @@ export const api = {
     articles: {
         getArticles,
         postBookmark
+    },
+    comments: {
+        postComment
     }
 };

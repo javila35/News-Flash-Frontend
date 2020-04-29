@@ -66,19 +66,19 @@
 }
 
 .article {
-  border: 1px solid black;
-  width: 65%;
-  margin: 2px;
-  margin-left: 20%;
+  margin-top: 5%;
+  /* width: 65%; */
+  /* margin-left: 20%; */
 }
 
-.article-card {
+div.article-card {
+  margin-left: 20%;
   margin: 10px;
   border: 1px solid black;
   background: rgba(0, 0, 0, 0.8);
 }
 
-/* .artile-card text {
+/* .article-card text {
   make them all inline with image on left, text on right of image
 } */
 
@@ -111,8 +111,8 @@
   margin:4px, 4px; 
   padding:4px; 
   background-color: #818181; 
-  width: 600px; 
-  height: 200px; 
+  width: 700px; 
+  height: 400px; 
   overflow-x: hidden; 
   overflow-x: auto; 
   text-align:justify; 
@@ -120,6 +120,13 @@
   border-radius: 5px;
 } 
 
+.bookmark-card img {
+  justify-content: left;
+}
+
+.bookmark-card text {
+  text-justify: auto;
+}
 .bookmark-card {
   border: 1px solid black;
   margin: 2px;
@@ -129,3 +136,14 @@ a.bookmark_link {
   color: black;
   text-decoration: none;
 }
+
+.sign-up-form {
+  text-align: justify;
+}
+
+.user-show {
+  text-align: justify;
+}
+/* .welcome-signup-form{
+  position at bottom right of page
+} */

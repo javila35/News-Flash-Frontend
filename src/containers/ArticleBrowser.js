@@ -26,9 +26,9 @@ class ArticleBrowser extends Component {
     //need to write showarticles method to show the articles i've grabbed now.
     render(){
         return(
-            <>
+            <div className="article">
                 {this.state.updated ? this.renderArticles() : null}
-            </>
+            </div>
         )
     }
 }

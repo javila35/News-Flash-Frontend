@@ -29,7 +29,6 @@ class Login extends Component {
                 () => alert(this.state.error))
             } else {
                 localStorage.setItem("token", response.jwt);
-                console.log(response.user);
                 this.props.setCurrentUser(response.user);
             }
         });

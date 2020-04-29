@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import SignUp from './SignUp';
 
 function WelcomePage(props){
+    const token = localStorage.getItem("token");
     return(
-        <div>
+        <>
             <h1>Welcome {props.user.first_name}!</h1>
-            <SignUp />
-        </div>
+            {token ? null : 
+            <div className="welcome-signup-form">
+                <SignUp />
+            </div>
+            }   
+        </>
     )
 }
 

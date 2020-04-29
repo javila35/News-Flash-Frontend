@@ -15,12 +15,6 @@ function ArticleCard(props) {
         api.articles.postBookmark(send).then(data=>console.log(data))
     };
 
-    const comment = () => {
-        alert("create ternary, if comments exist add to. Or if they don't begin discussion");
-    };
-
-    
-
     return(
         <div className="article-card">
             <h3>{title}</h3>
@@ -29,7 +23,6 @@ function ArticleCard(props) {
             <div className="user-interaction">
                 <a href={`${url}`}>Read article here</a>
                 {token ? <p className="bookmark" onClick={() => bookmark()}>Bookmark</p> :null}
-                {token ? <p className="comment-icon" onClick={() => comment()}>Comment</p> :null}
             </div>
         </div>
     )
