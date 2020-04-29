@@ -17,8 +17,6 @@ class Login extends Component {
         this.setState({ fields: newFields});
     };
 
-    // ATTENTION!
-    // Set user in State on Login.
     handleSubmit = event => {
         event.preventDefault();
         api.auth.login(this.state.fields).then(response => {

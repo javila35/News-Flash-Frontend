@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { api } from '../services/api';
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
-// import Discussion from './Discussion';
 import Comment from '../components/Comment';
 
 class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            errors: false,
             user: {},
             userProps: null,
             loading: true
@@ -25,13 +25,22 @@ class UserProfile extends Component {
 
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
-            // const {} destructure the stuff
-            console.log(userData);
-            this.setState({
-                user: userData.data, 
-                userProps: userData.included,
-                loading: false
-            });
+            if (userData.errors) {
+                this.setState({
+                    errors: userData.errors
+                },
+                // Redirect to home page if a user doesn't exist.
+                ()=> { 
+                    alert(this.state.errors);
+                    this.props.history.push('/');
+                }
+            )} else {
+                this.setState({
+                    user: userData.data, 
+                    userProps: userData.included,
+                    loading: false
+                });
+            }
         });
     };
 
