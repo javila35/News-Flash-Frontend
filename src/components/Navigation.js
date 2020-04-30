@@ -39,7 +39,7 @@ class Navigation extends Component {
                 <div className="nav-links">
                         <Link to="/">Home</Link><br/>
                         <Link to="/articles">Articles</Link><br/>
-                        {token ? <Link to={`/users/${this.props.user}`}>My Account</Link> : null}
+                        {token ? <Link to={`/users/${this.props.user.user.username}`}>My Account</Link> : null}
                         {token ? null : <Link to={'/sign-up'}>Sign Up</Link>}
                 </div>
             </>
@@ -60,7 +60,7 @@ class Navigation extends Component {
 
 const mapStateToProps = state => {
     return {
-        user: state.user.user.username,
+        user: state.user,
         show: state.nav.show
     };
 };

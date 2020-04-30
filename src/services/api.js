@@ -17,6 +17,14 @@ const createUser = user_details =>{
     }).then(response => response.json());
 };
 
+const editUser = user_details => {
+    return fetch(`${API_ROOT}/users/${user_details.id}`, {
+        method: 'PUT',
+        headers: headers(),
+        body: JSON.stringify(user_details)
+        }).then(response => response.json());
+};
+
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
         headers: headers()
@@ -71,7 +79,8 @@ export const api = {
         createUser
     },
     users: {
-        getUserToDisplay
+        getUserToDisplay,
+        editUser
     },
     articles: {
         getArticles,

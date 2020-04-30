@@ -166,7 +166,6 @@ div.article-card {
 .bookmark-card {
   border: 1px solid black;
   margin: 2px;
-  /* height: 250px; */
 }
 
 a.bookmark_link {
@@ -184,7 +183,7 @@ a.bookmark_link {
   margin-left: 20%;
   margin: 10px;
   border: 1px solid black;
-  background-color: #BDA18A;
+  /* background-color: #BDA18A; */
 }
 
 .profile {
@@ -194,6 +193,7 @@ a.bookmark_link {
 .twitIcon {
   height: 25px;
 }
-/* .welcome-signup-form{
-  position at bottom right of page
-} */
+
+#edit-user-form input {
+  margin: 0.2em;
+}

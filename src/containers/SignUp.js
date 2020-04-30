@@ -65,7 +65,6 @@ class SignUp extends Component {
                     placeholder="Password"
                     value={verifyPassword}
                 /><br/>
-                <p>Password must be between 8-16 characters.</p>
                 <input type="submit" value="Create Account!"/>
                 </form>
             </div>
