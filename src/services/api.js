@@ -9,12 +9,20 @@ const headers = () => {
     };
   };
 
-const createUser = user_details =>{
+const createUser = user_details => {
     return fetch(`${API_ROOT}/users`, {
         method: 'POST',
         headers: headers(),
         body: JSON.stringify(user_details)
     }).then(response => response.json());
+};
+
+const deleteUser = user_details => {
+    return fetch(`${API_ROOT}/users/${user_details}`, {
+        method: 'DELETE',
+        headers: headers(),
+        body: JSON.stringify(user_details)
+    }).then(response=>response.json());
 };
 
 const editUser = user_details => {
@@ -80,6 +88,7 @@ export const api = {
     },
     users: {
         getUserToDisplay,
+        deleteUser,
         editUser
     },
     articles: {

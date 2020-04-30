@@ -16,11 +16,11 @@ function App(props) {
   useEffect(()=>{
     if (token) {
       api.auth.getCurrentUser().then(data=>{
-        console.log(data)
-        props.setCurrentUser(data)
-      })
-    }
-  })
+        props.setCurrentUser(data);
+      });
+    };
+  });
+
   return (
     <>
     <header className="title-bar"><h1>Headline</h1></header>
@@ -39,7 +39,7 @@ function App(props) {
             render={(props) => <UserProfile {...props} />} />
           <Route
             exact path="/sign-up/"
-            render={() => <SignUp />}
+            render={props => <SignUp {...props} />}
           />
           <Route
             exact path="/edit-user"

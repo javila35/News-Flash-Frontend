@@ -33,8 +33,8 @@ class SignUp extends Component {
             api.auth.createUser(userObject).then(data=>{
                 localStorage.setItem("token", data.jwt);
                 this.props.setCurrentUser(data.user);
+                this.props.history.push(`/users/${data.user.username}`)
             });
-            alert("Account creation succesful. Log in with your new credentials.")
         }
     };
 

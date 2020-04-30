@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
 import { connect } from 'react-redux';
+import { removeCurrentUser } from '../redux'
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
 import Comment from '../components/Comment';
@@ -22,9 +23,16 @@ class UserProfile extends Component {
     };
 
     editBio = () => {
-        // alert("Add a text box that let's a user edit their bio.")
         this.props.history.push('/edit-user');
     };
+
+    deleteUser = () => {
+        api.users.deleteUser(this.props.user.user.id).then(()=>{
+            localStorage.removeItem("token");
+            this.props.history.push('/');
+            this.props.removeCurrentUser();
+        })
+    }
 
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
@@ -73,7 +81,7 @@ class UserProfile extends Component {
                 {twitter || website ? <p>Social Media</p> : null}
                 {twitter === null ? null : <><img src={twitIcon} className="twitIcon" alt="twitter icon"></img><a href={`http://twitter.com/${twitter}`}>@{twitter}</a></>}<br/>
                 {website === null ? null : <a href={`${website}`}>{first_name}'s Website</a>}
-                {this.props.user.user.username  === username ? <button onClick={this.editBio}>Edit!</button> : null}
+                {this.props.user.user.username  === username ? <><button onClick={this.editBio}>Edit account details.</button><button onClick={this.deleteUser}>Delete my account.</button></> : null}
             </div>
         );
     };
@@ -105,4 +113,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(UserProfile);
+const mapDispatchToProps = dispatch => {
+    return {
+        removeCurrentUser: () => dispatch(removeCurrentUser())
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(UserProfile);
