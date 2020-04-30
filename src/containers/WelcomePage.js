@@ -1,17 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SignUp from './SignUp';
 
 function WelcomePage(props){
-    const token = localStorage.getItem("token");
     return(
         <>
-            <h1>Welcome {props.user.first_name}!</h1>
-            {token ? null : 
-            <div className="welcome-signup-form">
-                <SignUp />
-            </div>
-            }   
+            <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
+            {/* {token ? null : <span>"It looks like you aren't signed in." <br/> "Create an Account?"</span>} */}
         </>
     )
 }

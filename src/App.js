@@ -7,6 +7,7 @@ import UserProfile from './containers/UserProfile';
 import WelcomePage from './containers/WelcomePage';
 import Navigation from './components/Navigation';
 import ArticleBrowser from './containers/ArticleBrowser';
+import SignUp from './containers/SignUp';
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route 
             exact path="/users/:username"
             render={(props) => <UserProfile {...props} />} />
+          <Route
+            exact path="/sign-up/"
+            render={() => <SignUp />}
+          />
         </div>
         </Switch>
       </Router>

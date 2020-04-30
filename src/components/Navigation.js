@@ -40,6 +40,7 @@ class Navigation extends Component {
                         <Link to="/">Home</Link><br/>
                         <Link to="/articles">Articles</Link><br/>
                         {token ? <Link to={`/users/${this.props.user}`}>My Account</Link> : null}
+                        {token ? null : <Link to={'/sign-up'}>Sign Up</Link>}
                 </div>
             </>
         );

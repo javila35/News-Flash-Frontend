@@ -3,6 +3,7 @@ import { api } from '../services/api';
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
 import Comment from '../components/Comment';
+import twitIcon from '../assets/twitIcon.png'
 
 class UserProfile extends Component {
     constructor(props) {
@@ -29,7 +30,6 @@ class UserProfile extends Component {
                 this.setState({
                     errors: userData.errors
                 },
-                // Redirect to home page if a user doesn't exist.
                 ()=> { 
                     alert(this.state.errors);
                     this.props.history.push('/');
@@ -63,12 +63,12 @@ class UserProfile extends Component {
         const { username, first_name, location, twitter, website, bio } = user;
         return(
             <div className="user-show">
-                {first_name ? <h3>First Name: {first_name}</h3> : null}
+                <h3>First Name: {first_name ? <h3> {first_name}</h3> : ""}</h3>
                 <h4>Username: {username}</h4>
-                {location ? <p>In: {location}</p> : null}
-                {bio ? <p>About me: {bio}</p> : null}
+                <p>Located In: {location ? <p>{location}</p> : "No location given"}</p>
+                <p>About me: {bio ? <p>{bio}</p> : ""}</p>
                 {twitter || website ? <p>Social Media</p> : null}
-                {twitter === null ? null : <a href={`http://twitter.com/${twitter}`}>@{twitter}</a>}<br/>
+                {twitter === null ? null : <><img src={twitIcon} className="twitIcon" alt="twitter icon"></img><a href={`http://twitter.com/${twitter}`}>@{twitter}</a></>}<br/>
                 {website === null ? null : <a href={`${website}`}>{first_name}'s Website</a>}
                 {this.state.user.username === username ? <button onClick={this.editBio}>Edit!</button> : null}
             </div>
@@ -77,19 +77,22 @@ class UserProfile extends Component {
 
     render() {
         return(
-            <>
+            <div className="profile">
                 {this.state.loading ? <Loader />:
                     <>
                     {this.showDetail(this.state.user.attributes)}
+                    <div id="bookmark-title"><h1>Bookmarks</h1></div>
                     <div className="bookmark-browser">
                         {this.renderBookmarks()}
                     </div>
-                    <div className="bookmark-browser">
+                    <div id="comments-title"><h1>Comments</h1></div>
+                    <div className="comment-browser">
+                        
                         {this.renderComments()}
                     </div>
                     </>
                 }
-            </>
+            </div>
         )
     }
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
+import { connect } from 'react-redux';
+import { getCurrentUser } from '../redux';
 
 
 class SignUp extends Component {
@@ -28,7 +30,10 @@ class SignUp extends Component {
         if (this.state.fields.password !== this.state.fields.verifyPassword) {
             alert("Passwords do not match. Please try again.")
         } else {
-            api.auth.createUser(userObject).then(data=>console.log(data));
+            api.auth.createUser(userObject).then(data=>{
+                localStorage.setItem("token", data.jwt);
+                this.props.setCurrentUser(data.user);
+            });
             alert("Account creation succesful. Log in with your new credentials.")
         }
     };
@@ -36,8 +41,9 @@ class SignUp extends Component {
     render() {
         const {username, password, verifyPassword} = this.state.fields;
         return(
-            <>
-                <form className="sign-up-form" onSubmit={e => this.handleSubmit(e)}>
+            <div id="sign-up-form">
+                <h3>Sign Up</h3>
+                <form onSubmit={e => this.handleSubmit(e)}>
                 <label>Username:</label>
                 <input type="text" 
                     name="username" 
@@ -62,9 +68,15 @@ class SignUp extends Component {
                 <p>Password must be between 8-16 characters.</p>
                 <input type="submit" value="Create Account!"/>
                 </form>
-            </>
+            </div>
         )
     }
 };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+    return {
+        setCurrentUser: current_user => dispatch(getCurrentUser(current_user))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Comment(props) {
     return(
-        <div>
+        <div className="comment-card">
             {`${props.idProp}: ${props.comment}`}
         </div>
     )
