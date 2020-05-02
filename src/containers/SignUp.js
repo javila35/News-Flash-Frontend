@@ -24,18 +24,24 @@ class SignUp extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let userObject = {
-            username: this.state.fields.username,
-            password: this.state.fields.password
+            user: {
+                username: this.state.fields.username,
+                password: this.state.fields.password
+            }
         };
         if (this.state.fields.password !== this.state.fields.verifyPassword) {
-            alert("Passwords do not match. Please try again.")
+            alert("Passwords do not match. Please try again.");
         } else {
             api.auth.createUser(userObject).then(data=>{
-                localStorage.setItem("token", data.jwt);
-                this.props.setCurrentUser(data.user);
-                this.props.history.push(`/users/${data.user.username}`)
+                if (!data.errors) {
+                    localStorage.setItem("token", data.jwt);
+                    this.props.setCurrentUser(data.user);
+                    this.props.history.push(`/users/${data.user.username}`);
+                } else {
+                    alert(data.errors[0]);
+                };
             });
-        }
+        };
     };
 
     render() {

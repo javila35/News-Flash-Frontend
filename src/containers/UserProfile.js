@@ -5,7 +5,6 @@ import { removeCurrentUser } from '../redux'
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
 import Comment from '../components/Comment';
-import twitIcon from '../assets/twitIcon.png'
 
 class UserProfile extends Component {
     constructor(props) {
@@ -36,7 +35,6 @@ class UserProfile extends Component {
 
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
-            console.log(userData);
             if (userData.errors) {
                 this.setState({
                     errors: userData.errors
@@ -71,16 +69,15 @@ class UserProfile extends Component {
 
     showDetail = (user) => {
         const { username, first_name, location, twitter, website, bio } = user;
-        console.log(user)
         return(
             <div className="user-show">
                 <h3>First Name: {first_name ? <>{first_name}</> : ""}</h3>
                 <h3>Username: {username}</h3>
                 <h5>Located In: {location ? <>{location}</> : "No location given"}</h5>
-                <p>About me: {bio ? <>{bio}</> : "Enter some information about yourself!"}</p>
-                {twitter || website ? <p>Social Media</p> : null}
-                {twitter === null ? null : <><img src={twitIcon} className="twitIcon" alt="twitter icon"></img><a href={`http://twitter.com/${twitter}`}>@{twitter}</a></>}<br/>
-                {website === null ? null : <a href={`${website}`}>{first_name}'s Website</a>}
+                <h5>About me: {bio ? <>{bio}</> : "Enter some information about yourself!"}</h5>
+                {twitter || website ? <h5>Social Media</h5> : null}
+                {twitter === null ? null : <a href={`http://twitter.com/${twitter}`}>Twitter: @{twitter}</a>}<br/><br/>
+                {website === null ? null : <a href={`${website}`}>{first_name}'s Website</a>}<br/><br/><br/>
                 {this.props.user.user.username  === username ? <><button onClick={this.editBio}>Edit account details.</button><button onClick={this.deleteUser}>Delete my account.</button></> : null}
             </div>
         );

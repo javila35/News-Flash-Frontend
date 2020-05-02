@@ -33,15 +33,16 @@ class Navigation extends Component {
     renderNav() {
         const token = localStorage.getItem("token");
         return(
-            <>   
+            <>
                 <button className="closebtn" onClick={() => this.closeNav()}>&times;</button> 
-                {token ? <Link to="/" onClick={() => this.showLogout()}>Log Out</Link> : this.showLogin()}
-                <div className="nav-links">
-                        <Link to="/">Home</Link><br/>
-                        <Link to="/articles">Articles</Link><br/>
-                        {token ? <Link to={`/users/${this.props.user.user.username}`}>My Account</Link> : null}
-                        {token ? null : <Link to={'/sign-up'}>Sign Up</Link>}
-                </div>
+                {token ?  null : this.showLogin()}
+                <ul className="nav-links">
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/articles">Articles</Link></li>
+                        {token ? <li><Link to={`/users/${this.props.user.user.username}`}>My Account</Link></li> : null}
+                        {token ? null : <li><Link to={'/sign-up'}>Sign Up</Link></li>}
+                        {token ? <li><Link to="/" onClick={() => this.showLogout()}>Log Out</Link></li> : null}
+                </ul>
             </>
         );
     };

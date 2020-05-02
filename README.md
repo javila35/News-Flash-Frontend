@@ -1,7 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Resources
-Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
+* Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
+* ICO by [Paomedia](https://github.com/paomedia/small-n-flat)
 
 ## Available Scripts
 
