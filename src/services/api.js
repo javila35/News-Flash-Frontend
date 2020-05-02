@@ -33,6 +33,13 @@ const editUser = user_details => {
         }).then(response => response.json());
 };
 
+const getBookmark = bookmark => {
+    return fetch(`${API_ROOT}/bookmarks/${bookmark}`, {
+        headers: headers()
+    })
+    .then(response=>response.json());
+};
+
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
         headers: headers()
@@ -93,6 +100,7 @@ export const api = {
     },
     articles: {
         getArticles,
+        getBookmark,
         postBookmark
     },
     comments: {
