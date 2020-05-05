@@ -11,6 +11,7 @@ import ArticleBrowser from './containers/ArticleBrowser';
 import SignUp from './containers/SignUp';
 import EditUser from './containers/EditUser';
 import Bookmark from './containers/Bookmark';
+import Search from './components/Search';
 
 function App(props) {
   const token = localStorage.getItem("token");
@@ -24,6 +25,7 @@ function App(props) {
 
   const topHeadlines = 'top-headlines?country=us';
   const techHeadlines = 'everything?q=technology';
+  // const queryHeadlines = `everything?q=${query}`
   const healthHeadlines = 'everything?q=health';
 
   return (
@@ -44,6 +46,10 @@ function App(props) {
             />
           <Route exact path="/health_articles"
             render={()=> <ArticleBrowser endpoint={healthHeadlines} />}
+          />
+          <Route 
+            path="/search/:query"
+            render={(props)=> <Search {...props} />}
           />
           <Route 
             exact path="/users/:username"

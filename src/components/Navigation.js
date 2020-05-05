@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeNavigationShow, removeCurrentUser } from '../redux';
 import Login from './Login';
+
 
 class Navigation extends Component {
     openNav = () => {
@@ -20,15 +21,6 @@ class Navigation extends Component {
         document.getElementsByClassName("App")[0].style.marginLeft = "0px";
         this.changeState();
     };
-    
-    showLogin = () => {
-        return <Login />;
-    };
-
-    showLogout = () => {
-        localStorage.removeItem("token");
-        this.props.removeCurrentUser();
-    }
 
     renderNav() {
         const token = localStorage.getItem("token");
@@ -44,9 +36,30 @@ class Navigation extends Component {
                         {token ? <li><Link to={`/users/${this.props.user.user.username}`}>My Account</Link></li> : null}
                         {token ? null : <li><Link to={'/sign-up'}>Sign Up</Link></li>}
                         {token ? <li><Link to="/" onClick={() => this.showLogout()}>Log Out</Link></li> : null}
+                        <form onSubmit={e => this.search(e)}>
+                            <input type="text" name="query"></input>
+                            <input type="submit" value="Search Headlines"></input>
+                        </form>
                 </ul>
             </>
         );
+    };
+    
+    search(e) {
+        const query = e.target.query.value;
+        const {history} = this.props;
+        e.preventDefault();
+        e.persist();
+        history.push(`/search/${query}`)
+    };
+
+    showLogin = () => {
+        return <Login />;
+    };
+
+    showLogout = () => {
+        localStorage.removeItem("token");
+        this.props.removeCurrentUser();
     };
 
     render () {
@@ -75,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
