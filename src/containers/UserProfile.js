@@ -63,7 +63,7 @@ class UserProfile extends Component {
     renderComments() {
         const comments = this.state.userProps.filter(object => object.type === "comment")
         return comments.map((comment, index) => {
-            return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment}/>
+            return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment_text}/>
         })
     }
 

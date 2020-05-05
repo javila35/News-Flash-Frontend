@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Comment from '../components/Comment';
 import { api } from '../services/api';
-import Loader from 'react-loading'
+import Loader from 'react-loading';
+import CommentForm from '../components/CommentForm';
 
 
 // This component will show threaded comment and the bookmark.
@@ -10,6 +10,7 @@ class Bookmark extends Component {
     state = {
         bookmark: {},
         comments: [],
+        replies: [],
         loading: true
     };
 
@@ -18,46 +19,79 @@ class Bookmark extends Component {
     };
 
     getBookmarkDetails = () => {
-        let id = this.props.match.params.id
+        const id = this.props.match.params.id
         api.articles.getBookmark(id).then(data=>{
-            console.log(data)
             if (data.error) {
                 alert(data.error)
                 this.props.history.push('/')
             } else {
-                console.log(data)
                 this.setState({
                     bookmark: data.data.attributes,
-                    comments: [data.included],
+                    comments: this.sortComments(data.included),
+                    replies: this.sortReplies(data.included),
                     loading: false
                 })};
         });
+    };
+
+    sortComments = array => {
+        let comments = []
+        array.forEach(comment => {
+            if (comment.type === 'comment') {
+                comments.push(comment)
+            };
+        });
+        return comments;
+    };
+
+    sortReplies = array => {
+        let replies = []
+        array.forEach(reply => {
+            if (reply.type === 'reply') {
+                replies.push(reply)
+            };
+        });
+        return replies;
     };
 
     renderBookmark() {
         const {article_img, article_link, article_title} = this.state.bookmark;
         return(
             <div id="bookmark-show">
-                <h1>{article_title}</h1>
-                <img src={article_img} alt={`${article_title} thumbnail`}></img>
-                <a href={article_link}>Read more.</a>
+                <div className="post-thumb"><img src={article_img} alt={`${article_title} thumbnail`}></img><br/><br/></div>
+                <div className="post-title"><h1>{article_title}</h1></div>
+                <div className="post-link"><a href={article_link}>Read more.</a></div>
             </div>
         )
     };
 
+    renderComments() {
+        const comments = this.state.comments;
+        return comments.map(comment => {
+            console.log(comment)
+            return (<><div className="comment-show">
+                <p className="comment-content">{comment.attributes.comment_text}</p>
+                <h4 className="comment-user">Posted by: {comment.attributes.user.username}</h4>
+                </div><br/></>)
+        });
+    };
+
     render() {
-        const {loading} = this.state.loading;
+        const {loading} = this.state;
+        const id = parseInt(this.props.match.params.id)
         return(
             <>
-            {loading ? <Loader /> :
-                this.renderBookmark()
-            }
-                <div id="discussion">
-                    <p>Lorem ipsum etc</p>
+            { loading ? <Loader /> : this.renderBookmark() }
+            {loading ? null : 
+                <div className="post-comments">
+                    <h2>Discussion</h2>
+                    {this.renderComments()}
+                    <CommentForm bookmark={id} getDetails={() => this.getBookmarkDetails()} />
                 </div>
+            }
             </>
-        )
-    }
+        );
+    };
 };
 
 export default Bookmark;
