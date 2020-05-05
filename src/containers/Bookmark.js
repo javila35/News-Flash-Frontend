@@ -20,7 +20,7 @@ class Bookmark extends Component {
 
     getBookmarkDetails = () => {
         const id = this.props.match.params.id
-        api.articles.getBookmark(id).then(data=>{
+        api.bookmarks.getBookmark(id).then(data=>{
             if (data.error) {
                 alert(data.error)
                 this.props.history.push('/')
@@ -68,7 +68,6 @@ class Bookmark extends Component {
     renderComments() {
         const comments = this.state.comments;
         return comments.map(comment => {
-            console.log(comment)
             return (<><div className="comment-show">
                 <p className="comment-content">{comment.attributes.comment_text}</p>
                 <h4 className="comment-user">Posted by: {comment.attributes.user.username}</h4>

@@ -22,6 +22,10 @@ function App(props) {
     };
   });
 
+  const topHeadlines = 'top-headlines?country=us';
+  const techHeadlines = 'everything?q=technology';
+  const healthHeadlines = 'everything?q=health';
+
   return (
     <>
     <header className="title-bar"><h1>Headline</h1></header>
@@ -29,11 +33,17 @@ function App(props) {
       <Navigation />
       <Switch>
         <div className="App">
-          <Route exact path="/articles"
-            render={() => <ArticleBrowser />}
+          <Route exact path="/top_articles"
+            render={() => <ArticleBrowser endpoint={topHeadlines}/>}
           />
           <Route exact path="/"
             render={()=> <WelcomePage />} 
+          />
+          <Route exact path="/tech_articles"
+            render={() => <ArticleBrowser endpoint={techHeadlines}/>}
+            />
+          <Route exact path="/health_articles"
+            render={()=> <ArticleBrowser endpoint={healthHeadlines} />}
           />
           <Route 
             exact path="/users/:username"

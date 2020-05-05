@@ -12,7 +12,7 @@ function ArticleCard(props) {
             link: url,
             img_url: urlToImage
         };
-        api.articles.postBookmark(send).then(data=>console.log(data))
+        api.bookmarks.postBookmark(send).then(data=>console.log(data))
     };
 
     return(

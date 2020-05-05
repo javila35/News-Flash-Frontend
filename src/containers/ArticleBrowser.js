@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api } from '../services/api';
+import { news_api } from '../services/news_api';
 import ArticleCard from '../components/ArticleCard';
 
 class ArticleBrowser extends Component {
@@ -13,7 +13,7 @@ class ArticleBrowser extends Component {
     };
 
     getArticles() {
-        api.articles.getArticles().then(data=>
+        news_api.getArticles(this.props.endpoint).then(data=>
             this.setState({articles: data.articles, updated:true}))
     };
 
@@ -23,7 +23,6 @@ class ArticleBrowser extends Component {
         });
     };
 
-    //need to write showarticles method to show the articles i've grabbed now.
     render(){
         return(
             <div className="article">

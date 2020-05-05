@@ -38,7 +38,9 @@ class Navigation extends Component {
                 {token ?  null : this.showLogin()}
                 <ul className="nav-links">
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="/articles">Articles</Link></li>
+                        <li className="article-li"><Link to="/top_articles">Top US Articles</Link></li>
+                        <li className="article-li"><Link to="/tech_articles">Technology</Link></li>
+                        <li className="article-li"><Link to="/health_articles">Health</Link></li>
                         {token ? <li><Link to={`/users/${this.props.user.user.username}`}>My Account</Link></li> : null}
                         {token ? null : <li><Link to={'/sign-up'}>Sign Up</Link></li>}
                         {token ? <li><Link to="/" onClick={() => this.showLogout()}>Log Out</Link></li> : null}

@@ -53,16 +53,6 @@ const getUserToDisplay = username => {
         .then(response=>response.json())
 };
 
-const getArticles = () => {
-    let url = 'http://newsapi.org/v2/top-headlines?' +
-          'country=us&' +
-          'apiKey=0a14a58999ab42358ae8ae02df4e0336';
-    let req = new Request(url);
-    return fetch(req)
-    .then(response => response.json()
-    )
-};
-
 const login = data => {
     return fetch(`${API_ROOT}/auth`, {
         method: 'POST',
@@ -98,8 +88,7 @@ export const api = {
         deleteUser,
         editUser
     },
-    articles: {
-        getArticles,
+    bookmarks: {
         getBookmark,
         postBookmark
     },

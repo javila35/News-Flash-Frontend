@@ -31,7 +31,7 @@ class UserProfile extends Component {
             this.props.history.push('/');
             this.props.removeCurrentUser();
         })
-    }
+    };
 
     getUserDetails = () => {
         api.users.getUserToDisplay(this.props.match.params.username).then(userData=>{
@@ -56,7 +56,7 @@ class UserProfile extends Component {
     renderBookmarks() {
         const bookmarks = this.state.userProps.filter(object => object.type === "bookmark")
         return bookmarks.map( (bookmark, index) => {
-            return <BookmarkCard key={index} bookmark={bookmark.attributes}/>
+            return <BookmarkCard key={index} bookmark={bookmark.attributes} bmID={bookmark.id} handleClick={this.showBookmark} />
         });
     };
 
@@ -65,7 +65,11 @@ class UserProfile extends Component {
         return comments.map((comment, index) => {
             return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment_text}/>
         })
-    }
+    };
+
+    showBookmark = (bookmark_id) => {
+        this.props.history.push(`/bookmarks/${bookmark_id}`);
+    };
 
     showDetail = (user) => {
         const { username, first_name, location, twitter, website, bio } = user;
