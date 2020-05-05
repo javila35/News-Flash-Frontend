@@ -25,8 +25,9 @@ function App(props) {
 
   const topHeadlines = 'top-headlines?country=us';
   const techHeadlines = 'everything?q=technology';
-  // const queryHeadlines = `everything?q=${query}`
   const healthHeadlines = 'everything?q=health';
+  const sports = 'everything?q=sports';
+  const business = 'everything?q=business';
 
   return (
     <>
@@ -37,6 +38,12 @@ function App(props) {
         <div className="App">
           <Route exact path="/top_articles"
             render={() => <ArticleBrowser endpoint={topHeadlines}/>}
+          />
+          <Route exact path="/sports_articles"
+            render={() => <ArticleBrowser endpoint={sports} />}
+          />
+          <Route exact path="/business_articles"
+            render={() => <ArticleBrowser endpoint={business} />}
           />
           <Route exact path="/"
             render={()=> <WelcomePage />} 

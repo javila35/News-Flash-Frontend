@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ArticleTicker from '../components/welcomepage/ArticleTicker';
 
 function WelcomePage(props){
     return(
         <>
             <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
-            {/* {token ? null : <span>"It looks like you aren't signed in." <br/> "Create an Account?"</span>} */}
+            <div id="ticker-box">
+            <ArticleTicker category="top articles" />
+            </div>
         </>
     )
 }
