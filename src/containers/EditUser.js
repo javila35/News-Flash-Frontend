@@ -9,22 +9,21 @@ class EditUser extends Component {
             username: "",
             first_name: "",
             bio: "",
-            twitter: "",
-            website: "",
-            location: ""
+            location: "",
+            ticker_1: "",
+            ticker_2: "",
+            ticker_3: ""
         }
     };
 
     componentDidMount() {
-        const {username, first_name, bio, twitter, website, location, id} = this.props.user.user
+        const {username, first_name, bio, location, id} = this.props.user.user
         this.setState({
             fields: {
                 id: id,
                 username: username,
                 first_name: first_name,
                 bio: bio,
-                twitter: twitter,
-                website: website,
                 location: location
             }
         })
@@ -44,7 +43,7 @@ class EditUser extends Component {
     }
 
     render() {
-        const {username,first_name,bio,twitter,website,location} = this.state.fields;
+        const {username,first_name,bio,location} = this.state.fields;
         return(
             <div id="edit-user-form">
                 <form onSubmit={e => this.handleSubmit(e)}>
@@ -76,20 +75,6 @@ class EditUser extends Component {
                         placeholder=""
                         value={bio}
                         style={{height: "3em"}}
-                    /><br/>
-                    <label>Twitter: </label>
-                    <input type="text"
-                        name="twitter"
-                        onChange={this.handleChange}
-                        placeholder=""
-                        value={twitter}
-                    /><br/>
-                    <label>Website: </label>
-                    <input type="text"
-                        name="website"
-                        onChange={this.handleChange}
-                        placeholder=""
-                        value={website}
                     /><br/>
                     <input type="submit" value="Edit account details" />
                 </form>

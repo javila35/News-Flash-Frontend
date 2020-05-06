@@ -101,7 +101,7 @@ html {
   background-color: #ECC8B9;
 }
 
-.article-card a a:visited {
+.article-card a, .article-card a:visited {
   font-weight: bold;
   text-decoration: none;
   color: black;
@@ -134,8 +134,8 @@ html {
   background-color: #ECC8B9;
   overflow-y: scroll;
   display:inline-block;
-  /* height: 400px; */
-  min-width: 800px;
+  min-width: 80vw;
+  max-width: 80vw;
 }
 
 .bookmark-card img {
@@ -160,15 +160,16 @@ a.bookmark_link {
 
 .profile {
   margin-top: 5%;
+  margin-left: 5%;
 }
 
 .user-show {
+  display: inline-block;
   padding: 0.5em;
   text-align: justify;
-  margin: 3em;
   border: 1px solid black;
   background-color: #ECC8B9;
-  min-width: 800px;
+  width: 80vw;
 }
 
 .user-show a, .user-show a:visited {
@@ -273,6 +274,33 @@ a:visited.bookmark-link, a.bookmark-link {
   border-bottom: 1px solid black;
 }
 
+.div-box a, .div-box a:visited {
+  text-decoration: none;
+  color: black;
+}
+
 #ticker-div {
   display: flex;
+}
+
+.user-list {
+  list-style-type: none;
+  text-align: left;
+  font-size: larger;
+  margin-left: 1em;
+  transition: 0.5s;
+}
+
+.user-list li{
+  margin-bottom: 1em;
+}
+
+.user-list a:visited, .user-list a {
+  color: black;
+}
+
+.bookmarker {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-radius: 10%;
 }

@@ -14,7 +14,7 @@ class Login extends Component {
 
     handleChange = event => {
         const newFields = { ...this.state.fields, [event.target.name]: event.target.value };
-        this.setState({ fields: newFields});
+        this.setState({ fields: newFields });
     };
 
     handleSubmit = event => {

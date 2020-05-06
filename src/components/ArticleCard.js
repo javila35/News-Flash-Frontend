@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 function ArticleCard(props) {
     const token = localStorage.getItem("token");
+
     const {title, author, content, url, urlToImage} = props.article;
+
     const bookmark = () => {
         const send = {
             user: props.user,
@@ -12,7 +14,7 @@ function ArticleCard(props) {
             link: url,
             img_url: urlToImage
         };
-        api.bookmarks.postBookmark(send).then(data=>console.log(data))
+        api.bookmarks.postBookmark(send)
     };
 
     return(

@@ -33,6 +33,13 @@ const editUser = user_details => {
         }).then(response => response.json());
 };
 
+const getAllUsers = () =>{
+    return fetch(`${API_ROOT}/users`, {
+        headers: headers()
+    })
+    .then(response=>response.json());
+};
+
 const getBookmark = bookmark => {
     return fetch(`${API_ROOT}/bookmarks/${bookmark}`, {
         headers: headers()
@@ -84,6 +91,7 @@ export const api = {
         createUser
     },
     users: {
+        getAllUsers,
         getUserToDisplay,
         deleteUser,
         editUser

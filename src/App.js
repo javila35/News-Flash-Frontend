@@ -12,6 +12,7 @@ import SignUp from './containers/SignUp';
 import EditUser from './containers/EditUser';
 import Bookmark from './containers/Bookmark';
 import Search from './components/Search';
+import UserBrowser from './containers/UserBrowser';
 
 function App(props) {
   const token = localStorage.getItem("token");
@@ -68,6 +69,10 @@ function App(props) {
           <Route
             exact path="/sign-up/"
             render={props => <SignUp {...props} />} 
+          />
+          <Route 
+            exact path="/users"
+            render={props => <UserBrowser {...props} />}
           />
           <Route
             exact path="/edit-user"

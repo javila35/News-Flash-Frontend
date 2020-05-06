@@ -16,8 +16,8 @@ class ArticleTicker extends Component {
     };
 
     renderBoxes() {
-        return this.state.articles.map(article=>{
-            return <ArticleBox details={article} />
+        return this.state.articles.map((article,index)=>{
+            return <ArticleBox key={index} details={article} />
         });
     };
 
