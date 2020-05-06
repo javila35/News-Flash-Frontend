@@ -28,7 +28,14 @@ class ArticleTicker extends Component {
                 this.setState({
                     articles: data.articles,
                     fetched: true
-                })
+                });
+            });
+        } else {
+            news_api.getArticles(`everything?q=${category}`).then(data=>{
+                this.setState({
+                    articles: data.articles,
+                    fetched: true
+                });
             });
         };
     };

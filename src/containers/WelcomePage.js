@@ -6,8 +6,19 @@ function WelcomePage(props){
     return(
         <>
             <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
-            <div className="ticker-box">
-            <ArticleTicker category="top articles" />
+            <div id="ticker-div">
+                <div className="ticker-box">
+                    <h3 className="ticker-title">Recent Headlines</h3>
+                    <ArticleTicker category="top articles" />
+                </div>
+                <div className="ticker-box">
+                    <h3 className="ticker-title">Anime</h3>
+                    <ArticleTicker category="anime" />
+                </div>
+                <div className="ticker-box">
+                    <h3 className="ticker-title">Technology</h3>
+                    <ArticleTicker category="technology" />
+                </div>
             </div>
         </>
     )

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { removeCurrentUser } from '../redux'
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
-import Comment from '../components/Comment';
 
 class UserProfile extends Component {
     constructor(props) {
@@ -60,28 +59,18 @@ class UserProfile extends Component {
         });
     };
 
-    renderComments() {
-        const comments = this.state.userProps.filter(object => object.type === "comment")
-        return comments.map((comment, index) => {
-            return <Comment key={index} idProp={comment.id} comment={comment.attributes.comment_text}/>
-        })
-    };
-
     showBookmark = (bookmark_id) => {
         this.props.history.push(`/bookmarks/${bookmark_id}`);
     };
 
     showDetail = (user) => {
-        const { username, first_name, location, twitter, website, bio } = user;
+        const { username, first_name, location, bio } = user;
         return(
             <div className="user-show">
                 <h3>First Name: {first_name ? <>{first_name}</> : ""}</h3>
                 <h3>Username: {username}</h3>
                 <h5>Located In: {location ? <>{location}</> : "No location given"}</h5>
                 <h5>About me: {bio ? <>{bio}</> : "Enter some information about yourself!"}</h5>
-                {twitter || website ? <h5>Social Media</h5> : null}
-                {twitter === null ? null : <a href={`http://twitter.com/${twitter}`}>Twitter: @{twitter}</a>}<br/><br/>
-                {website === null ? null : <a href={`${website}`}>{first_name}'s Website</a>}<br/><br/><br/>
                 {this.props.user.user.username  === username ? <><button onClick={this.editBio}>Edit account details.</button><button onClick={this.deleteUser}>Delete my account.</button></> : null}
             </div>
         );
@@ -96,10 +85,6 @@ class UserProfile extends Component {
                     <div id="bookmark-title"><h1>Bookmarks</h1></div>
                     <div className="bookmark-browser">
                         {this.renderBookmarks()}
-                    </div>
-                    <div id="comments-title"><h1>Comments</h1></div>
-                    <div className="comment-browser">
-                        {this.renderComments()}
                     </div>
                     </>
                 }
