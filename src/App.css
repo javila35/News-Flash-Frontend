@@ -278,6 +278,21 @@ a:visited.bookmark-link, a.bookmark-link {
   margin-left: 1em;
 }
 
-#ticker-box {
-  
+.ticker-box {
+  float: left;
+  width: 30vw;
+
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.div-box {
+  border: 1px solid black;
+  font-size: smaller;
+  padding: 0em;
+}
+
+.div-box text {
+  padding: 0;
+  text-align:left;
 }

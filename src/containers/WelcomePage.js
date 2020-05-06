@@ -6,7 +6,7 @@ function WelcomePage(props){
     return(
         <>
             <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
-            <div id="ticker-box">
+            <div className="ticker-box">
             <ArticleTicker category="top articles" />
             </div>
         </>
