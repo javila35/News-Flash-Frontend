@@ -23,8 +23,8 @@ function ArticleBox(props) {
     return(
 
         <div className="div-box">
-            {<a href={props.details.url}>{props.details.title}</a>}
-            <br />
+            <img className="thumbnail" src={props.details.urlToImage} alt={props.details.title}></img>
+            <a href={props.details.url}>{props.details.title}</a><br/>
             {token ? bookmarker() : null}
         </div>
     )

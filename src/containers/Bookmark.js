@@ -78,14 +78,17 @@ class Bookmark extends Component {
     render() {
         const {loading} = this.state;
         const id = parseInt(this.props.match.params.id)
+        const token = localStorage.getItem("token")
         return(
             <>
             { loading ? <Loader /> : this.renderBookmark() }
             {loading ? null : 
                 <div className="post-comments">
-                    <h2>Discussion</h2>
+                    <h2>Comments</h2>
                     {this.renderComments()}
-                    <CommentForm bookmark={id} getDetails={() => this.getBookmarkDetails()} />
+                    {token ? <CommentForm bookmark={id} getDetails={() => this.getBookmarkDetails()} /> :
+                        <p>Log in to comment.</p>
+                    }
                 </div>
             }
             </>

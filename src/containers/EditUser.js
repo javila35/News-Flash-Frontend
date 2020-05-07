@@ -10,9 +10,6 @@ class EditUser extends Component {
             first_name: "",
             bio: "",
             location: "",
-            ticker_1: "",
-            ticker_2: "",
-            ticker_3: ""
         }
     };
 

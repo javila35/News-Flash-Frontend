@@ -19,7 +19,7 @@ class SignUp extends Component {
         this.setState({
             fields: newFields
         });
-    }
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -47,33 +47,38 @@ class SignUp extends Component {
     render() {
         const {username, password, verifyPassword} = this.state.fields;
         return(
-            <div id="sign-up-form">
-                <h3>Sign Up</h3>
-                <form onSubmit={e => this.handleSubmit(e)}>
-                <label>Username:</label>
-                <input type="text" 
-                    name="username" 
-                    onChange={this.handleChange} 
-                    placeholder="Username"
-                    value={username}
-                /><br/>
-                <label>Password:</label>
-                <input type="password"
-                    name="password"
-                    onChange={this.handleChange}
-                    placeholder="Password"
-                    value={password}
-                /><br/>
-                <label>Confirm Password:</label>
-                <input type="password"
-                    name="verifyPassword"
-                    onChange={this.handleChange}
-                    placeholder="Password"
-                    value={verifyPassword}
-                /><br/>
-                <input type="submit" value="Create Account!"/>
-                </form>
-            </div>
+            <>
+            {
+                localStorage.getItem("token") ? this.props.history.push('/') :
+                <div id="sign-up-form">
+                    <h3>Sign Up</h3>
+                    <form onSubmit={e => this.handleSubmit(e)}>
+                    <label>Username:</label>
+                    <input type="text" 
+                        name="username" 
+                        onChange={this.handleChange} 
+                        placeholder="Username"
+                        value={username}
+                    /><br/>
+                    <label>Password:</label>
+                    <input type="password"
+                        name="password"
+                        onChange={this.handleChange}
+                        placeholder="Password"
+                        value={password}
+                    /><br/>
+                    <label>Confirm Password:</label>
+                    <input type="password"
+                        name="verifyPassword"
+                        onChange={this.handleChange}
+                        placeholder="Password"
+                        value={verifyPassword}
+                    /><br/>
+                    <input type="submit" value="Create Account!"/>
+                    </form>
+                </div>
+            }
+            </>
         )
     }
 };

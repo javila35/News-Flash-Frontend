@@ -12,6 +12,10 @@ class ArticleBrowser extends Component {
         this.getArticles();
     };
 
+    componentDidUpdate() {
+        this.getArticles()
+    }
+
     getArticles() {
         news_api.getArticles(this.props.endpoint).then(data=>
             this.setState({articles: data.articles, updated:true}))

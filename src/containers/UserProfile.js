@@ -20,6 +20,10 @@ class UserProfile extends Component {
         this.getUserDetails();
     };
 
+    componentDidUpdate(){
+        this.getUserDetails()
+    };
+
     editBio = () => {
         this.props.history.push('/edit-user');
     };

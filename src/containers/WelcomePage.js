@@ -12,8 +12,8 @@ function WelcomePage(props){
                     <ArticleTicker category="top articles" />
                 </div>
                 <div className="ticker-box">
-                    <h3 className="ticker-title">Anime</h3>
-                    <ArticleTicker category="anime" />
+                    <h3 className="ticker-title">Health</h3>
+                    <ArticleTicker category="health" />
                 </div>
                 <div className="ticker-box">
                     <h3 className="ticker-title">Technology</h3>

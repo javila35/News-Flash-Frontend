@@ -101,17 +101,39 @@ html {
   background-color: #ECC8B9;
 }
 
+.article-card img {
+  max-width: 500px;
+}
+
+.article-card h, .article-card h5 {
+  padding: 0px;
+  margin: 0px;
+}
+
+.article-card p {
+  margin: 0px;
+  padding-left: 30%;
+  padding-right: 30%;
+}
+
+.user-interaction {
+  margin: 1em;
+}
+
 .article-card a, .article-card a:visited {
   font-weight: bold;
   text-decoration: none;
   color: black;
   transition: 0.5s;
+  margin: 0px;
 }
 
 .article-card a:hover {
   color: black;
   transition: 0.5s;
 }
+
+
 
 /* styling for user page */
 .bookmark-thumbnail {
@@ -218,23 +240,21 @@ a.bookmark_link {
   padding: 0.2em;
 }
 
-.post-thumb {
-  float: left;
-  display:block;
-  margin-left: 1em;
-}
-
 .post-thumb img {
-  max-width: 800px;
-  max-height: 400px;
+  max-height: 200px;
 }
 
-.post-comments {
-  margin-left: 3em;
+.post-link a, .post-link a:visited {
+ color: black;
 }
 
 .post-comments h2 {
   border-bottom: 1px solid black;
+}
+
+
+.comment-show h4, .comment-show p {
+  margin: 0.3em;
 }
 
 a:visited.bookmark-link, a.bookmark-link {
@@ -268,10 +288,38 @@ a:visited.bookmark-link, a.bookmark-link {
   top: 0;
   margin: 0px;
   background-color: #BDA18A;
+  border-bottom: 1px solid black;
+}
+
+
+
+.user-list {
+  list-style-type: none;
+  text-align: left;
+  font-size: larger;
+  margin-left: 3em;
+}
+
+.user-list a:visited, .user-list a {
+  color: black;
+}
+
+.thumbnail {
+  float:left;
+  max-width: 150px;
+  max-height: 150px;
+  height: auto;
+  width: auto;
+}
+
+.bookmarker {
+  height: 30px; 
+  border-radius: 10%;
 }
 
 .div-box {
   border-bottom: 1px solid black;
+  float: right;
 }
 
 .div-box a, .div-box a:visited {
@@ -281,26 +329,4 @@ a:visited.bookmark-link, a.bookmark-link {
 
 #ticker-div {
   display: flex;
-}
-
-.user-list {
-  list-style-type: none;
-  text-align: left;
-  font-size: larger;
-  margin-left: 1em;
-  transition: 0.5s;
-}
-
-.user-list li{
-  margin-bottom: 1em;
-}
-
-.user-list a:visited, .user-list a {
-  color: black;
-}
-
-.bookmarker {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  border-radius: 10%;
 }

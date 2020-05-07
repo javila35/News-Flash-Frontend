@@ -38,44 +38,28 @@ function App(props) {
       <Switch>
         <div className="App">
           <Route exact path="/top_articles"
-            render={() => <ArticleBrowser endpoint={topHeadlines}/>}
-          />
+            render={() => <ArticleBrowser endpoint={topHeadlines}/>} />
           <Route exact path="/sports_articles"
-            render={() => <ArticleBrowser endpoint={sports} />}
-          />
+            render={() => <ArticleBrowser endpoint={sports} />} />
           <Route exact path="/business_articles"
-            render={() => <ArticleBrowser endpoint={business} />}
-          />
+            render={() => <ArticleBrowser endpoint={business} />} />
           <Route exact path="/"
-            render={()=> <WelcomePage />} 
-          />
+            render={()=> <WelcomePage />} />
           <Route exact path="/tech_articles"
-            render={() => <ArticleBrowser endpoint={techHeadlines}/>}
-            />
+            render={() => <ArticleBrowser endpoint={techHeadlines}/>} />
           <Route exact path="/health_articles"
-            render={()=> <ArticleBrowser endpoint={healthHeadlines} />}
-          />
-          <Route 
-            path="/search/:query"
-            render={(props)=> <Search {...props} />}
-          />
-          <Route 
-            exact path="/users/:username"
-            render={(props) => <UserProfile {...props} />} />
-          <Route 
-            exact path="/bookmarks/:id"
-            render={(props) => <Bookmark {...props} />}
-          />
-          <Route
-            exact path="/sign-up/"
-            render={props => <SignUp {...props} />} 
-          />
-          <Route 
-            exact path="/users"
-            render={props => <UserBrowser {...props} />}
-          />
-          <Route
-            exact path="/edit-user"
+            render={()=> <ArticleBrowser endpoint={healthHeadlines} />} />
+          <Route path="/search/:query"
+            render={props => <Search {...props} />} />
+          <Route exact path="/users/:username"
+            render={props => <UserProfile {...props} />} />
+          <Route exact path="/bookmarks/:id"
+            render={props => <Bookmark {...props} />} />
+          <Route exact path="/sign-up/"
+            render={props => <SignUp {...props} />} />
+          <Route exact path="/users"
+            render={props => <UserBrowser {...props} />} />
+          <Route exact path="/edit-user"
             render={props => <EditUser {...props} />} />
         </div>
         </Switch>

@@ -33,6 +33,7 @@
 * Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
 * ICO by [Paomedia](https://github.com/paomedia/small-n-flat)
 * Articles from [NewsAPI](https://newsapi.org/)
+* Seed data created using [Faker](https://github.com/faker-ruby/faker)
 
 
 

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 function ArticleCard(props) {
     const token = localStorage.getItem("token");
 
-    const {title, author, content, url, urlToImage} = props.article;
+    const {title, author, description, url, urlToImage} = props.article;
 
     const bookmark = () => {
         const send = {
@@ -19,12 +19,14 @@ function ArticleCard(props) {
 
     return(
         <div className="article-card">
-            <h3>{title}</h3>
+            <img src={urlToImage} alt={title}></img>
+            <h2>{title}</h2>
             <h5>by: {author}</h5>
-            <p>{content}</p>
+            <p>{description}</p>
+            <a href={`${url}`}>Read article here</a>
             <div className="user-interaction">
-                <a href={`${url}`}>Read article here</a>
-                {token ? <p className="bookmark" onClick={() => bookmark()}>Bookmark</p> :null}
+                
+                {token ? <button className="bookmarker" onClick={() => bookmark()}>Bookmark</button> :null}
             </div>
         </div>
     )
