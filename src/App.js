@@ -32,7 +32,7 @@ function App(props) {
 
   return (
     <>
-    <header className="title-bar"><h1>Headline</h1></header>
+    <header className="title-bar"><h1>News-Flash!</h1></header>
       <Router>
       <Navigation />
       <Switch>
