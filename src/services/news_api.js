@@ -1,5 +1,7 @@
-const key = '&apiKey=0a14a58999ab42358ae8ae02df4e0336'
-const root_api = 'http://newsapi.org/v2/'
+// https://gnews.io/api/v3/top-news?token=9c753f53ce4c56377dc4b98c598a36d2
+
+const key = '?token=9c753f53ce4c56377dc4b98c598a36d2'
+const root_api = 'https://gnews.io/api/v3/'
 
 const getArticles = (endpoint) => {
     let url = root_api + endpoint + key;

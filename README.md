@@ -1,5 +1,7 @@
-# News-Flash
+# News Flash
 *A full-stack web app by Joe Avila*
+#### [News Flash Deployed](https://news-flash-50a6e.web.app/)
+##### Please allow some time for backend to load up.
 #### [Backend Repo](https://github.com/javila35/News-Flash-Backend)
 
 ## Tools Utilized
@@ -10,6 +12,9 @@
     * All CSS written by me (with lots of help from Stack Overflow and W3schools.)
 * NewsAPI.org
     * Big thanks to [NewsAPI.org](https://newsapi.org/) for an easy to use API with great documentation.
+* GNews API
+    * Switched to [GNews API](https://gnews.io/) after deploying to Firebase due to HTTPS protocol.
+        * some functionality was lost in this change as the JSON returned is different.
 
 ## Features to Add
 * User will be able to save searches as a link in the navigation.
