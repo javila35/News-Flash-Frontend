@@ -24,11 +24,11 @@ function App(props) {
     };
   });
 
-  const topHeadlines = 'top-headlines?country=us';
-  const techHeadlines = 'everything?q=technology';
-  const healthHeadlines = 'everything?q=health';
-  const sports = 'everything?q=sports';
-  const business = 'everything?q=business';
+  const topHeadlines = 'top-news';
+  const techHeadlines = 'topics/technology';
+  const healthHeadlines = 'topics/health';
+  const sports = 'topics/sports';
+  const business = 'topics/business';
 
   return (
     <>

@@ -1,4 +1,4 @@
-const API_ROOT = 'http://localhost:3000';
+const API_ROOT = 'https://news-flash-api.herokuapp.com/';
 const token = () => localStorage.getItem("token");
 
 const headers = () => {

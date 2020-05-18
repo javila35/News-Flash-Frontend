@@ -24,14 +24,14 @@ class ArticleTicker extends Component {
     callAPI = () => {
         const {category} = this.props;
         if (category === 'top articles') {
-            news_api.getArticles('top-headlines?country=us').then(data=>{
+            news_api.getArticles('top-news').then(data=>{
                 this.setState({
                     articles: data.articles,
                     fetched: true
                 });
             });
         } else {
-            news_api.getArticles(`everything?q=${category}`).then(data=>{
+            news_api.getArticles(`topics/${category}`).then(data=>{
                 this.setState({
                     articles: data.articles,
                     fetched: true

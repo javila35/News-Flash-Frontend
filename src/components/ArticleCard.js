@@ -5,21 +5,21 @@ import { connect } from 'react-redux';
 function ArticleCard(props) {
     const token = localStorage.getItem("token");
 
-    const {title, author, description, url, urlToImage} = props.article;
+    const {title, author, description, url, image} = props.article;
 
     const bookmark = () => {
         const send = {
             user: props.user,
             title: title,
             link: url,
-            img_url: urlToImage
+            img_url: image
         };
         api.bookmarks.postBookmark(send)
     };
 
     return(
         <div className="article-card">
-            <img src={urlToImage} alt={title}></img>
+            { image ? <img src={image} alt={title}></img> : null}
             <h2>{title}</h2>
             <h5>by: {author}</h5>
             <p>{description}</p>
