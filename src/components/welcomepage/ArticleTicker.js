@@ -15,6 +15,13 @@ class ArticleTicker extends Component {
         this.callAPI();
     };
 
+    componentWillUnmount() {
+        this.setState({
+            articles: {},
+            fetched: false
+        })
+    };
+
     renderBoxes() {
         return this.state.articles.map((article,index)=>{
             return <ArticleBox key={index} details={article} />
@@ -25,17 +32,25 @@ class ArticleTicker extends Component {
         const {category} = this.props;
         if (category === 'top articles') {
             news_api.getArticles('top-news').then(data=>{
+                if (data.articles) {
                 this.setState({
                     articles: data.articles,
                     fetched: true
                 });
+            } else {
+                alert("Maximum number of api calls made today.")
+            };
             });
         } else {
             news_api.getArticles(`topics/${category}`).then(data=>{
+                if (data.articles) {
                 this.setState({
                     articles: data.articles,
                     fetched: true
                 });
+                } else {
+                    alert("Maximum number of api calls made today.")
+                };
             });
         };
     };
