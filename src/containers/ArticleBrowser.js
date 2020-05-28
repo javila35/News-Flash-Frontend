@@ -17,8 +17,13 @@ class ArticleBrowser extends Component {
     }
 
     getArticles() {
-        news_api.getArticles(this.props.endpoint).then(data=>
-            this.setState({articles: data.articles, updated:true}))
+        news_api.getArticles(this.props.endpoint).then(data=> {
+            if (data.articles) {
+                this.setState({articles: data.articles, update: true})
+            } else {
+                alert("Maximum number of API requests made today.")
+            };
+        });
     };
 
     renderArticles() {

@@ -4,6 +4,9 @@
 ##### Please allow some time for backend to load up.
 #### [Backend Repo](https://github.com/javila35/News-Flash-Backend)
 
+# Current bugs: 
+I lost a good amount of fuctionality after deploying. My original API is not supported, and I am currently fixing to accomodate the API I am able to use.
+
 ## Tools Utilized
 * Redux:
     * Saving logged user in store.
@@ -15,6 +18,7 @@
 * GNews API
     * Switched to [GNews API](https://gnews.io/) after deploying to Firebase due to HTTPS protocol.
         * some functionality was lost in this change as the JSON returned is different.
+        
 
 ## Features to Add
 * User will be able to save searches as a link in the navigation.
