@@ -219,12 +219,12 @@ a.bookmark_link {
   padding-left: 5em;
 }
 
-#sign-up-form input, .login-form input {
+#sign-up-form input, .login-form input, .search-form input {
   border-radius: 4px;
   padding: 0.2em;
 }
 
-#sign-up-form input[type="submit" i] {
+#sign-up-form input[type="submit"], .search-form input[type="submit"] {
   font-size: large;
   justify-content: right;
   margin-top: 0.2em;

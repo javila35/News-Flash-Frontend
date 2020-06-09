@@ -39,7 +39,7 @@ class Navigation extends Component {
                         {token ? null : <li><Link to={'/sign-up'}>Sign Up</Link></li>}
                         <li><Link to="/users/">Users</Link></li>
                         {token ? <li><Link to="/" onClick={() => this.showLogout()}>Log Out</Link></li> : null}
-                        <form onSubmit={e => this.search(e)}>
+                        <form className="search-form" onSubmit={e => this.search(e)}>
                             <input type="text" name="query"></input><br/>
                             <input type="submit" value="Search Headlines"></input>
                         </form>

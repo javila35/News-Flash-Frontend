@@ -26,9 +26,6 @@
 
 
 
-
-
-
 ## Resources
 * Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
 * ICO by [Paomedia](https://github.com/paomedia/small-n-flat)
