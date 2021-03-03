@@ -1,8 +1,13 @@
 # News Flash
 *A full-stack web app by Joe Avila*
+
+Update on 03/01/2021: I am currently rewriting the app to use Typescript and some new tricks I've learned since original release.
+
 #### [News Flash Deployed](https://news-flash-50a6e.web.app/)
-##### Please allow some time for backend to load up.
+*Please allow some time for backend to load up.*
 #### [Backend Repo](https://github.com/javila35/News-Flash-Backend)
+
+
 
 # Current bugs: 
 I lost a good amount of fuctionality after deploying. My original API is not supported, and I am currently fixing to accomodate the API I am able to use.
@@ -24,8 +29,6 @@ I lost a good amount of fuctionality after deploying. My original API is not sup
 * User will be able to save searches as a link in the navigation.
 * Users can decide what topics they want as a ticker on their homepage.
 
-
-
 ## Set Up
 **You will need to set up the backend, before the front end for usability.**
 * Fork and clone this repository.
@@ -33,17 +36,8 @@ I lost a good amount of fuctionality after deploying. My original API is not sup
 * Run ```npm start``` in your terminal **after starting backend server**.
 * Create an account and begin bookmarking articles and discussing.
 
-
-
-
-
-
 ## Resources
 * Loading Component provided by [ReactLoading](https://github.com/fakiolinho/react-loading)
 * ICO by [Paomedia](https://github.com/paomedia/small-n-flat)
 * Articles from [NewsAPI](https://newsapi.org/)
 * Seed data created using [Faker](https://github.com/faker-ruby/faker)
-
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
