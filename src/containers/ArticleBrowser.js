@@ -3,8 +3,8 @@ import { news_api } from '../services/news_api';
 import ArticleCard from '../components/ArticleCard';
 
 class ArticleBrowser extends Component {
-    state={
-        updated:false,
+    state = {
+        updated: false,
         articles: {}
     }
 
@@ -17,9 +17,9 @@ class ArticleBrowser extends Component {
     }
 
     getArticles() {
-        news_api.getArticles(this.props.endpoint).then(data=> {
+        news_api.searchArticles(this.props.endpoint).then(data => {
             if (data.articles) {
-                this.setState({articles: data.articles, update: true})
+                this.setState({ articles: data.articles, update: true })
             } else {
                 alert("Maximum number of API requests made today.")
             };
@@ -27,13 +27,13 @@ class ArticleBrowser extends Component {
     };
 
     renderArticles() {
-        return this.state.articles.map((article, index)=>{
-            return <ArticleCard key={index} article={article}/>
+        return this.state.articles.map((article, index) => {
+            return <ArticleCard key={index} article={article} />
         });
     };
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="article">
                 {this.state.updated ? this.renderArticles() : null}
             </div>

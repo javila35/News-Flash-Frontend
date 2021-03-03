@@ -1,13 +1,14 @@
-const API_ROOT = 'https://news-flash-api.herokuapp.com/';
+const API_ROOT = 'localhost:3000';
+// const API_ROOT = 'https://news-flash-api.herokuapp.com/'; // Deployed site.
 const token = () => localStorage.getItem("token");
 
 const headers = () => {
     return {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: token()
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: token()
     };
-  };
+};
 
 const createUser = user_details => {
     return fetch(`${API_ROOT}/users`, {
@@ -22,7 +23,7 @@ const deleteUser = user_details => {
         method: 'DELETE',
         headers: headers(),
         body: JSON.stringify(user_details)
-    }).then(response=>response.json());
+    }).then(response => response.json());
 };
 
 const editUser = user_details => {
@@ -30,21 +31,21 @@ const editUser = user_details => {
         method: 'PUT',
         headers: headers(),
         body: JSON.stringify(user_details)
-        }).then(response => response.json());
+    }).then(response => response.json());
 };
 
-const getAllUsers = () =>{
+const getAllUsers = () => {
     return fetch(`${API_ROOT}/users`, {
         headers: headers()
     })
-    .then(response=>response.json());
+        .then(response => response.json());
 };
 
 const getBookmark = bookmark => {
     return fetch(`${API_ROOT}/bookmarks/${bookmark}`, {
         headers: headers()
     })
-    .then(response=>response.json());
+        .then(response => response.json());
 };
 
 const getCurrentUser = () => {
@@ -56,8 +57,8 @@ const getCurrentUser = () => {
 };
 
 const getUserToDisplay = username => {
-    return fetch(`${API_ROOT}/users/${username}`, {headers:headers()})
-        .then(response=>response.json())
+    return fetch(`${API_ROOT}/users/${username}`, { headers: headers() })
+        .then(response => response.json())
 };
 
 const login = data => {
@@ -70,7 +71,7 @@ const login = data => {
 
 const postBookmark = data => {
     return fetch(`${API_ROOT}/bookmarks`, {
-        method: 'POST', 
+        method: 'POST',
         headers: headers(),
         body: JSON.stringify(data)
     }).then(response => response.json());
@@ -81,7 +82,7 @@ const postComment = data => {
         method: 'POST',
         headers: headers(),
         body: JSON.stringify(data)
-    }).then(response=> response.json());
+    }).then(response => response.json());
 }
 
 export const api = {

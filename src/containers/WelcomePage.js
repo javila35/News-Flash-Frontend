@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ArticleTicker from '../components/welcomepage/ArticleTicker';
+import { ArticleTicker } from '../components/welcomepage/ArticleTicker';
 
-function WelcomePage(props){
-    return(
+function WelcomePage(props) {
+    return (
         <>
             <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
             <div id="ticker-div">
@@ -25,7 +25,7 @@ function WelcomePage(props){
 }
 
 const mapStatetoProps = state => {
-    return{
+    return {
         user: state.user
     };
 };
