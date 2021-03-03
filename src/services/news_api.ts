@@ -1,61 +1,41 @@
-import env from "react-dotenv"
-const API_KEY = `&apiKey=${env.NEWSAPI_KEY}`
-const ROOT_API = 'http://newsapi.org/v2/'
+import env from "react-dotenv";
+const ROOT_API = 'https://gnews.io/api/v4/';
+const API_KEY = `token=${env.GNEWS_KEY}`;
 
-// const key = '?token=9c753f53ce4c56377dc4b98c598a36d2'
-// const ROOT_API = 'https://gnews.io/api/v3/'
-
-// const getArticles = (endpoint) => {
-//     let url = root_api + endpoint + API_KEY;
-//     let req = new Request(url);
-//     return fetch(req).then(response => response.json())
-// };
-
-/** 
- * Types come from API docs. 
- * https://newsapi.org/docs/endpoints/top-headlines
- */
 export type Article = {
-    /** Source the article originates from. */
-    source: { id: string, name: string };
-    /** Author name */
-    author: string;
-    /** Headline or title of the article */
+    /** Title or headline for article */
     title: string;
-    /** Description or snippet from the article */
+    /** Description of article */
     description: string;
-    /** Direct link to the article */
-    url: string;
-    /** URL to a relevant image for the article */
-    urlToImage: string;
-    /** Date and time article was published (UTC) */
-    pulishedAt: string;
-    /** Unformatted content of the article, where available. Truncated to 200 chars. */
+    /** Truncated content with character count at the end. */
     content: string;
-}
+    /** Link to article */
+    url: string;
+    /** Link to image */
+    image: string;
+    /** UTC date and time of publish.  */
+    publishedAt: string;
+    /** Information about publication */
+    source: {
+        /** Name of source */
+        name: string;
+        /** Link to website */
+        url: string;
+    };
+};
 
 export type TopArticlesResponseType = {
-    /** Status of response */
-    status: string;
     /** Total number of results */
-    totalResults: number;
+    totalArticles: number;
     /** Array containing articles*/
     articles: Article[];
 }
 
 /**
  * Query "Top Article" endpoint.
- * If no endpoint is supplied queries US top articles.
- * Optionally provide an endpoint to get top articles for that topic.
- * @param {string} endpoint 
  */
-const getTopArticles = (endpoint?: string) => {
-    let url;
-    if (endpoint) {
-        url = ROOT_API + `top-headlines?q=${endpoint}` + API_KEY;
-        return fetch(url).then(response => response.json());
-    };
-    url = ROOT_API + "top-headlines?country=us" + API_KEY;
+const getTopArticles = () => {
+    const url = ROOT_API + "top-headlines?" + API_KEY;
 
     return fetch(url).then(response => response.json());
 };
@@ -65,7 +45,7 @@ const getTopArticles = (endpoint?: string) => {
  * @param {string} endpoint 
  */
 const searchArticles = (endpoint: string) => {
-    const url = ROOT_API + `everything?q=${endpoint}&sortBy=popularity` + API_KEY;
+    const url = ROOT_API + `search?q=${endpoint}&${API_KEY}`;
     return fetch(url).then(response => response.json());
 };
 

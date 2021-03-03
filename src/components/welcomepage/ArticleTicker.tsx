@@ -20,7 +20,7 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category = "" }) =
                         if (data.articles) {
                             setArticles(data.articles);
                         } else {
-                            alert("Error in Article Ticker top articles function.");
+                            alert("I'm sorry, I've hit my limit for free API calls. If you're looking at this app from my job please return tomorrow. T_T");
                             console.log("error:::", data);
                         };
                     });
@@ -31,7 +31,7 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category = "" }) =
                         if (data.articles) {
                             setArticles(data.articles);
                         } else {
-                            alert("Error in Article Ticker search function");
+                            alert("I'm sorry, I've hit my limit for free API calls. If you're looking at this app from my job please return tomorrow. T_T");
                             console.log("error:::", data);
                         };
                     });
