@@ -2,6 +2,7 @@ import env from "react-dotenv";
 const ROOT_API = 'https://gnews.io/api/v4/';
 const API_KEY = `token=${env.GNEWS_KEY}`;
 
+/** Article type recieved from GNews API */
 export type Article = {
     /** Title or headline for article */
     title: string;
