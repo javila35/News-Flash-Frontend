@@ -1,10 +1,9 @@
-import env from "react-dotenv";
 const ROOT_API = 'https://gnews.io/api/v4/';
 let API_KEY: string;
 if (!process.env.NODE_ENV || process.env.NODE_ENV) {
-    API_KEY = `token=${env.GNEWS_KEY}`;
+    API_KEY = `token=${process.env.REACT_APP_GNEWS_KEY}`;
 } else {
-    API_KEY = `token=${process.env.GNEWS_KEY}`;
+    API_KEY = `token=${process.env.REACT_APP_GNEWS_KEY}`;
 }
 
 /** Article type recieved from GNews API */
