@@ -1,5 +1,10 @@
-const API_ROOT = 'localhost:3000';
-// const API_ROOT = 'https://news-flash-api.herokuapp.com/'; // Deployed site.
+let API_ROOT;
+if (!process.env.NODE_ENV || process.env.NODE_ENV) {
+    API_ROOT = 'localhost:3000';
+} else {
+    API_ROOT = 'https://news-flash-api.herokuapp.com/';
+};
+
 const token = () => localStorage.getItem("token");
 
 const headers = () => {
