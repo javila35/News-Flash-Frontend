@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { api } from './services/api';
 import { connect } from 'react-redux';
@@ -14,11 +15,13 @@ import Bookmark from './containers/Bookmark';
 import Search from './components/Search';
 import UserBrowser from './containers/UserBrowser';
 
+const queryClient = new QueryClient();
+
 function App(props) {
   const token = localStorage.getItem("token");
-  useEffect(()=>{
+  useEffect(() => {
     if (token) {
-      api.auth.getCurrentUser().then(data=>{
+      api.auth.getCurrentUser().then(data => {
         props.setCurrentUser(data);
       });
     };
@@ -32,38 +35,40 @@ function App(props) {
 
   return (
     <>
-    <header className="title-bar"><h1>News-Flash!</h1></header>
-      <Router>
-      <Navigation />
-      <Switch>
-        <div className="App">
-          <Route exact path="/top_articles"
-            render={() => <ArticleBrowser endpoint={topHeadlines}/>} />
-          <Route exact path="/sports_articles"
-            render={() => <ArticleBrowser endpoint={sports} />} />
-          <Route exact path="/business_articles"
-            render={() => <ArticleBrowser endpoint={business} />} />
-          <Route exact path="/"
-            render={()=> <WelcomePage />} />
-          <Route exact path="/tech_articles"
-            render={() => <ArticleBrowser endpoint={techHeadlines}/>} />
-          <Route exact path="/health_articles"
-            render={()=> <ArticleBrowser endpoint={healthHeadlines} />} />
-          <Route path="/search/:query"
-            render={props => <Search {...props} />} />
-          <Route exact path="/users/:username"
-            render={props => <UserProfile {...props} />} />
-          <Route exact path="/bookmarks/:id"
-            render={props => <Bookmark {...props} />} />
-          <Route exact path="/sign-up/"
-            render={props => <SignUp {...props} />} />
-          <Route exact path="/users"
-            render={props => <UserBrowser {...props} />} />
-          <Route exact path="/edit-user"
-            render={props => <EditUser {...props} />} />
-        </div>
-        </Switch>
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <header className="title-bar"><h1>News-Flash!</h1></header>
+        <Router>
+          <Navigation />
+          <Switch>
+            <div className="App">
+              <Route exact path="/top_articles"
+                render={() => <ArticleBrowser endpoint={topHeadlines} />} />
+              <Route exact path="/sports_articles"
+                render={() => <ArticleBrowser endpoint={sports} />} />
+              <Route exact path="/business_articles"
+                render={() => <ArticleBrowser endpoint={business} />} />
+              <Route exact path="/"
+                render={() => <WelcomePage />} />
+              <Route exact path="/tech_articles"
+                render={() => <ArticleBrowser endpoint={techHeadlines} />} />
+              <Route exact path="/health_articles"
+                render={() => <ArticleBrowser endpoint={healthHeadlines} />} />
+              <Route path="/search/:query"
+                render={props => <Search {...props} />} />
+              <Route exact path="/users/:username"
+                render={props => <UserProfile {...props} />} />
+              <Route exact path="/bookmarks/:id"
+                render={props => <Bookmark {...props} />} />
+              <Route exact path="/sign-up/"
+                render={props => <SignUp {...props} />} />
+              <Route exact path="/users"
+                render={props => <UserBrowser {...props} />} />
+              <Route exact path="/edit-user"
+                render={props => <EditUser {...props} />} />
+            </div>
+          </Switch>
+        </Router>
+      </QueryClientProvider>
     </>
   );
 };
@@ -74,4 +79,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null,mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
