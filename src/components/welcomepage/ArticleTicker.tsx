@@ -1,5 +1,6 @@
 import * as React from "react";
-import { news_api } from "../../services/news_api";
+import { useQuery } from "react-query";
+import { news_api, TopArticlesResponseType } from "../../services/news_api";
 import Loader from "../Loader";
 import ArticleBox from "./ArticleBox";
 
@@ -9,48 +10,29 @@ type ArticleTickerProps = {
 };
 
 export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category = "" }) => {
-    const [articles, setArticles] = React.useState([]);
+    /** Render query key based on category prop. */
+    const reactQueryKey = (category ? `${category}Articles` : "topArticles");
 
-    /** Calls API once. */
-    React.useEffect(() => {
-        switch (category) {
-            case "top articles":
-                news_api.getTopArticles()
-                    .then(data => {
-                        if (data.articles) {
-                            setArticles(data.articles);
-                        } else {
-                            alert("I'm sorry, I've hit my limit for free API calls. If you're looking at this app from my job please return tomorrow. T_T");
-                            console.log("error:::", data);
-                        };
-                    });
-                break;
-            default:
-                news_api.searchArticles(category)
-                    .then(data => {
-                        if (data.articles) {
-                            setArticles(data.articles);
-                        } else {
-                            alert("I'm sorry, I've hit my limit for free API calls. If you're looking at this app from my job please return tomorrow. T_T");
-                            console.log("error:::", data);
-                        };
-                    });
-                break;
-        };
-    }, [category]);
+    /** Fetch articles from GNews. */
+    const { isLoading, error, data } = useQuery([reactQueryKey, category], () => news_api.getArticles(category))
+
+    if (isLoading) return <Loader />;
+    if (error) return (<>"An error has orccured: " + error.message</>);
 
     /** Renders out article boxes after data is fetched. */
-    const renderBoxes = () => {
-        if (articles) {
-            return articles.map((article, index) => {
+    const renderBoxes = (data: TopArticlesResponseType) => {
+        if (data.articles) {
+            return data.articles.map((article, index) => {
                 return <ArticleBox key={index} details={article} />
             });
         }
     }
 
+
+    /** TODO: Turn the welcome page to a grid, and article ticker to a column from MUI. */
     return (
         <div className="article-ticker">
-            {articles ? renderBoxes() : <Loader />}
+            {renderBoxes(data)}
         </div>
     );
 };

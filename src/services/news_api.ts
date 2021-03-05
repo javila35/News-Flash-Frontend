@@ -32,24 +32,20 @@ export type TopArticlesResponseType = {
 }
 
 /**
- * Query "Top Article" endpoint.
+ * Query GNews API.
+ * If no query string is provided, queries for top headlines.
+ * @param {string} query
  */
-const getTopArticles = () => {
-    const url = ROOT_API + "top-headlines?" + API_KEY;
-
-    return fetch(url).then(response => response.json());
-};
-
-/**
- * Search articles based on an endpoint.
- * @param {string} endpoint 
- */
-const searchArticles = (endpoint: string) => {
-    const url = ROOT_API + `search?q=${endpoint}&${API_KEY}`;
+const getArticles = (query: string) => {
+    let url;
+    if (query) {
+        url = ROOT_API + `search?q=${query}&${API_KEY}`;
+    } else {
+        url = ROOT_API + "top-headlines?" + API_KEY;
+    }
     return fetch(url).then(response => response.json());
 };
 
 export const news_api = {
-    getTopArticles,
-    searchArticles,
+    getArticles
 };
