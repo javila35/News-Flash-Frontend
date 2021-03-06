@@ -11,7 +11,7 @@ Update on 03/01/2021: I am currently rewriting the app to use Typescript and som
     * Used to simplify handling state dependent on async queries
 * [ReactLoading](https://github.com/fakiolinho/react-loading)
     * Loading graphics
-* Redux:
+* Redux: **Removed in favor of React state management**
     * Saving logged user in store.
     * Saving navigation display across page re-renders.
 * CSS: 
