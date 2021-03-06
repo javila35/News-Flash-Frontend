@@ -1,13 +1,14 @@
-import React from 'react';
-import ArticleBrowser from '../containers/ArticleBrowser';
+import * as React from "react";
+import { useParams } from "react-router-dom";
+import { ArticleBrowser } from "./ArticleBrowser";
 
-function Search(props) {
-    const query = props.match.params.query;
-    const str = `topics/${query}`;
-    
-    return(
-        <ArticleBrowser endpoint={str}/> 
+/**
+ * Enables a user to use Search input
+ * @returns ```<ArticleBrowser category={query} />```
+ */
+export const Search = () => {
+    const { query } = useParams();
+    return (
+        <ArticleBrowser category={query} />
     );
 };
-
-export default Search;

@@ -1,11 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { ArticleTicker } from '../components/welcomepage/ArticleTicker';
+import { ArticleTicker } from './ArticleTicker';
 
-function WelcomePage(props) {
+/**
+ * TODO
+ * [ ] Refactor to FC
+ * [ ] Refactor to TS
+ * [ ] Type state and props
+ */
+export const WelcomePage = ({ currentUser }) => {
     return (
         <>
-            <h1 className="welcome-title">Welcome {props.user.user.first_name}!</h1>
+            <h1 className="welcome-title">Welcome{currentUser ? ` ${currentUser.first_name}` : null}!</h1>
             <div id="ticker-div">
                 <div className="ticker-box">
                     <h3 className="ticker-title">Recent Headlines</h3>
@@ -21,13 +26,5 @@ function WelcomePage(props) {
                 </div>
             </div>
         </>
-    )
+    );
 }
-
-const mapStatetoProps = state => {
-    return {
-        user: state.user
-    };
-};
-
-export default connect(mapStatetoProps)(WelcomePage);

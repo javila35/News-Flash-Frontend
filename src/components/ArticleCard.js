@@ -1,11 +1,15 @@
 import React from 'react';
 import { api } from '../services/api';
-import { connect } from 'react-redux';
 
-function ArticleCard(props) {
+/**
+ * TODO: 
+ * [ ] Refactor to Typescript
+ * [ ] Type props
+ */
+export const ArticleCard = (props) => {
     const token = localStorage.getItem("token");
 
-    const {title, author, description, url, image} = props.article;
+    const { title, author, description, url, image } = props.article;
 
     const bookmark = () => {
         const send = {
@@ -17,7 +21,7 @@ function ArticleCard(props) {
         api.bookmarks.postBookmark(send)
     };
 
-    return(
+    return (
         <div className="article-card">
             { image ? <img src={image} alt={title}></img> : null}
             <h2>{title}</h2>
@@ -25,16 +29,9 @@ function ArticleCard(props) {
             <p>{description}</p>
             <a href={`${url}`}>Read article here</a>
             <div className="user-interaction">
-                
-                {token ? <button className="bookmarker" onClick={() => bookmark()}>Bookmark</button> :null}
+
+                {token ? <button className="bookmarker" onClick={() => bookmark()}>Bookmark</button> : null}
             </div>
         </div>
-    )
+    );
 };
-
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-export default connect(mapStateToProps)(ArticleCard);

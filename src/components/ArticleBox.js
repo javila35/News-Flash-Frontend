@@ -1,9 +1,13 @@
-import React from 'react';
-import { api } from '../../services/api';
-import { connect } from 'react-redux'; 
+import * as React from "react";
+import { api } from "../services/api";
 
-//going to use this to display a few divs on the welcome page with smaller articles views.
-function ArticleBox(props) {
+/**
+ * TODO
+ * [ ] Refactor to FC
+ * [ ] Refactor to TS
+ * [ ] Type state and props
+ */
+export const ArticleBox = (props) => {
     const token = localStorage.getItem("token");
 
     const bookmarker = () => {
@@ -20,20 +24,11 @@ function ArticleBox(props) {
         api.bookmarks.postBookmark(send)
     }
 
-    return(
-
+    return (
         <div className="div-box">
             { props.details.image ? <img className="thumbnail" src={props.details.image} alt={props.details.title}></img> : null}
-            <a href={props.details.url}>{props.details.title}</a><br/>
+            <a href={props.details.url}>{props.details.title}</a><br />
             {token ? bookmarker() : null}
         </div>
     )
 };
-
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-
-export default connect(mapStateToProps)(ArticleBox);

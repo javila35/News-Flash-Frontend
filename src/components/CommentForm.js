@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
-import { connect } from 'react-redux';
 
-class CommentForm extends Component {
+/**
+ * [ ] Refactor to Function component
+ * [ ] Refactor to typescript
+ * [ ] Type state and props?
+ * [ ] Refactor to React-Query
+ */
+export class CommentForm extends Component {
     state = {
         comment_text: "",
         bookmark: this.props.bookmark
@@ -41,11 +46,3 @@ class CommentForm extends Component {
         )
     };
 };
-
-const mapStateToProps = state => {
-    return {
-        user_id: state.user.user.id
-    }
-};
-
-export default connect(mapStateToProps)(CommentForm);

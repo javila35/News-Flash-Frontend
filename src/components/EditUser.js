@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { api } from '../services/api';
-import { getCurrentUser } from '../redux'
 
-class EditUser extends Component {
+/**
+ * TODO
+ * [ ] Refactor to FC
+ * [ ] Refactor to TS
+ * [ ] Type state and props
+ * [ ] Update to React-Query
+ */
+export class EditUser extends Component {
     state = {
         fields: {
             username: "",
@@ -79,15 +84,3 @@ class EditUser extends Component {
         )
     }
 };
-
-const mapStateToProps = state => {
-    return {user: state.user};
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        setCurrentUser: current_user => dispatch(getCurrentUser(current_user))
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(EditUser);

@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { api } from '../services/api';
-import { connect } from 'react-redux';
-import { removeCurrentUser } from '../redux'
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
 
-class UserProfile extends Component {
+/**
+ * TODO
+ * [ ] Refactor to FC
+ * [ ] Refactor to TS
+ * [ ] Type state and props
+ * [ ] Refactor to React-Query
+ */
+export class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,17 +101,3 @@ class UserProfile extends Component {
         )
     }
 };
-
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        removeCurrentUser: () => dispatch(removeCurrentUser())
-    };
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(UserProfile);
