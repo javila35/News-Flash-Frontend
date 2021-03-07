@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { api } from './services/api';
+import { api, UserState } from './services/api';
 import './App.css';
 import {
   ArticleBrowser,
@@ -19,15 +19,15 @@ const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
   const token = localStorage.getItem("token");
-
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState<UserState>(null);
 
   React.useEffect(() => {
-    if (token) {
-      api.auth.getCurrentUser().then(data => {
-        setCurrentUser(data);
-      });
-    };
+    /** TODO: Refactor to React-Query */
+    // if (token) {
+    //   api.auth.getCurrentUser().then(data => {
+    //     setCurrentUser(data);
+    //   });
+    // };
   });
 
   return (
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
       <QueryClientProvider client={queryClient}>
         <header className="title-bar"><h1>News-Flash!</h1></header>
         <Router>
-          <Navigation />
+          <Navigation currentUser={currentUser ? currentUser : null} />
           <Switch>
             <div className="App">
               <Route exact path="/top_articles"

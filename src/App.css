@@ -18,76 +18,12 @@ html {
   margin-top: 5%;
 }
 
-.hidden {
-  display: none;
-  transition: 0.5s;
-}
-
 .App {
   text-align: center;
   margin-top: 3.5em;
   transition: 0.3s;
 }
 
-/* Navigation bar syling */
-.side-nav {
-  height: 100%;
-  width: 20%; 
-  position: fixed; 
-  top: 0;
-  left: 0;
-  background-color: #ecbbbb; 
-  overflow-x: hidden; 
-  padding-top: 3em;
-  transition: 0.3s;
-  margin-right: 2em;
-}
-
-.nav-button {
-  background-color: #BDA18A;
-  border: none;
-  position: fixed;
-  top: 0px;
-  font-size: 24px;
-  margin-left: 5%;
-}
-
-.closebtn {
-  background-color: #ecbbbb;
-  border: none;
-  position: absolute;
-  top: 5px;
-  right: 25px;
-  font-size: 24px;
-  margin-left: 50px;
-}
-
-.nav-links {
-  list-style-type: none;
-  padding: 0.5em;
-  margin-left: 2em;
-}
-
-.nav-links a:visited, .nav-links a {
-  color: black;
-  text-decoration: none;
-  font-size: 2em;
-  transition: 0.3s;
-}
-
-.nav-links a:hover {
-  color: #FAF6F6;
-  transition: 0.3;
-}
-
-.login-form form {
-  text-align: center;
-}
-
-.login-form input[type="submit" i] {
-  margin-top: 0.4em;
-  padding: 0.5em;
-}
 
 /* everything relating to article pages below */
 .article {
@@ -132,8 +68,6 @@ html {
   color: black;
   transition: 0.5s;
 }
-
-
 
 /* styling for user page */
 .bookmark-thumbnail {
@@ -290,8 +224,6 @@ a:visited.bookmark-link, a.bookmark-link {
   background-color: #BDA18A;
   border-bottom: 1px solid black;
 }
-
-
 
 .user-list {
   list-style-type: none;
