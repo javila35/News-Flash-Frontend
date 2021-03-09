@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { api, UserState } from './services/api';
+import { api, UserDTO } from "./services/";
 import './App.css';
 import {
   ArticleBrowser,
@@ -16,6 +16,8 @@ import {
 } from './components';
 
 const queryClient = new QueryClient();
+
+export type UserState = UserDTO | null;
 
 export const App: React.FC = () => {
   const token = localStorage.getItem("token");

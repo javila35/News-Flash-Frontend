@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useHistory } from "react-router";
-import { api, UserAuthDTO } from "../services/api";
+import { api, AuthenticateUserParams } from "../services/";
 
 /** Form state extends UserAuthDTO with password verify field */
-type SignUpState = UserAuthDTO & {
+type SignUpState = AuthenticateUserParams & {
     verifyPassword: string;
 }
 

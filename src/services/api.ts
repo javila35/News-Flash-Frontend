@@ -1,28 +1,16 @@
+import {
+    AuthenticateUserParams,
+    EditUserDTO,
+    CreateBookmarkDTO,
+    CreateCommentDTO
+} from "./types";
+
 let API_ROOT: string;
-if (!process.env.NODE_ENV || process.env.NODE_ENV) {
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
     API_ROOT = 'http://localhost:3000';
 } else {
     API_ROOT = 'https://news-flash-api.herokuapp.com';
 };
-
-export type UserDTO = {
-    /** ID in database */
-    id: number;
-    /** User's unique username */
-    username: string;
-    /** User provided first name */
-    first_name?: string;
-    /** User provided location */
-    location?: string;
-}
-
-export type UserState = UserDTO | null;
-
-/** User object for create */
-export type UserAuthDTO = {
-    username: string;
-    password: string;
-}
 
 const token = () => localStorage.getItem("token");
 
@@ -30,15 +18,12 @@ const headers: HeadersInit = new Headers();
 headers.set("Content-Type", "application/json");
 headers.set("Accept", "application/json");
 
-// const headers = () => {
-//     return {
-//         "Content-Type": "application/json",
-//         Accept: "application/json",
-//         Authorization: token()
-//     };
-// };
+if (token()) {
+    headers.set("Authorization", token() as string);
+};
 
-const createUser = (userObject: UserAuthDTO) => {
+/** Create a new user. */
+const createUser = (userObject: AuthenticateUserParams) => {
     return fetch(`${API_ROOT}/users`, {
         method: 'POST',
         headers: headers,
@@ -46,6 +31,7 @@ const createUser = (userObject: UserAuthDTO) => {
     }).then(response => response.json());
 };
 
+/** Delete a user record */
 const deleteUser = (userID: number) => {
     return fetch(`${API_ROOT}/users/${userID}`, {
         method: 'DELETE',
@@ -54,16 +40,16 @@ const deleteUser = (userID: number) => {
     }).then(response => response.json());
 };
 
-// const editUser = (user_details: string) => {
-//     return fetch(`${API_ROOT}/users/${user_details.id}`, {
-//         method: 'PUT',
-//         headers: headers,
-//         body: JSON.stringify(user_details)
-//     }).then(response => response.json());
-// };
+/** Update a user record */
+const editUser = (user_details: EditUserDTO) => {
+    return fetch(`${API_ROOT}/users/${user_details.id}`, {
+        method: 'PUT',
+        headers: headers,
+        body: JSON.stringify(user_details)
+    }).then(response => response.json());
+};
 
-export type AllUsersResponse = string[];
-
+/** Query all usernames */
 const getAllUsers = () => {
     return fetch(`${API_ROOT}/users`, {
         headers: headers
@@ -71,53 +57,56 @@ const getAllUsers = () => {
         .then(response => response.json());
 };
 
-const getBookmark = (bookmark: string) => {
-    return fetch(`${API_ROOT}/bookmarks/${bookmark}`, {
+/** Query a bookmark record */
+const getBookmark = (bookmarkId: number) => {
+    return fetch(`${API_ROOT}/bookmarks/${bookmarkId}`, {
         headers: headers
-    })
-        .then(response => response.json());
+    }).then(response => response.json());
 };
 
+/** Retrieve logged in user record via token */
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
         headers: headers
-    }).then(response => {
-        return response.json();
-    });
+    }).then(response => response.json());
 };
 
-const getUserToDisplay = (username: string) => {
-    return fetch(`${API_ROOT}/users/${username}`, { headers: headers })
-        .then(response => response.json())
+/** Retrieve a user record by id  */
+const getUserToDisplay = (user_id: number) => {
+    return fetch(`${API_ROOT}/users/${user_id}`, { headers: headers })
+        .then(response => response.json());
 };
 
-// const login = data => {
-//     return fetch(`${API_ROOT}/auth`, {
-//         method: 'POST',
-//         headers: headers,
-//         body: JSON.stringify(data)
-//     }).then(response => response.json());
-// };
+/** Authenticates a user */
+const login = (data: AuthenticateUserParams) => {
+    return fetch(`${API_ROOT}/auth`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    }).then(response => response.json());
+};
 
-// const postBookmark = data => {
-//     return fetch(`${API_ROOT}/bookmarks`, {
-//         method: 'POST',
-//         headers: headers,
-//         body: JSON.stringify(data)
-//     }).then(response => response.json());
-// };
+/** Create a bookmark */
+const postBookmark = (bookmarkData: CreateBookmarkDTO) => {
+    return fetch(`${API_ROOT}/bookmarks`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bookmarkData)
+    }).then(response => response.json());
+};
 
-// const postComment = data => {
-//     return fetch(`${API_ROOT}/comments`, {
-//         method: 'POST',
-//         headers: headers,
-//         body: JSON.stringify(data)
-//     }).then(response => response.json());
-// }
+/** Create a comment */
+const postComment = (data: CreateCommentDTO) => {
+    return fetch(`${API_ROOT}/comments`, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+    }).then(response => response.json());
+}
 
 export const api = {
     auth: {
-        // login,
+        login,
         getCurrentUser,
         createUser
     },
@@ -125,13 +114,13 @@ export const api = {
         getAllUsers,
         getUserToDisplay,
         deleteUser,
-        // editUser
+        editUser
     },
     bookmarks: {
         getBookmark,
-        // postBookmark
+        postBookmark
     },
     comments: {
-        // postComment
+        postComment
     }
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { api, UserAuthDTO } from '../services/api';
+import { api, AuthenticateUserParams } from '../services/';
 import { Button, FormControl, TextField } from '@material-ui/core';
 
 /**
@@ -10,11 +10,11 @@ import { Button, FormControl, TextField } from '@material-ui/core';
  */
 
 export const Login: React.FC = () => {
-    const INITIAL_STATE: UserAuthDTO = { username: "", password: "" };
-    const [fields, setFields] = React.useState<UserAuthDTO>(INITIAL_STATE);
+    const INITIAL_STATE: AuthenticateUserParams = { username: "", password: "" };
+    const [fields, setFields] = React.useState<AuthenticateUserParams>(INITIAL_STATE);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newFields: UserAuthDTO = { ...fields, [e.target.name]: e.target.value };
+        const newFields: AuthenticateUserParams = { ...fields, [e.target.name]: e.target.value };
         setFields(newFields);
     }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api } from '../services/api';
+import { api } from '../services/';
 import Loader from 'react-loading';
 import { CommentForm } from '../components/';
 
@@ -72,10 +72,17 @@ export class Bookmark extends Component {
     renderComments() {
         const comments = this.state.comments;
         return comments.map(comment => {
-            return (<><div className="comment-show">
-                <p className="comment-content">{comment.attributes.comment_text}</p>
-                <h4 className="comment-user">Posted by: {comment.attributes.user.username}</h4>
-            </div><br /></>)
+            return (
+                /** TODO:
+                 * Change this to a Material UI compoennt
+                 */
+                <>
+                    <div className="comment-show">
+                        <p className="comment-content">{comment.attributes.comment_text}</p>
+                        <h4 className="comment-user">Posted by: {comment.attributes.user.username}</h4>
+                    </div>
+                </>
+            )
         });
     };
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { AllUsersResponse, api } from "../services/api";
+import { AllUsersResponse, api } from "../services/";
 import Loader from "../components/Loader";
 
 export const UserBrowser: React.FC = () => {

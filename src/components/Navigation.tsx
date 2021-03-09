@@ -8,7 +8,7 @@ import {
     TextField
 } from "@material-ui/core";
 import { Login } from "./Login";
-import { UserState } from '../services/api';
+import { UserState } from "../App";
 
 type NavProps = {
     /** User being passed down from App level state */
