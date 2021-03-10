@@ -71,9 +71,9 @@ const getCurrentUser = () => {
     }).then(response => response.json());
 };
 
-/** Retrieve a user record by id  */
-const getUserToDisplay = (user_id: number) => {
-    return fetch(`${API_ROOT}/users/${user_id}`, { headers: headers })
+/** Retrieve a user record by username  */
+const getUserToDisplay = (username: string) => {
+    return fetch(`${API_ROOT}/users/${username}`, { headers: headers })
         .then(response => response.json());
 };
 

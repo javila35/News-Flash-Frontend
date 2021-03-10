@@ -18,14 +18,14 @@ export type EditUserDTO = Pick<UserDTO, "id" | "first_name" | "location" | "bio"
     username?: string;
 }
 
-/** User object for create */
+/** Create auth session params */
 export type AuthenticateUserParams = {
     username: string;
     password: string;
 }
 
 /** Query for all users response type */
-export type AllUsersResponse = string[];
+export type UserIndexResponse = string[];
 
 /** Create a new bookmark */
 export type CreateBookmarkDTO = {
@@ -47,3 +47,29 @@ export type CreateCommentDTO = {
     comment_text: string;
 }
 
+export type BookmarkDTO = {
+    /** Bookmark id */
+    id: number;
+    /** User bookmark belongs to */
+    user_id: number;
+    /** Title for article */
+    article_title: string;
+    /** Link to article */
+    article_link: string;
+    /** Link to article image */
+    article_img: string;
+}
+
+/** Nested object created by FastJSONAPI */
+interface UserShowAttributes extends UserDTO {
+    bookmarks: BookmarkDTO[];
+}
+
+export type UserShowResponse = {
+    /** User id */
+    id: number;
+    /** Type of object */
+    type: "user";
+    /** Serialized attributes for user */
+    attributes: UserShowAttributes;
+}
