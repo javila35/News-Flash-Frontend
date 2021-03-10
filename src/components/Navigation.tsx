@@ -13,6 +13,8 @@ import { UserState } from "../App";
 type NavProps = {
     /** User being passed down from App level state */
     currentUser: UserState
+    /** Login and logout method */
+    onAuth: React.Dispatch<React.SetStateAction<UserState>>;
 }
 
 /**
@@ -23,7 +25,7 @@ type NavProps = {
  * [x] Type state and props
  * [x] Add isOpen state
  */
-export const Navigation: React.FC<NavProps> = ({ currentUser }) => {
+export const Navigation: React.FC<NavProps> = ({ currentUser, onAuth }) => {
     const [open, setOpen] = React.useState<boolean>(false);
     const history = useHistory();
     const searchEl = React.useRef<HTMLInputElement>(null);
@@ -80,13 +82,12 @@ export const Navigation: React.FC<NavProps> = ({ currentUser }) => {
     };
 
     const showLogin = () => {
-        return <Login />;
+        return <Login onAuth={onAuth} />;
     };
 
     const showLogout = () => {
         localStorage.removeItem("token");
-        /** TODO: Pass down logout method */
-        // removeCurrentUser();
+        onAuth(null);
     };
 
     return (

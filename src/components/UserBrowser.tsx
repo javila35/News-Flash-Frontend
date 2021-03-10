@@ -1,16 +1,26 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { AllUsersResponse, api } from "../services/";
+import { List, ListItem } from "@material-ui/core";
+import { UserIndexResponse, api } from "../services/";
 import Loader from "../components/Loader";
 
 export const UserBrowser: React.FC = () => {
-    const { isLoading, error, data } = useQuery<AllUsersResponse, Error>("allUsers", api.users.getAllUsers);
+    const { isLoading, error, data } = useQuery<UserIndexResponse, Error>(
+        "allUsers",
+        api.users.getAllUsers
+    );
 
-    function renderUsers() {
+    const renderUsers = () => {
         if (data) {
-            return data.map((user, index) => {
-                return <li key={index}><Link to={`/users/${user}`}>{user}</Link></li>
+            return data.map((username, index) => {
+                return (
+                    <ListItem key={index}>
+                        <Link to={`/users/${username}`}>
+                            {username}
+                        </Link>
+                    </ListItem>
+                );
             });
         }
     };
@@ -18,10 +28,8 @@ export const UserBrowser: React.FC = () => {
     if (isLoading) return <Loader />;
     if (error) return (<>{"Unable to fetch data " + error.message}</>);
     return (
-        <ul className="user-list">
+        <List>
             {renderUsers()}
-        </ul>
+        </List>
     );
 };
-
-export default UserBrowser;

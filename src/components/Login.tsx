@@ -1,6 +1,16 @@
 import * as React from 'react';
-import { api, AuthenticateUserParams } from '../services/';
-import { Button, FormControl, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
+import { api, AuthenticateUserParams, UserDTO } from '../services/';
+import { UserState } from '../App';
+
+type LoginProps = {
+    /** Login method */
+    onAuth: React.Dispatch<React.SetStateAction<UserState>>;
+}
+
+interface AuthSessionResponse extends UserDTO {
+    jwt: string;
+}
 
 /**
  * TODO
@@ -9,7 +19,7 @@ import { Button, FormControl, TextField } from '@material-ui/core';
  * [x] Type state and props
  */
 
-export const Login: React.FC = () => {
+export const Login: React.FC<LoginProps> = ({ onAuth }) => {
     const INITIAL_STATE: AuthenticateUserParams = { username: "", password: "" };
     const [fields, setFields] = React.useState<AuthenticateUserParams>(INITIAL_STATE);
 
@@ -21,20 +31,15 @@ export const Login: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         /** TODO: Add React-Query to deal with login logic */
-        // api.auth.login(fields)
-
-        /** TODO: set token in local storage */
-        // localStorage.setItem("token", response.jwt)
-
-        /** TODO: Set User in State
-         * Pass down callback to affect top level state
-         * Context??
-         */
-        // props.setCurrentUser(data.user)
+        api.auth.login(fields)
+            .then((data: AuthSessionResponse) => {
+                localStorage.setItem("token", data.jwt);
+                onAuth(data)
+            });
     }
 
     return (
-        <FormControl onSubmit={e => handleSubmit(e)}>
+        <>
             <TextField
                 label="Username"
                 name="username"
@@ -50,7 +55,7 @@ export const Login: React.FC = () => {
                 value={fields.password}
                 variant="outlined"
             />
-            <Button type="submit" value="Log In">Submit</Button>
-        </FormControl>
+            <Button type="submit" value="Log In" onClick={e => handleSubmit(e)}>Submit</Button>
+        </>
     );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Container, Typography } from "@material-ui/core";
 import { api, UserDTO } from "./services/";
 import './App.css';
 import {
@@ -24,20 +25,22 @@ export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = React.useState<UserState>(null);
 
   React.useEffect(() => {
-    /** TODO: Refactor to React-Query */
-    // if (token) {
-    //   api.auth.getCurrentUser().then(data => {
-    //     setCurrentUser(data);
-    //   });
-    // };
-  });
+    /** TODO: Type data response */
+    if (token) {
+      api.auth.getCurrentUser().then(data => {
+        setCurrentUser(data.user);
+      });
+    };
+  }, []);
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <header className="title-bar"><h1>News-Flash!</h1></header>
+        <Container>
+          <Navigation currentUser={currentUser ? currentUser : null} onAuth={setCurrentUser} />
+          <Typography variant="h2">News-Flash!</Typography>
+        </Container>
         <Router>
-          <Navigation currentUser={currentUser ? currentUser : null} />
           <Switch>
             <div className="App">
               <Route exact path="/top_articles"
@@ -53,8 +56,7 @@ export const App: React.FC = () => {
               <Route exact path="/health_articles"
                 render={() => <ArticleBrowser category="Health" />} />
               <Route path="/search/:query" component={Search} />
-              <Route exact path="/users/:username"
-                render={props => <UserProfile {...props} />} />
+              <Route exact path="/users/:username" component={UserProfile} />
               <Route exact path="/bookmarks/:id"
                 render={props => <Bookmark {...props} />} />
               {/* TODO: Pass a sign up method??? */}
