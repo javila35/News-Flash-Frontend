@@ -8,8 +8,13 @@ type LoginProps = {
     onAuth: React.Dispatch<React.SetStateAction<UserState>>;
 }
 
-interface AuthSessionResponse extends UserDTO {
+type AuthSessionResponse = SuccessfulAuthSessionResponse | { error: "Log in failed", status: 401 };
+
+interface SuccessfulAuthSessionResponse extends UserDTO {
+    /** Encoded JsonWebToken */
     jwt: string;
+    /** Succesful http status*/
+    status: 202;
 }
 
 /**
@@ -33,8 +38,13 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
         /** TODO: Add React-Query to deal with login logic */
         api.auth.login(fields)
             .then((data: AuthSessionResponse) => {
-                localStorage.setItem("token", data.jwt);
-                onAuth(data)
+                if (data.status === 202) {
+                    localStorage.setItem("token", data.jwt);
+                    onAuth(data);
+                    return;
+                }
+                console.warn("Login attempt unsuccessful. Error:::", data);
+                return;
             });
     }
 

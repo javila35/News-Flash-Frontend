@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Container, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { api, UserDTO } from "./services/";
 import './App.css';
 import {
@@ -25,24 +25,21 @@ export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = React.useState<UserState>(null);
 
   React.useEffect(() => {
-    /** TODO: Type data response */
     if (token) {
-      api.auth.getCurrentUser().then(data => {
-        setCurrentUser(data.user);
+      api.auth.getCurrentUser().then((data: UserDTO) => {
+        setCurrentUser(data);
       });
     };
   }, []);
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <Container>
-          <Navigation currentUser={currentUser ? currentUser : null} onAuth={setCurrentUser} />
-          <Typography variant="h2">News-Flash!</Typography>
-        </Container>
-        <Router>
-          <Switch>
-            <div className="App">
+      <Router>
+        <QueryClientProvider client={queryClient}>
+          <div>
+            <Navigation currentUser={currentUser ? currentUser : null} onAuth={setCurrentUser} />
+            <Typography variant="h2">News-Flash!</Typography>
+            <Switch>
               <Route exact path="/top_articles"
                 render={() => <ArticleBrowser category="" />} />
               <Route exact path="/sports_articles"
@@ -56,7 +53,16 @@ export const App: React.FC = () => {
               <Route exact path="/health_articles"
                 render={() => <ArticleBrowser category="Health" />} />
               <Route path="/search/:query" component={Search} />
-              <Route exact path="/users/:username" component={UserProfile} />
+              <Route exact path="/users/:username"
+                render={() => {
+                  return (
+                    <UserProfile
+                      onDelete={setCurrentUser}
+                      currentUser={currentUser ? { username: currentUser.username, id: currentUser.id } : null}
+                    />
+                  )
+                }}
+              />
               <Route exact path="/bookmarks/:id"
                 render={props => <Bookmark {...props} />} />
               {/* TODO: Pass a sign up method??? */}
@@ -64,10 +70,10 @@ export const App: React.FC = () => {
               <Route exact path="/users" component={UserBrowser} />
               <Route exact path="/edit-user"
                 render={props => <EditUser {...props} />} />
-            </div>
-          </Switch>
-        </Router>
-      </QueryClientProvider>
+            </Switch>
+          </div>
+        </QueryClientProvider>
+      </Router>
     </>
   );
 };
