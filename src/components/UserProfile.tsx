@@ -1,17 +1,25 @@
 import * as React from 'react';
+import { useHistory, useParams } from 'react-router';
+import { useQuery } from 'react-query';
+import { Container, Typography, Button } from "@material-ui/core";
 import { api, UserShowResponse } from '../services/';
-import { Container, Typography } from "@material-ui/core";
 import Loader from '../components/Loader';
 import BookmarkCard from '../components/BookmarkCard';
-import { useQuery } from 'react-query';
-import { useHistory, useParams } from 'react-router';
+import { UserState } from '../App';
+
+type UserProfileProps = {
+    /** Abbreviated user object */
+    currentUser: { username: string, id: number } | null;
+    /** Removes current user from state */
+    onDelete: React.Dispatch<React.SetStateAction<UserState>>;
+}
 
 type UserProfileParams = {
     /** Username from URL */
     username: string;
 }
 
-/** Return type is deeply nested with two data layers */
+/** FIXME: Return type is deeply nested with two data layers */
 // data: {
 //     data: {
 //         ...
@@ -23,13 +31,13 @@ type UserProfileResponse = { data: UserShowResponse };
  * TODO
  * [x] Refactor to FC
  * [x] Refactor to TS
- * [ ] Type state and props
+ * [x] Type props
  * [x] Refactor to React-Query
- * [ ] Refactor to Material UI
+ * [x] Refactor to Material UI
  * [ ] Remove double data layer from serialized response
  */
 
-export const UserProfile: React.FC = (props) => {
+export const UserProfile: React.FC<UserProfileProps> = ({ currentUser, onDelete }) => {
     const { username } = useParams<UserProfileParams>();
     const history = useHistory();
 
@@ -42,18 +50,20 @@ export const UserProfile: React.FC = (props) => {
         history.push("/edit-user");
     }
 
-    /** TODO:
-     * Get id
-     * Pass API to deleteUser
-     * Remove user from app state
-     */
-    const deleteUser = (id: number) => {
-        api.users.deleteUser(id)
-            .then(() => {
-                localStorage.removeItem("token");
-                // props.removeCurrentUser();
-                history.push("/");
-            })
+    const deleteUser = () => {
+        if (currentUser) {
+            const { id } = currentUser;
+            api.users.deleteUser(id)
+                .then((data) => {
+                    if (data.status === "success") {
+                        localStorage.removeItem("token");
+                        onDelete(null);
+                        history.push("/");
+                    } else {
+                        console.warn("Was not able to delete")
+                    }
+                });
+        }
     }
 
     const renderBookmarks = () => {
@@ -70,7 +80,26 @@ export const UserProfile: React.FC = (props) => {
         history.push(`/bookmarks/${bookmarkId}`);
     }
 
-    const showUserDetail = () => {
+    const renderUserOptions = () => {
+        return (
+            <Container>
+                <Button
+                    variant="outlined"
+                    onClick={editBio}
+                >
+                    Edit account details.
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={deleteUser}
+                >
+                    Delete my account.
+            </Button>
+            </Container>
+        );
+    }
+
+    const renderUserDetail = () => {
         if (data) {
             const { first_name, username, location, bio, id } = data.data.attributes;
             return (
@@ -79,18 +108,17 @@ export const UserProfile: React.FC = (props) => {
                     <Typography variant="h5">Username: {username}</Typography>
                     <Typography variant="h6">Located In: {location ? <>{location}</> : "No location given"}</Typography>
                     <Typography variant="subtitle1">About me: {bio ? <>{bio}</> : "Enter some information about yourself!"}</Typography>
-                    {/* TODO: Implement edit / delete user logic after setting current user. */}
-                    {/* {props.currentUser.username === username ? <><button onClick={editBio}>Edit account details.</button><button onClick={(id: number) => deleteUser(id)}>Delete my account.</button></> : null} */}
+                    {currentUser?.username === username ? renderUserOptions() : null}
                 </Container>
             );
         }
-    };
+    }
 
     if (error) return (<>Could not fetch user + {error.message}</>)
     if (isLoading) return <Loader />
     return (
         <Container>
-            {showUserDetail()}
+            {renderUserDetail()}
             <Typography variant="h2">Bookmarks</Typography>
             <Container>
                 {renderBookmarks()!}

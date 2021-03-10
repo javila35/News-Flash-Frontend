@@ -1,6 +1,6 @@
 # News Flash
 *A full-stack web app by Joe Avila*
-Update on 03/01/2021: I am currently rewriting the app to use Typescript and some new tricks I've learned since original release.
+**Update on 03/01/2021: I am currently rewriting the app to use Typescript and some new tricks I've learned since original release.**
 
 #### [News Flash Deployed](https://news-flash-50a6e.web.app/)
 *Please allow some time for backend to load up.*
