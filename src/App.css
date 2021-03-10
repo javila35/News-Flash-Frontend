@@ -4,27 +4,6 @@ html {
   font-family: Georgia, serif
 }
 
-.title-bar h1 {
-  position: fixed;
-  text-align: center;
-  background-color: #BDA18A;
-  width:100%;
-  top:0px;
-  margin:0px;
-  padding:0px;
-}
-
-.welcome-title {
-  margin-top: 5%;
-}
-
-.App {
-  text-align: center;
-  margin-top: 3.5em;
-  transition: 0.3s;
-}
-
-
 /* everything relating to article pages below */
 .article {
   margin-top: 5%;
@@ -85,15 +64,6 @@ html {
   font-size: 3em;
 }
 
-.bookmark-browser { 
-  border: 1px solid black;
-  background-color: #ECC8B9;
-  overflow-y: scroll;
-  display:inline-block;
-  min-width: 80vw;
-  max-width: 80vw;
-}
-
 .bookmark-card img {
   justify-content: left;
 }
@@ -112,36 +82,6 @@ html {
 a.bookmark_link {
   color: black;
   text-decoration: none;
-}
-
-.profile {
-  margin-top: 5%;
-  margin-left: 5%;
-}
-
-.user-show {
-  display: inline-block;
-  padding: 0.5em;
-  text-align: justify;
-  border: 1px solid black;
-  background-color: #ECC8B9;
-  width: 80vw;
-}
-
-.user-show a, .user-show a:visited {
-  color: black;
-  text-decoration: none;
-  transition: 0.3s;
-  margin: 1em;
-}
-
-.user-show a:hover {
-  color: #FAF6F6;
-  transition: 0.3s;
-}
-
-.twitIcon {
-  height: 25px;
 }
 
 #edit-user-form input {
@@ -186,7 +126,6 @@ a.bookmark_link {
   border-bottom: 1px solid black;
 }
 
-
 .comment-show h4, .comment-show p {
   margin: 0.3em;
 }
@@ -204,10 +143,6 @@ a:visited.bookmark-link, a.bookmark-link {
   cursor: pointer;
 }
 
-.article-li {
-  margin-left: 1em;
-}
-
 .ticker-box {
   float: left;
   border: 1px solid black;
@@ -223,17 +158,6 @@ a:visited.bookmark-link, a.bookmark-link {
   margin: 0px;
   background-color: #BDA18A;
   border-bottom: 1px solid black;
-}
-
-.user-list {
-  list-style-type: none;
-  text-align: left;
-  font-size: larger;
-  margin-left: 3em;
-}
-
-.user-list a:visited, .user-list a {
-  color: black;
 }
 
 .thumbnail {

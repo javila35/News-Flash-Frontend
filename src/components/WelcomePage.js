@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from "@material-ui/core";
 import { ArticleTicker } from './ArticleTicker';
 
 /**
@@ -10,7 +11,7 @@ import { ArticleTicker } from './ArticleTicker';
 export const WelcomePage = ({ currentUser }) => {
     return (
         <>
-            <h1 className="welcome-title">Welcome{currentUser ? ` ${currentUser.first_name}` : null}!</h1>
+            <Typography variant="h3">Welcome{currentUser ? ` ${currentUser.first_name}` : null}!</Typography>
             <div id="ticker-div">
                 <div className="ticker-box">
                     <h3 className="ticker-title">Recent Headlines</h3>
