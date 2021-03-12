@@ -75,6 +75,19 @@ export type UserShowResponse = {
     attributes: UserShowAttributes;
 }
 
+
+type SuccesfulUpdateUserResponse = Pick<SuccessfulAuthSessionResponse, "user"> & {
+    status: 200;
+}
+
+type UnsuccesfulUpdateUserResponse = {
+    /** Custom error message created by DB admin */
+    errors: string;
+    status: 406;
+};
+
+export type UpdateUserResponse = SuccesfulUpdateUserResponse | UnsuccesfulUpdateUserResponse;
+
 /** Successful login or sign up response type */
 interface SuccessfulAuthSessionResponse {
     /** Nested userDTO object */
@@ -82,7 +95,7 @@ interface SuccessfulAuthSessionResponse {
     /** Encoded JsonWebToken */
     jwt: string;
     /** Succesful http status*/
-    status: 202 | 201;
+    status: 200 | 201 | 202;
 }
 
 /** Unsuccesful login or sign up response type */
@@ -93,4 +106,20 @@ type UnsuccesfulAuthResponse = {
     status: 401 | 500;
 }
 
+/** Union of Authenticate success and failure */
 export type AuthResponse = SuccessfulAuthSessionResponse | UnsuccesfulAuthResponse;
+
+/** Succesful response for token decoding */
+type SuccesfulCurrentUserResponse = {
+    user: UserDTO;
+    status: 200;
+}
+
+/** Failure to decode token response */
+type UnsuccesfulCurrentUserResponse = {
+    error: string;
+    status: 401;
+}
+
+/** Union of current user method */
+export type GetCurrentUserResponse = SuccesfulCurrentUserResponse | UnsuccesfulCurrentUserResponse;

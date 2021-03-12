@@ -2,12 +2,17 @@ import * as React from 'react';
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Typography } from "@material-ui/core";
-import { api, UserDTO } from "./services/";
+import {
+  api,
+  GetCurrentUserResponse,
+  UserDTO,
+} from "./services/";
 import './App.css';
 import {
   ArticleBrowser,
   Bookmark,
   EditUser,
+  Loader,
   Navigation,
   Search,
   SignUp,
@@ -26,8 +31,13 @@ export const App: React.FC = () => {
 
   React.useEffect(() => {
     if (token()) {
-      api.auth.getCurrentUser().then((data: UserDTO) => {
-        setCurrentUser(data);
+      api.auth.getCurrentUser().then((data: GetCurrentUserResponse) => {
+        if (data.status === 200) {
+          setCurrentUser(data.user);
+          return
+        }
+        console.error("Unable to fetch user. Error:::", data);
+        return;
       });
     };
   }, []);
@@ -71,7 +81,11 @@ export const App: React.FC = () => {
               />
               <Route exact path="/users" component={UserBrowser} />
               <Route exact path="/edit-user"
-                render={props => <EditUser {...props} />} />
+                render={currentUser ?
+                  () => <EditUser currentUser={currentUser} updateCurrentUser={setCurrentUser} /> :
+                  () => <Loader />
+                }
+              />
             </Switch>
           </div>
         </QueryClientProvider>
