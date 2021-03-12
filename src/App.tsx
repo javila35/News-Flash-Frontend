@@ -21,11 +21,11 @@ const queryClient = new QueryClient();
 export type UserState = UserDTO | null;
 
 export const App: React.FC = () => {
-  const token = localStorage.getItem("token");
+  const token = () => localStorage.getItem("token");
   const [currentUser, setCurrentUser] = React.useState<UserState>(null);
 
   React.useEffect(() => {
-    if (token) {
+    if (token()) {
       api.auth.getCurrentUser().then((data: UserDTO) => {
         setCurrentUser(data);
       });
@@ -66,7 +66,9 @@ export const App: React.FC = () => {
               <Route exact path="/bookmarks/:id"
                 render={props => <Bookmark {...props} />} />
               {/* TODO: Pass a sign up method??? */}
-              <Route exact path="/sign-up/" component={SignUp} />
+              <Route exact path="/sign-up/"
+                render={() => <SignUp setCurrentUser={setCurrentUser} />}
+              />
               <Route exact path="/users" component={UserBrowser} />
               <Route exact path="/edit-user"
                 render={props => <EditUser {...props} />} />

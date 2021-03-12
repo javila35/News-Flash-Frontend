@@ -1,10 +1,20 @@
 import * as React from "react";
 import { useHistory } from "react-router";
-import { api, AuthenticateUserParams } from "../services/";
+import { UserState } from "../App";
+import {
+    api,
+    AuthenticateUserParams,
+    AuthResponse
+} from "../services/";
 
 /** Form state extends UserAuthDTO with password verify field */
 type SignUpState = AuthenticateUserParams & {
     verifyPassword: string;
+}
+
+type SignUpProps = {
+    /** Sets new user in state */
+    setCurrentUser: React.Dispatch<React.SetStateAction<UserState>>;
 }
 
 const initialFieldState: SignUpState = {
@@ -13,8 +23,8 @@ const initialFieldState: SignUpState = {
     verifyPassword: ""
 }
 
-export const SignUp: React.FC = (props) => {
-    const [errors, setErrors] = React.useState<boolean>(false);
+/** TODO: Add a toast saying success. */
+export const SignUp: React.FC<SignUpProps> = ({ setCurrentUser }) => {
     const [fields, setFields] = React.useState<SignUpState>(initialFieldState);
     const { username, password, verifyPassword } = fields;
 
@@ -31,14 +41,21 @@ export const SignUp: React.FC = (props) => {
             return;
         };
 
-        api.auth.createUser(fields).then(data => {
-            if (!data.errors) {
+        /** Remove unused fields */
+        const authParams = { username, password };
+
+        console.log(authParams);
+
+        api.auth.createUser(authParams).then((data: AuthResponse) => {
+            if (data.status === 201) {
+                console.log(data);
+                setCurrentUser(data.user);
                 localStorage.setItem("token", data.jwt);
-                // props.setCurrentUser(data.user);
-                history.push(`/users/${data.user.username}`);
-            } else {
-                alert(data.errors[0]);
-            };
+                history.push("/");
+                return;
+            }
+            console.warn("Sign up attemp failed. Eror:::", data);
+            return;
         });
     };
 

@@ -65,6 +65,7 @@ interface UserShowAttributes extends UserDTO {
     bookmarks: BookmarkDTO[];
 }
 
+/** Response when hitting the Users#show route */
 export type UserShowResponse = {
     /** User id */
     id: number;
@@ -73,3 +74,23 @@ export type UserShowResponse = {
     /** Serialized attributes for user */
     attributes: UserShowAttributes;
 }
+
+/** Successful login or sign up response type */
+interface SuccessfulAuthSessionResponse {
+    /** Nested userDTO object */
+    user: UserDTO;
+    /** Encoded JsonWebToken */
+    jwt: string;
+    /** Succesful http status*/
+    status: 202 | 201;
+}
+
+/** Unsuccesful login or sign up response type */
+type UnsuccesfulAuthResponse = {
+    /** Custom response created by DB admin */
+    errors: string;
+    /** Type of failure */
+    status: 401 | 500;
+}
+
+export type AuthResponse = SuccessfulAuthSessionResponse | UnsuccesfulAuthResponse;

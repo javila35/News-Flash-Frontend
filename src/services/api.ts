@@ -14,19 +14,19 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 
 const token = () => localStorage.getItem("token");
 
-const headers: HeadersInit = new Headers();
-headers.set("Content-Type", "application/json");
-headers.set("Accept", "application/json");
-
-if (token()) {
-    headers.set("Authorization", token() as string);
-};
+const Headers = () => {
+    return {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: token()
+    };
+}
 
 /** Create a new user. */
 const createUser = (userObject: AuthenticateUserParams) => {
     return fetch(`${API_ROOT}/users`, {
         method: 'POST',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(userObject)
     }).then(response => response.json());
 };
@@ -35,7 +35,7 @@ const createUser = (userObject: AuthenticateUserParams) => {
 const deleteUser = (userID: number) => {
     return fetch(`${API_ROOT}/users/${userID}`, {
         method: 'DELETE',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(userID)
     }).then(response => response.json());
 };
@@ -44,7 +44,7 @@ const deleteUser = (userID: number) => {
 const editUser = (user_details: EditUserDTO) => {
     return fetch(`${API_ROOT}/users/${user_details.id}`, {
         method: 'PUT',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(user_details)
     }).then(response => response.json());
 };
@@ -52,7 +52,7 @@ const editUser = (user_details: EditUserDTO) => {
 /** Query all usernames */
 const getAllUsers = () => {
     return fetch(`${API_ROOT}/users`, {
-        headers: headers
+        headers: Headers() as unknown as HeadersInit
     })
         .then(response => response.json());
 };
@@ -60,20 +60,21 @@ const getAllUsers = () => {
 /** Query a bookmark record */
 const getBookmark = (bookmarkId: number) => {
     return fetch(`${API_ROOT}/bookmarks/${bookmarkId}`, {
-        headers: headers
+        headers: Headers() as unknown as HeadersInit
     }).then(response => response.json());
 };
 
 /** Retrieve logged in user record via token */
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/current_user`, {
-        headers: headers
+        headers: Headers() as unknown as HeadersInit
     }).then(response => response.json());
 };
 
 /** Retrieve a user record by username  */
 const getUserToDisplay = (username: string) => {
-    return fetch(`${API_ROOT}/users/${username}`, { headers: headers })
+    return fetch(`${API_ROOT}/users/${username}`,
+        { headers: Headers() as unknown as HeadersInit })
         .then(response => response.json());
 };
 
@@ -81,7 +82,7 @@ const getUserToDisplay = (username: string) => {
 const login = (data: AuthenticateUserParams) => {
     return fetch(`${API_ROOT}/auth`, {
         method: 'POST',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(data)
     }).then(response => response.json());
 };
@@ -90,7 +91,7 @@ const login = (data: AuthenticateUserParams) => {
 const postBookmark = (bookmarkData: CreateBookmarkDTO) => {
     return fetch(`${API_ROOT}/bookmarks`, {
         method: 'POST',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(bookmarkData)
     }).then(response => response.json());
 };
@@ -99,7 +100,7 @@ const postBookmark = (bookmarkData: CreateBookmarkDTO) => {
 const postComment = (data: CreateCommentDTO) => {
     return fetch(`${API_ROOT}/comments`, {
         method: 'POST',
-        headers: headers,
+        headers: Headers() as unknown as HeadersInit,
         body: JSON.stringify(data)
     }).then(response => response.json());
 }

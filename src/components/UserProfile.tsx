@@ -101,7 +101,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ currentUser, onDelete 
 
     const renderUserDetail = () => {
         if (data) {
-            const { first_name, username, location, bio, id } = data.data.attributes;
+            const { first_name, username, location, bio } = data.data.attributes;
             return (
                 <Container>
                     <Typography variant="h5">Name: {first_name ? <>{first_name}</> : ""}</Typography>

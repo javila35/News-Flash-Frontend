@@ -1,20 +1,15 @@
 import * as React from 'react';
 import { Button, TextField } from '@material-ui/core';
-import { api, AuthenticateUserParams, UserDTO } from '../services/';
+import {
+    api,
+    AuthenticateUserParams,
+    AuthResponse
+} from '../services/';
 import { UserState } from '../App';
 
 type LoginProps = {
     /** Login method */
     onAuth: React.Dispatch<React.SetStateAction<UserState>>;
-}
-
-type AuthSessionResponse = SuccessfulAuthSessionResponse | { error: "Log in failed", status: 401 };
-
-interface SuccessfulAuthSessionResponse extends UserDTO {
-    /** Encoded JsonWebToken */
-    jwt: string;
-    /** Succesful http status*/
-    status: 202;
 }
 
 /**
@@ -37,10 +32,10 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
         e.preventDefault();
         /** TODO: Add React-Query to deal with login logic */
         api.auth.login(fields)
-            .then((data: AuthSessionResponse) => {
+            .then((data: AuthResponse) => {
                 if (data.status === 202) {
                     localStorage.setItem("token", data.jwt);
-                    onAuth(data);
+                    onAuth(data.user);
                     return;
                 }
                 console.warn("Login attempt unsuccessful. Error:::", data);
