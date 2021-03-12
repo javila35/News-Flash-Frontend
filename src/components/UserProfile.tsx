@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router';
 import { useQuery } from 'react-query';
 import { Container, Typography, Button } from "@material-ui/core";
 import { api, UserShowResponse } from '../services/';
-import Loader from '../components/Loader';
-import BookmarkCard from '../components/BookmarkCard';
-import { UserState } from '../App';
+import { Loader } from "./Loader";
+import BookmarkCard from "./BookmarkCard";
+import { UserState } from "../App";
 
 type UserProfileProps = {
     /** Abbreviated user object */

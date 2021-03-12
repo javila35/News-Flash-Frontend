@@ -18,7 +18,6 @@ type LoginProps = {
  * [x] Refactor to TS
  * [x] Type state and props
  */
-
 export const Login: React.FC<LoginProps> = ({ onAuth }) => {
     const INITIAL_STATE: AuthenticateUserParams = { username: "", password: "" };
     const [fields, setFields] = React.useState<AuthenticateUserParams>(INITIAL_STATE);
@@ -30,7 +29,6 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        /** TODO: Add React-Query to deal with login logic */
         api.auth.login(fields)
             .then((data: AuthResponse) => {
                 if (data.status === 202) {

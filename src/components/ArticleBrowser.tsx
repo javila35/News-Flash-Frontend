@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery } from "react-query";
 import { news_api, TopArticlesResponseType } from "../services/news_api";
 import { ArticleCard } from "./ArticleCard";
-import Loader from "./Loader";
+import { Loader } from "./Loader";
 
 type ArticleBrowserProps = {
     /** Category to display in the browser */
