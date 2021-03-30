@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useQuery } from "react-query";
-import { news_api, TopArticlesResponseType } from "../services/news_api";
+import { Article, news_api, TopArticlesResponseType } from "../services/news_api";
 import { ArticleCard } from "./ArticleCard";
 import { Loader } from "./Loader";
 
@@ -24,7 +24,7 @@ export const ArticleBrowser: React.FC<ArticleBrowserProps> = ({ category }) => {
 
     const renderArticles = () => {
         if (data?.articles) {
-            return data.articles.map((article, index) => {
+            return data.articles.map((article: Article, index) => {
                 return <ArticleCard key={index} article={article} />
             });
         }

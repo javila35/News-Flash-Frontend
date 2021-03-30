@@ -38,13 +38,18 @@ export type CreateBookmarkDTO = {
 }
 
 /** Create a new comment  */
-export type CreateCommentDTO = {
+export interface CreateCommentDTO {
     /** User ID to associate the comment to */
     user_id: number;
     /** Bookmark ID to associate the comment to */
     bookmark_id: number;
     /** Text to display */
     comment_text: string;
+}
+
+export interface CommentDTO extends CreateCommentDTO {
+    /** Comment id */
+    id: number;
 }
 
 export type BookmarkDTO = {
@@ -58,6 +63,8 @@ export type BookmarkDTO = {
     article_link: string;
     /** Link to article image */
     article_img: string;
+    /** Array of comments to display */
+    comments?: CommentDTO[];
 }
 
 /** Nested object created by FastJSONAPI */

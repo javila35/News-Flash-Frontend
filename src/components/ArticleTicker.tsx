@@ -30,7 +30,7 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category = "" }) =
     const renderBoxes = () => {
         if (data?.articles) {
             return data.articles.map((article, index) => {
-                return <ArticleBox key={index} details={article} />
+                return <ArticleBox key={index} article={article} />
             });
         }
     }
