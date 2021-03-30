@@ -7,8 +7,6 @@ import { ArticleBrowser } from "./ArticleBrowser";
  * @returns ```<ArticleBrowser category={query} />```
  */
 export const Search = () => {
-    const { query } = useParams();
-    return (
-        <ArticleBrowser category={query} />
-    );
+  const { query } = useParams();
+  return <ArticleBrowser category={query} />;
 };

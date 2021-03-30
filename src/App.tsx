@@ -1,13 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import {
-  api,
-  GetCurrentUserResponse,
-  UserDTO,
-} from "./services/";
-import './App.css';
+import { api, GetCurrentUserResponse, UserDTO } from "./services/";
+import "./App.css";
 import {
   ArticleBrowser,
   Bookmark,
@@ -19,7 +15,7 @@ import {
   UserBrowser,
   UserProfile,
   WelcomePage,
-} from './components';
+} from "./components";
 
 const queryClient = new QueryClient();
 
@@ -34,12 +30,12 @@ export const App: React.FC = () => {
       api.auth.getCurrentUser().then((data: GetCurrentUserResponse) => {
         if (data.status === 200) {
           setCurrentUser(data.user);
-          return
+          return;
         }
         console.error("Unable to fetch user. Error:::", data);
         return;
       });
-    };
+    }
   }, []);
 
   return (
@@ -47,44 +43,86 @@ export const App: React.FC = () => {
       <Router>
         <QueryClientProvider client={queryClient}>
           <div>
-            <Navigation currentUser={currentUser ? currentUser : null} onAuth={setCurrentUser} />
+            <Navigation
+              currentUser={currentUser ? currentUser : null}
+              onAuth={setCurrentUser}
+            />
             <Typography variant="h2">News-Flash!</Typography>
             <Switch>
-              <Route exact path="/top_articles"
-                render={() => <ArticleBrowser category="" />} />
-              <Route exact path="/sports_articles"
-                render={() => <ArticleBrowser category="Sports" />} />
-              <Route exact path="/business_articles"
-                render={() => <ArticleBrowser category="Business" />} />
-              <Route exact path="/"
-                render={() => <WelcomePage currentUser={currentUser} />} />
-              <Route exact path="/tech_articles"
-                render={() => <ArticleBrowser category="Technology" />} />
-              <Route exact path="/health_articles"
-                render={() => <ArticleBrowser category="Health" />} />
+              <Route
+                exact
+                path="/top_articles"
+                render={() => <ArticleBrowser category="" />}
+              />
+              <Route
+                exact
+                path="/sports_articles"
+                render={() => <ArticleBrowser category="Sports" />}
+              />
+              <Route
+                exact
+                path="/business_articles"
+                render={() => <ArticleBrowser category="Business" />}
+              />
+              <Route
+                exact
+                path="/"
+                render={() => <WelcomePage currentUser={currentUser} />}
+              />
+              <Route
+                exact
+                path="/tech_articles"
+                render={() => <ArticleBrowser category="Technology" />}
+              />
+              <Route
+                exact
+                path="/health_articles"
+                render={() => <ArticleBrowser category="Health" />}
+              />
               <Route path="/search/:query" component={Search} />
-              <Route exact path="/users/:username"
+              <Route
+                exact
+                path="/users/:username"
                 render={() => {
                   return (
                     <UserProfile
                       onDelete={setCurrentUser}
-                      currentUser={currentUser ? { username: currentUser.username, id: currentUser.id } : null}
+                      currentUser={
+                        currentUser
+                          ? {
+                              username: currentUser.username,
+                              id: currentUser.id,
+                            }
+                          : null
+                      }
                     />
-                  )
+                  );
                 }}
               />
-              <Route exact path="/bookmarks/:id"
+              <Route
+                exact
+                path="/bookmarks/:id"
                 render={() => <Bookmark currentUser={currentUser!} />}
               />
               {/* TODO: Pass a sign up method??? */}
-              <Route exact path="/sign-up/"
+              <Route
+                exact
+                path="/sign-up/"
                 render={() => <SignUp setCurrentUser={setCurrentUser} />}
               />
               <Route exact path="/users" component={UserBrowser} />
-              <Route exact path="/edit-user"
-                render={currentUser ?
-                  () => <EditUser currentUser={currentUser} updateCurrentUser={setCurrentUser} /> :
-                  () => <Loader />
+              <Route
+                exact
+                path="/edit-user"
+                render={
+                  currentUser
+                    ? () => (
+                        <EditUser
+                          currentUser={currentUser}
+                          updateCurrentUser={setCurrentUser}
+                        />
+                      )
+                    : () => <Loader />
                 }
               />
             </Switch>

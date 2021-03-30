@@ -6,30 +6,24 @@ import { UserIndexResponse, api } from "../services/";
 import { Loader } from "./Loader";
 
 export const UserBrowser: React.FC = () => {
-    const { isLoading, error, data } = useQuery<UserIndexResponse, Error>(
-        "allUsers",
-        api.users.getAllUsers
-    );
+  const { isLoading, error, data } = useQuery<UserIndexResponse, Error>(
+    "allUsers",
+    api.users.getAllUsers
+  );
 
-    const renderUsers = () => {
-        if (data) {
-            return data.map((username, index) => {
-                return (
-                    <ListItem key={index}>
-                        <Link to={`/users/${username}`}>
-                            {username}
-                        </Link>
-                    </ListItem>
-                );
-            });
-        }
-    };
+  const renderUsers = () => {
+    if (data) {
+      return data.map((username, index) => {
+        return (
+          <ListItem key={index}>
+            <Link to={`/users/${username}`}>{username}</Link>
+          </ListItem>
+        );
+      });
+    }
+  };
 
-    if (isLoading) return <Loader />;
-    if (error) return (<>{"Unable to fetch data " + error.message}</>);
-    return (
-        <List>
-            {renderUsers()}
-        </List>
-    );
+  if (isLoading) return <Loader />;
+  if (error) return <>{"Unable to fetch data " + error.message}</>;
+  return <List>{renderUsers()}</List>;
 };
