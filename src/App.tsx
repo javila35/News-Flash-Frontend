@@ -74,7 +74,8 @@ export const App: React.FC = () => {
                 }}
               />
               <Route exact path="/bookmarks/:id"
-                render={props => <Bookmark {...props} />} />
+                render={() => <Bookmark currentUser={currentUser!} />}
+              />
               {/* TODO: Pass a sign up method??? */}
               <Route exact path="/sign-up/"
                 render={() => <SignUp setCurrentUser={setCurrentUser} />}

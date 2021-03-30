@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Container, Typography, Button } from "@material-ui/core";
 import { api, UserShowResponse } from '../services/';
 import { Loader } from "./Loader";
-import BookmarkCard from "./BookmarkCard";
+import { BookmarkCard } from "./BookmarkCard";
 import { UserState } from "../App";
 
 type UserProfileProps = {
@@ -69,10 +69,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ currentUser, onDelete 
     const renderBookmarks = () => {
         if (data) {
             const { bookmarks } = data.data.attributes;
-            return bookmarks.map((bookmark, index) => {
-                const { id } = bookmark;
-                return <BookmarkCard key={index} bookmark={bookmark} bmID={id} handleClick={(id: number) => showBookmark(id)} />
-            });
+            return bookmarks.map((bookmark, index) =>
+                <BookmarkCard key={index} bookmark={bookmark} handleClick={showBookmark} />
+            );
         }
     };
 
