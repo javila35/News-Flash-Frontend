@@ -1,7 +1,7 @@
 import * as React from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Typography } from "@material-ui/core";
+import { AppBar, Typography } from "@material-ui/core";
 import { api, GetCurrentUserResponse, UserDTO } from "./services/";
 import "./App.css";
 import {
@@ -47,7 +47,6 @@ export const App: React.FC = () => {
               currentUser={currentUser ? currentUser : null}
               onAuth={setCurrentUser}
             />
-            <Typography variant="h2">News-Flash!</Typography>
             <Switch>
               <Route
                 exact

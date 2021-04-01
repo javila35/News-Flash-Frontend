@@ -1,6 +1,17 @@
 import * as React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Drawer, List, ListItem, TextField } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  TextField,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import { AccountCircle, Menu, Search } from "@material-ui/icons";
 import { Login } from "./Login";
 import { UserState } from "../App";
 
@@ -20,9 +31,19 @@ type NavProps = {
  * [x] Add isOpen state
  */
 export const Navigation: React.FC<NavProps> = ({ currentUser, onAuth }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [
+    accountMenuEl,
+    setAccountAnchorEl,
+  ] = React.useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(menuAnchorEl);
   const history = useHistory();
-  const searchEl = React.useRef<HTMLInputElement>(null);
+
+  const handleAccountMenuOpen = (e: React.MouseEvent<HTMLElement>) => {
+    setAccountAnchorEl(e.currentTarget);
+  };
 
   const renderNavMenu = () => {
     const token = localStorage.getItem("token");
@@ -106,11 +127,33 @@ export const Navigation: React.FC<NavProps> = ({ currentUser, onAuth }) => {
   };
 
   return (
-    <>
-      <Button onClick={() => setOpen(true)}>Menu</Button>
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        {renderNavMenu()}
-      </Drawer>
-    </>
+    <AppBar position="sticky">
+      <Toolbar>
+        <IconButton edge="start" aria-label="open drawer">
+          <Menu />
+        </IconButton>
+        <Typography variant="h6" noWrap>
+          Newsflash
+        </Typography>
+        <div>
+          <Search />
+          <InputBase
+            placeholder="Search..."
+            inputProps={{ "aria-label": "search" }}
+          />
+        </div>
+        <div>
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-controls="account-menu"
+            aria-haspopup="true"
+            onClick={handleAccountMenuOpen}
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
