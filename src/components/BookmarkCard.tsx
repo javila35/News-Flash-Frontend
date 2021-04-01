@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Container, Typography } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import { BookmarkDTO } from "../services";
 
 type BookmarkCardProps = {

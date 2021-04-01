@@ -1,14 +1,19 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { ArticleTicker } from "./ArticleTicker";
+import { UserState } from "../App";
+
+type WelcomePageProps = {
+  currentUser: UserState;
+};
 
 /**
  * TODO
  * [ ] Refactor to FC
- * [ ] Refactor to TS
- * [ ] Type state and props
+ * [x] Refactor to TS
+ * [x] Type state and props
  */
-export const WelcomePage = ({ currentUser }) => {
+export const WelcomePage: React.FC<WelcomePageProps> = ({ currentUser }) => {
   return (
     <>
       <Typography variant="h3">

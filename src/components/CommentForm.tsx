@@ -1,5 +1,5 @@
 import * as React from "react";
-import { api, UserDTO } from "../services/";
+import { api } from "../services/";
 
 type CommentFormProps = {
   currentUserId: number;
@@ -8,9 +8,9 @@ type CommentFormProps = {
 };
 
 /** TODO
- * [ ] Refactor to Function component
- * [ ] Refactor to typescript
- * [ ] Type state and props?
+ * [x] Refactor to Function component
+ * [x] Refactor to typescript
+ * [x] Type state and props?
  * [ ] Refactor to React-Query
  * [ ] Refactor to Material UI
  */
