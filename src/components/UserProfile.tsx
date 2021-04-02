@@ -5,7 +5,7 @@ import { Container, Typography, Button } from "@material-ui/core";
 import { api, UserShowResponse } from "../services/";
 import { Loader } from "./Loader";
 import { BookmarkCard } from "./BookmarkCard";
-import { UserState } from "../App";
+import { UserState } from "../services";
 
 type UserProfileProps = {
   /** Abbreviated user object */

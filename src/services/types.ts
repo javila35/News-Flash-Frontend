@@ -12,6 +12,8 @@ export interface UserDTO {
   bio?: string;
 }
 
+export type UserState = UserDTO | null;
+
 /** Object to update a user. */
 export type EditUserDTO = Pick<
   UserDTO,
@@ -141,3 +143,13 @@ type UnsuccesfulCurrentUserResponse = {
 export type GetCurrentUserResponse =
   | SuccesfulCurrentUserResponse
   | UnsuccesfulCurrentUserResponse;
+
+/** Props for AppBar authentication */
+export type AppBarProps = {
+  /** Currently logged in user */
+  currentUser: UserState;
+  /** Callback to pass AccountMenu for handling log in */
+  onLogin: React.Dispatch<React.SetStateAction<UserState>>;
+  /** Callback to pass to AccountMenu for handling logging out */
+  onLogout: () => void;
+};

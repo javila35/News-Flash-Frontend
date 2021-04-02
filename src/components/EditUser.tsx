@@ -2,7 +2,7 @@ import * as React from "react";
 import { useHistory } from "react-router";
 import { Button, Container, TextField } from "@material-ui/core";
 import { api, EditUserDTO, UpdateUserResponse, UserDTO } from "../services";
-import { UserState } from "../App";
+import { UserState } from "../services";
 
 type EditUserProps = {
   /** Current user stored in state */

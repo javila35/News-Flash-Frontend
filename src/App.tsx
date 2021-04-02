@@ -1,15 +1,14 @@
 import * as React from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AppBar, Typography } from "@material-ui/core";
-import { api, GetCurrentUserResponse, UserDTO } from "./services/";
+import { api, GetCurrentUserResponse, UserState } from "./services/";
 import "./App.css";
 import {
+  AppBar,
   ArticleBrowser,
   Bookmark,
   EditUser,
   Loader,
-  Navigation,
   Search,
   SignUp,
   UserBrowser,
@@ -19,11 +18,15 @@ import {
 
 const queryClient = new QueryClient();
 
-export type UserState = UserDTO | null;
-
 export const App: React.FC = () => {
   const token = () => localStorage.getItem("token");
   const [currentUser, setCurrentUser] = React.useState<UserState>(null);
+
+  /** Method to pass AppBar for logout */
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+  };
 
   React.useEffect(() => {
     if (token()) {
@@ -43,9 +46,10 @@ export const App: React.FC = () => {
       <Router>
         <QueryClientProvider client={queryClient}>
           <div>
-            <Navigation
-              currentUser={currentUser ? currentUser : null}
-              onAuth={setCurrentUser}
+            <AppBar
+              currentUser={currentUser}
+              onLogin={setCurrentUser}
+              onLogout={handleLogout}
             />
             <Switch>
               <Route

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useHistory } from "react-router";
-import { UserState } from "../App";
+import { UserState } from "../services";
 import { api, AuthenticateUserParams, AuthResponse } from "../services/";
 
 /** Form state extends UserAuthDTO with password verify field */
@@ -19,7 +19,10 @@ const initialFieldState: SignUpState = {
   verifyPassword: "",
 };
 
-/** TODO: Add a toast saying success. */
+/** TODO:
+ * Add a toast saying success.
+ * Refactor this component
+ */
 export const SignUp: React.FC<SignUpProps> = ({ setCurrentUser }) => {
   const [fields, setFields] = React.useState<SignUpState>(initialFieldState);
   const { username, password, verifyPassword } = fields;

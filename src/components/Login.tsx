@@ -1,7 +1,13 @@
 import * as React from "react";
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  Input,
+  MenuItem,
+} from "@material-ui/core";
 import { api, AuthenticateUserParams, AuthResponse } from "../services/";
-import { UserState } from "../App";
+import { UserState } from "../services";
 
 type LoginProps = {
   /** Login method */
@@ -10,10 +16,11 @@ type LoginProps = {
 
 /**
  * TODO
- * [x] Refactor to FC
- * [x] Refactor to TS
- * [x] Type state and props
+ * Make the form tabbable
+ * Add error messages for bad login
  */
+
+/** Returns a log in form for AccountMenu */
 export const Login: React.FC<LoginProps> = ({ onAuth }) => {
   const INITIAL_STATE: AuthenticateUserParams = { username: "", password: "" };
   const [fields, setFields] = React.useState<AuthenticateUserParams>(
@@ -43,24 +50,23 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
 
   return (
     <>
-      <TextField
-        label="Username"
-        name="username"
-        onChange={handleChange}
-        value={fields.username}
-        variant="outlined"
-      />
-      <TextField
-        label="Password"
-        name="password"
-        onChange={handleChange}
-        type="password"
-        value={fields.password}
-        variant="outlined"
-      />
-      <Button type="submit" value="Log In" onClick={(e) => handleSubmit(e)}>
-        Submit
-      </Button>
+      <MenuItem>
+        <FormControl>
+          <InputLabel htmlFor="username">Username</InputLabel>
+          <Input name="username" onChange={handleChange} />
+        </FormControl>
+      </MenuItem>
+      <MenuItem>
+        <FormControl>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <Input name="password" onChange={handleChange} />
+        </FormControl>
+      </MenuItem>
+      <MenuItem>
+        <Button type="submit" onClick={(e) => handleSubmit(e)}>
+          Log In
+        </Button>
+      </MenuItem>
     </>
   );
 };
