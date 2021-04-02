@@ -1,92 +1,7 @@
 /* everything relating to main website. */
 html {
-  background-color: #FAF6F6;
-  font-family: Georgia, serif
-}
-
-.title-bar h1 {
-  position: fixed;
-  text-align: center;
-  background-color: #BDA18A;
-  width:100%;
-  top:0px;
-  margin:0px;
-  padding:0px;
-}
-
-.welcome-title {
-  margin-top: 5%;
-}
-
-.hidden {
-  display: none;
-  transition: 0.5s;
-}
-
-.App {
-  text-align: center;
-  margin-top: 3.5em;
-  transition: 0.3s;
-}
-
-/* Navigation bar syling */
-.side-nav {
-  height: 100%;
-  width: 20%; 
-  position: fixed; 
-  top: 0;
-  left: 0;
-  background-color: #ecbbbb; 
-  overflow-x: hidden; 
-  padding-top: 3em;
-  transition: 0.3s;
-  margin-right: 2em;
-}
-
-.nav-button {
-  background-color: #BDA18A;
-  border: none;
-  position: fixed;
-  top: 0px;
-  font-size: 24px;
-  margin-left: 5%;
-}
-
-.closebtn {
-  background-color: #ecbbbb;
-  border: none;
-  position: absolute;
-  top: 5px;
-  right: 25px;
-  font-size: 24px;
-  margin-left: 50px;
-}
-
-.nav-links {
-  list-style-type: none;
-  padding: 0.5em;
-  margin-left: 2em;
-}
-
-.nav-links a:visited, .nav-links a {
-  color: black;
-  text-decoration: none;
-  font-size: 2em;
-  transition: 0.3s;
-}
-
-.nav-links a:hover {
-  color: #FAF6F6;
-  transition: 0.3;
-}
-
-.login-form form {
-  text-align: center;
-}
-
-.login-form input[type="submit" i] {
-  margin-top: 0.4em;
-  padding: 0.5em;
+  background-color: #faf6f6;
+  font-family: Georgia, serif;
 }
 
 /* everything relating to article pages below */
@@ -94,18 +9,19 @@ html {
   margin-top: 5%;
 }
 
-    /* Make them have image thumbnail on left, text on right */
+/* Make them have image thumbnail on left, text on right */
 .article-card {
   margin: 2em 1em 2em 3em;
   border: 1px solid black;
-  background-color: #ECC8B9;
+  background-color: #ecc8b9;
 }
 
 .article-card img {
   max-width: 500px;
 }
 
-.article-card h, .article-card h5 {
+.article-card h,
+.article-card h5 {
   padding: 0px;
   margin: 0px;
 }
@@ -120,7 +36,8 @@ html {
   margin: 1em;
 }
 
-.article-card a, .article-card a:visited {
+.article-card a,
+.article-card a:visited {
   font-weight: bold;
   text-decoration: none;
   color: black;
@@ -133,8 +50,6 @@ html {
   transition: 0.5s;
 }
 
-
-
 /* styling for user page */
 .bookmark-thumbnail {
   border: 1px solid #ddd;
@@ -146,18 +61,9 @@ html {
 #bookmark-title h1 {
   text-align: center;
   margin-bottom: 0%;
-  margin-top:0%;
+  margin-top: 0%;
   font-variant: small-caps;
   font-size: 3em;
-}
-
-.bookmark-browser { 
-  border: 1px solid black;
-  background-color: #ECC8B9;
-  overflow-y: scroll;
-  display:inline-block;
-  min-width: 80vw;
-  max-width: 80vw;
 }
 
 .bookmark-card img {
@@ -180,36 +86,6 @@ a.bookmark_link {
   text-decoration: none;
 }
 
-.profile {
-  margin-top: 5%;
-  margin-left: 5%;
-}
-
-.user-show {
-  display: inline-block;
-  padding: 0.5em;
-  text-align: justify;
-  border: 1px solid black;
-  background-color: #ECC8B9;
-  width: 80vw;
-}
-
-.user-show a, .user-show a:visited {
-  color: black;
-  text-decoration: none;
-  transition: 0.3s;
-  margin: 1em;
-}
-
-.user-show a:hover {
-  color: #FAF6F6;
-  transition: 0.3s;
-}
-
-.twitIcon {
-  height: 25px;
-}
-
 #edit-user-form input {
   margin: 0.2em;
   border-radius: 4px;
@@ -219,7 +95,8 @@ a.bookmark_link {
   padding-left: 5em;
 }
 
-#sign-up-form input, .login-form input {
+#sign-up-form input,
+.login-form input {
   border-radius: 4px;
   padding: 0.2em;
 }
@@ -230,8 +107,9 @@ a.bookmark_link {
   margin-top: 0.2em;
 }
 
-#sign-up-form p, h3 {
-  margin:1%;
+#sign-up-form p,
+h3 {
+  margin: 1%;
 }
 
 #sign-up-form label {
@@ -244,20 +122,22 @@ a.bookmark_link {
   max-height: 200px;
 }
 
-.post-link a, .post-link a:visited {
- color: black;
+.post-link a,
+.post-link a:visited {
+  color: black;
 }
 
 .post-comments h2 {
   border-bottom: 1px solid black;
 }
 
-
-.comment-show h4, .comment-show p {
+.comment-show h4,
+.comment-show p {
   margin: 0.3em;
 }
 
-a:visited.bookmark-link, a.bookmark-link {
+a:visited.bookmark-link,
+a.bookmark-link {
   color: black;
   text-decoration: underline;
   font-size: 1.5em;
@@ -268,10 +148,6 @@ a:visited.bookmark-link, a.bookmark-link {
   text-decoration: underline;
   font-size: 1.5em;
   cursor: pointer;
-}
-
-.article-li {
-  margin-left: 1em;
 }
 
 .ticker-box {
@@ -287,25 +163,12 @@ a:visited.bookmark-link, a.bookmark-link {
   position: sticky;
   top: 0;
   margin: 0px;
-  background-color: #BDA18A;
+  background-color: #bda18a;
   border-bottom: 1px solid black;
 }
 
-
-
-.user-list {
-  list-style-type: none;
-  text-align: left;
-  font-size: larger;
-  margin-left: 3em;
-}
-
-.user-list a:visited, .user-list a {
-  color: black;
-}
-
 .thumbnail {
-  float:left;
+  float: left;
   max-width: 150px;
   max-height: 150px;
   height: auto;
@@ -313,7 +176,7 @@ a:visited.bookmark-link, a.bookmark-link {
 }
 
 .bookmarker {
-  height: 30px; 
+  height: 30px;
   border-radius: 10%;
 }
 
@@ -321,7 +184,8 @@ a:visited.bookmark-link, a.bookmark-link {
   border-bottom: 1px solid black;
 }
 
-.div-box a, .div-box a:visited {
+.div-box a,
+.div-box a:visited {
   text-decoration: none;
   color: black;
 }
