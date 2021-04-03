@@ -5,6 +5,7 @@ import {
   InputLabel,
   Input,
   MenuItem,
+  FormHelperText,
 } from "@material-ui/core";
 import { api, AuthenticateUserParams, AuthResponse } from "../services/";
 import { UserState } from "../services";
@@ -14,18 +15,23 @@ type LoginProps = {
   onAuth: React.Dispatch<React.SetStateAction<UserState>>;
 };
 
-/**
- * TODO
- * Make the form tabbable
- * Add error messages for bad login
- */
+/** Message to display on unsuccesful login */
+type ErrorState = {
+  message?: string;
+  status?: 401;
+};
 
 /** Returns a log in form for AccountMenu */
 export const Login: React.FC<LoginProps> = ({ onAuth }) => {
-  const INITIAL_STATE: AuthenticateUserParams = { username: "", password: "" };
+  const INITIAL_FIELDS_STATE: AuthenticateUserParams = {
+    username: "",
+    password: "",
+  };
   const [fields, setFields] = React.useState<AuthenticateUserParams>(
-    INITIAL_STATE
+    INITIAL_FIELDS_STATE
   );
+  const [error, setError] = React.useState<ErrorState | null>(null);
+  const isError = Boolean(error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFields: AuthenticateUserParams = {
@@ -38,35 +44,51 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     api.auth.login(fields).then((data: AuthResponse) => {
+      console.log("Bad data", data);
       if (data.status === 202) {
         localStorage.setItem("token", data.jwt);
         onAuth(data.user);
         return;
+      } else if (data.status === 401) {
+        setError(data);
       }
-      console.warn("Login attempt unsuccessful. Error:::", data);
-      return;
     });
   };
 
+  const stopPropagationForTab = (e: React.KeyboardEvent) => {
+    if (e.key === "Tab") {
+      e.stopPropagation();
+    }
+  };
+
   return (
-    <>
-      <MenuItem>
-        <FormControl>
+    <div
+      style={{ display: "flex", flexDirection: "column" }}
+      onKeyDown={stopPropagationForTab}
+    >
+      <MenuItem tabIndex={1}>
+        <FormControl error={isError}>
           <InputLabel htmlFor="username">Username</InputLabel>
           <Input name="username" onChange={handleChange} />
+          {error?.message === "Could not find username." && (
+            <FormHelperText>{error.message}</FormHelperText>
+          )}
         </FormControl>
       </MenuItem>
-      <MenuItem>
-        <FormControl>
+      <MenuItem tabIndex={2}>
+        <FormControl error={isError}>
           <InputLabel htmlFor="password">Password</InputLabel>
           <Input name="password" onChange={handleChange} />
+          {error?.message === "Incorrect password." && (
+            <FormHelperText>{error.message}</FormHelperText>
+          )}
         </FormControl>
       </MenuItem>
-      <MenuItem>
+      <MenuItem tabIndex={3}>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Log In
         </Button>
       </MenuItem>
-    </>
+    </div>
   );
 };
