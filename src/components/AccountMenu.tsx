@@ -27,6 +27,10 @@ export const AccountMenu: React.FC<AppBarProps> = ({
     history.push(`/users/${currentUser?.username}`);
   };
 
+  const handleSignUpClick = () => {
+    history.push("/sign-up");
+  };
+
   /** Menu to display if a user is logged in */
   const renderAuthenticatedMenu = () => {
     /** Material UI Menu component prefers an array, instead of a react fragment */
@@ -46,7 +50,7 @@ export const AccountMenu: React.FC<AppBarProps> = ({
     return [
       <Login onAuth={onLogin} />,
       <MenuItem>
-        <Button>Sign Up</Button>
+        <Button onClick={handleSignUpClick}>Sign Up</Button>
       </MenuItem>,
     ];
   };
