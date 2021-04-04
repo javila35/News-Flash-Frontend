@@ -48,12 +48,10 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     api.auth.login(fields).then((data: AuthResponse) => {
-      console.log("Bad data", data);
-      if (data.status === 202) {
+      if ("jwt" in data && "user" in data) {
         localStorage.setItem("token", data.jwt);
         onAuth(data.user);
-        return;
-      } else if (data.status === 401) {
+      } else if ("message" in data) {
         setError(data);
       }
     });
