@@ -81,12 +81,11 @@ export const SignUp: React.FC<SignUpProps> = ({ setCurrentUser }) => {
     const authParams = { username, password };
 
     api.auth.createUser(authParams).then((data: AccountCreationResponse) => {
-      if (data.status === 201) {
+      if ("user" in data && "jwt" in data) {
         setCurrentUser(data.user);
         localStorage.setItem("token", data.jwt);
         history.push("/");
-        return;
-      } else if (data.status === 401) {
+      } else {
         setError(data);
       }
     });
