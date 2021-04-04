@@ -114,12 +114,14 @@ interface SuccessfulAuthSessionResponse {
   status: 200 | 201 | 202;
 }
 
+type AuthErrorMessage = "Could not find username." | "Incorrect password.";
+
 /** Unsuccesful login or sign up response type */
 type UnsuccesfulAuthResponse = {
   /** Custom response created by DB admin */
-  errors: string;
+  message: AuthErrorMessage;
   /** Type of failure */
-  status: 401 | 500;
+  status: 401;
 };
 
 /** Union of Authenticate success and failure */
