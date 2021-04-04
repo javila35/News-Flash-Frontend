@@ -7,8 +7,12 @@ import {
   MenuItem,
   FormHelperText,
 } from "@material-ui/core";
-import { api, AuthenticateUserParams, AuthResponse } from "../services/";
-import { UserState } from "../services";
+import {
+  api,
+  AuthenticateUserParams,
+  AuthResponse,
+  UserState,
+} from "../services";
 
 type LoginProps = {
   /** Login method */
