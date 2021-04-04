@@ -3,7 +3,9 @@
 _A full-stack web app by Joe Avila_
 **Update on 03/01/2021: I am currently rewriting the app to use Typescript and some new tricks I've learned since original release.**
 
-#### [News Flash Deployed](https://news-flash-50a6e.web.app/)
+**Update on 04/01/2021: Having refactored the site to typescript, I'm now working on adding functionality and styling with Material UI**
+
+#### [News Flash Deployed](https://news-flash-site.netlify.app/)
 
 _Please allow some time for backend to load up._
 
