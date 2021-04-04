@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Typography } from "@material-ui/core";
 import { ArticleTicker } from "./ArticleTicker";
 import { UserState } from "../services";
@@ -9,10 +9,7 @@ type WelcomePageProps = {
 
 /**
  * TODO
- * [ ] Refactor to FC
- * [x] Refactor to TS
  * [ ] Refactor to MUI
- * [x] Type state and props
  */
 export const WelcomePage: React.FC<WelcomePageProps> = ({ currentUser }) => {
   return (

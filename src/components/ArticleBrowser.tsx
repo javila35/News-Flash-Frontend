@@ -1,10 +1,6 @@
 import * as React from "react";
 import { useQuery } from "react-query";
-import {
-  Article,
-  news_api,
-  TopArticlesResponseType,
-} from "../services/news_api";
+import { Article, news_api, TopArticlesResponseType } from "../services/";
 import { ArticleCard } from "./ArticleCard";
 import { Loader } from "./Loader";
 

@@ -1,3 +1,5 @@
+import { BookmarkDTO } from "./Bookmark";
+
 /** User type recieved from Rails API */
 export interface UserDTO {
   /** ID in database */
@@ -32,46 +34,6 @@ export type AuthenticateUserParams = {
 /** Query for all users response type */
 export type UserIndexResponse = string[];
 
-/** Create a new bookmark */
-export type CreateBookmarkDTO = {
-  /** User ID to associate the bookmark to */
-  user_id: number;
-  /** Title for the bookmark */
-  article_title: string;
-  /** Link to the published article */
-  article_link: string;
-};
-
-/** Create a new comment  */
-export interface CreateCommentDTO {
-  /** User ID to associate the comment to */
-  user_id: number;
-  /** Bookmark ID to associate the comment to */
-  bookmark_id: number;
-  /** Text to display */
-  comment_text: string;
-}
-
-export interface CommentDTO extends CreateCommentDTO {
-  /** Comment id */
-  id: number;
-}
-
-export type BookmarkDTO = {
-  /** Bookmark id */
-  id: number;
-  /** User bookmark belongs to */
-  user_id: number;
-  /** Title for article */
-  article_title: string;
-  /** Link to article */
-  article_link: string;
-  /** Link to article image */
-  article_img: string;
-  /** Array of comments to display */
-  comments?: CommentDTO[];
-};
-
 /** Nested object created by FastJSONAPI */
 interface UserShowAttributes extends UserDTO {
   bookmarks: BookmarkDTO[];
@@ -104,7 +66,9 @@ export type UpdateUserResponse =
   | SuccesfulUpdateUserResponse
   | UnsuccesfulUpdateUserResponse;
 
-/** Successful login or sign up response type */
+type AuthErrorMessage = "Could not find username." | "Incorrect password.";
+
+/** Successful log in response type */
 interface SuccessfulAuthSessionResponse {
   /** Nested userDTO object */
   user: UserDTO;
@@ -114,9 +78,7 @@ interface SuccessfulAuthSessionResponse {
   status: 200 | 201 | 202;
 }
 
-type AuthErrorMessage = "Could not find username." | "Incorrect password.";
-
-/** Unsuccesful login or sign up response type */
+/** Unsuccesful log in response type */
 type UnsuccesfulAuthResponse = {
   /** Custom response created by DB admin */
   message: AuthErrorMessage;
@@ -146,12 +108,21 @@ export type GetCurrentUserResponse =
   | SuccesfulCurrentUserResponse
   | UnsuccesfulCurrentUserResponse;
 
-/** Props for AppBar authentication */
-export type AppBarProps = {
-  /** Currently logged in user */
-  currentUser: UserState;
-  /** Callback to pass AccountMenu for handling log in */
-  onLogin: React.Dispatch<React.SetStateAction<UserState>>;
-  /** Callback to pass to AccountMenu for handling logging out */
-  onLogout: () => void;
+export type AccountCreationError =
+  | "Passwords do not match."
+  | "Username has already been taken";
+
+type SuccesfulAccountCreationResponse = {
+  user: UserDTO;
+  jwt: string;
+  status: 201;
 };
+
+type UnsuccesfulAccountCreationResponse = {
+  message: AccountCreationError;
+  status: 401;
+};
+
+export type AccountCreationResponse =
+  | SuccesfulAccountCreationResponse
+  | UnsuccesfulAccountCreationResponse;

@@ -2,7 +2,6 @@ import * as React from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { api, GetCurrentUserResponse, UserState } from "./services/";
-import "./App.css";
 import {
   AppBar,
   ArticleBrowser,
@@ -15,6 +14,7 @@ import {
   UserProfile,
   WelcomePage,
 } from "./components";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
