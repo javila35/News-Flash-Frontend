@@ -1,6 +1,15 @@
 import * as React from "react";
 import { api, UserDTO } from "../services/";
-import { Button, Container, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 type Article = {
   /** Author of article */
@@ -22,6 +31,15 @@ export type ArticleCardProps = {
   currentUser?: UserDTO;
 };
 
+const classes = {
+  media: {
+    height: 400,
+    backgroundSize: "cover",
+  },
+};
+
+const useStyles = makeStyles(classes);
+
 /**
  * TODO:
  * [x] Refactor to Typescript
@@ -32,6 +50,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   currentUser,
 }) => {
   const token = localStorage.getItem("token");
+  const { media } = useStyles();
 
   const { title, author, description, url, image } = article;
 
@@ -48,19 +67,29 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   };
 
   return (
-    <Container className="article-card">
-      {image ? <img src={image} alt={title}></img> : null}
-      <Typography variant="h2">{title}</Typography>
-      {author ? <Typography variant="h5">by: {author}</Typography> : null}
-      <p>{description}</p>
-      <a href={`${url}`}>Read article here</a>
-      <div className="user-interaction">
-        {token && currentUser ? (
-          <Button className="bookmarker" onClick={() => bookmark()}>
+    <Card>
+      <CardActionArea>
+        {image && <CardMedia image={image} className={media} title={title} />}
+        <CardContent>
+          <Typography variant="h4" component="p" gutterBottom>
+            {title}
+          </Typography>
+          {author && (
+            <Typography variant="h5" component="p">
+              by: {author}
+            </Typography>
+          )}
+          <Typography variant="body1">{description}</Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <a href={url}>Read article here</a>
+        {token && currentUser && (
+          <Button size="small" onClick={() => bookmark()}>
             Bookmark
           </Button>
-        ) : null}
-      </div>
-    </Container>
+        )}
+      </CardActions>
+    </Card>
   );
 };

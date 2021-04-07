@@ -54,32 +54,32 @@ export const App: React.FC = () => {
             <Switch>
               <Route
                 exact
-                path="/top_articles"
-                render={() => <ArticleBrowser category="" />}
-              />
-              <Route
-                exact
-                path="/sports_articles"
-                render={() => <ArticleBrowser category="Sports" />}
-              />
-              <Route
-                exact
-                path="/business_articles"
-                render={() => <ArticleBrowser category="Business" />}
-              />
-              <Route
-                exact
                 path="/"
                 render={() => <WelcomePage currentUser={currentUser} />}
               />
               <Route
                 exact
-                path="/tech_articles"
+                path="/top"
+                render={() => <ArticleBrowser category="" />}
+              />
+              <Route
+                exact
+                path="/sports"
+                render={() => <ArticleBrowser category="Sports" />}
+              />
+              <Route
+                exact
+                path="/business"
+                render={() => <ArticleBrowser category="Business" />}
+              />
+              <Route
+                exact
+                path="/tech"
                 render={() => <ArticleBrowser category="Technology" />}
               />
               <Route
                 exact
-                path="/health_articles"
+                path="/health"
                 render={() => <ArticleBrowser category="Health" />}
               />
               <Route path="/search/:query" component={Search} />
