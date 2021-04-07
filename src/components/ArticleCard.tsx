@@ -1,5 +1,5 @@
 import * as React from "react";
-import { api, UserDTO } from "../services/";
+import { api, UserState } from "../services/";
 import {
   Button,
   Card,
@@ -28,29 +28,31 @@ export type ArticleCardProps = {
   /** Article to display */
   article: Article;
   /** Current authenticated user */
-  currentUser?: UserDTO;
+  currentUser?: UserState;
 };
 
 const classes = {
+  actions: {
+    justifyContent: "center",
+  },
+  card: {
+    marginBottom: "1em",
+  },
   media: {
-    height: 400,
+    height: 600,
     backgroundSize: "cover",
+    objectFit: "contain" as const,
   },
 };
 
 const useStyles = makeStyles(classes);
 
-/**
- * TODO:
- * [x] Refactor to Typescript
- * [ ] Type props
- */
 export const ArticleCard: React.FC<ArticleCardProps> = ({
   article,
   currentUser,
 }) => {
   const token = localStorage.getItem("token");
-  const { media } = useStyles();
+  const { actions, card, media } = useStyles();
 
   const { title, author, description, url, image } = article;
 
@@ -66,10 +68,21 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     }
   };
 
+  const onClick = () => {
+    window.open(url, "_blank");
+  };
+
   return (
-    <Card>
-      <CardActionArea>
-        {image && <CardMedia image={image} className={media} title={title} />}
+    <Card className={card} elevation={0}>
+      <CardActionArea onClick={onClick}>
+        {image && (
+          <CardMedia
+            src={image}
+            component="img"
+            className={media}
+            title={title}
+          />
+        )}
         <CardContent>
           <Typography variant="h4" component="p" gutterBottom>
             {title}
@@ -82,13 +95,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           <Typography variant="body1">{description}</Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <a href={url}>Read article here</a>
-        {token && currentUser && (
-          <Button size="small" onClick={() => bookmark()}>
-            Bookmark
-          </Button>
-        )}
+      <CardActions className={actions}>
+        {token && currentUser && <Button onClick={bookmark}>Bookmark</Button>}
       </CardActions>
     </Card>
   );

@@ -60,27 +60,43 @@ export const App: React.FC = () => {
               <Route
                 exact
                 path="/top"
-                render={() => <ArticleBrowser category="" />}
+                render={() => (
+                  <ArticleBrowser category="" currentUser={currentUser} />
+                )}
               />
               <Route
                 exact
                 path="/sports"
-                render={() => <ArticleBrowser category="Sports" />}
+                render={() => (
+                  <ArticleBrowser currentUser={currentUser} category="Sports" />
+                )}
               />
               <Route
                 exact
                 path="/business"
-                render={() => <ArticleBrowser category="Business" />}
+                render={() => (
+                  <ArticleBrowser
+                    currentUser={currentUser}
+                    category="Business"
+                  />
+                )}
               />
               <Route
                 exact
                 path="/tech"
-                render={() => <ArticleBrowser category="Technology" />}
+                render={() => (
+                  <ArticleBrowser
+                    currentUser={currentUser}
+                    category="Technology"
+                  />
+                )}
               />
               <Route
                 exact
                 path="/health"
-                render={() => <ArticleBrowser category="Health" />}
+                render={() => (
+                  <ArticleBrowser currentUser={currentUser} category="Health" />
+                )}
               />
               <Route path="/search/:query" component={Search} />
               <Route
