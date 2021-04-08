@@ -54,9 +54,7 @@ const classes = {
 
 const useStyles = makeStyles(classes);
 
-/** TODO:
- * Add a toast saying success to welcome page
- */
+// TODO: Add a toast saying success to welcome page
 export const SignUp: React.FC<SignUpProps> = ({ setCurrentUser }) => {
   const [fields, setFields] = React.useState<SignUpState>(initialFieldState);
   const [error, setError] = React.useState<null | ErrorState>(null);
@@ -80,6 +78,8 @@ export const SignUp: React.FC<SignUpProps> = ({ setCurrentUser }) => {
     /** Remove unused fields */
     const authParams = { username, password };
 
+    // ! FIX: This isn't pushing user to state or history
+    // ! if in method probably isn't working
     api.auth.createUser(authParams).then((data: AccountCreationResponse) => {
       if ("user" in data && "jwt" in data) {
         setCurrentUser(data.user);

@@ -12,7 +12,7 @@ type UserProfileParams = {
   username: string;
 };
 
-/** Fix: Return type is deeply nested with two data layers */
+//  ! Fix: Return type is deeply nested with two data layers */
 // data: {
 //     data: {
 //         ...
@@ -20,11 +20,8 @@ type UserProfileParams = {
 // }
 type UserProfileResponse = { data: UserShowResponse };
 
-/**
- * TODO
- * [ ] Remove double data layer from serialized response
- * [ ] Fix data response type
- */
+// TODO Remove double data layer from serialized response
+// TODO Fix data response type
 
 export const UserProfile: React.FC = () => {
   const { username } = useParams<UserProfileParams>();

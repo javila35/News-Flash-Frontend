@@ -38,6 +38,6 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({
     }
   };
 
-  /** TODO: Turn the welcome page to a grid, and article ticker to a column from MUI. */
+  // TODO Turn the welcome page to a grid, and article ticker to a column from MUI.
   return <div className="article-ticker">{renderBoxes()}</div>;
 };

@@ -3,10 +3,7 @@ import { Typography } from "@material-ui/core";
 import { ArticleTicker } from "./ArticleTicker";
 import { useCurrentUserContext } from "../services";
 
-/**
- * TODO
- * [ ] Refactor to MUI
- */
+// TODO Refactor to MUI
 export const WelcomePage: React.FC = () => {
   const { currentUser } = useCurrentUserContext();
 

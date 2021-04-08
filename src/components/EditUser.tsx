@@ -12,11 +12,10 @@ const EMPTY_USER = {
   bio: "",
   username: "",
 };
-/**
- * TODO
- * [ ] Make sure Empty User is working as I'd expect
- *  - Does it make sense to pass this as a prop to gaurantee existence?
- */
+
+// TODO Make sure Empty User is working as I'd expect
+// ? Does it make sense to pass this as a prop to gaurantee existence?
+
 export const EditUser: React.FC = () => {
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const [fields, setFields] = React.useState<EditUserDTO>(EMPTY_USER);
