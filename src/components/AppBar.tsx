@@ -7,11 +7,10 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import { Search } from "@material-ui/icons";
+import { useHistory } from "react-router";
 import { NavMenu } from "./NavMenu";
 import { AccountMenu } from "./AccountMenu";
-import { AppBarProps } from "../services";
-import { useHistory } from "react-router";
-import { Search } from "@material-ui/icons";
 
 const classes = {
   title: {
@@ -21,11 +20,7 @@ const classes = {
 
 const useStyles = makeStyles(classes);
 
-export const AppBar: React.FC<AppBarProps> = ({
-  currentUser,
-  onLogin,
-  onLogout,
-}) => {
+export const AppBar: React.FC = () => {
   const searchEl = React.useRef<HTMLInputElement>(null);
   const history = useHistory();
   const { title } = useStyles();
@@ -37,7 +32,7 @@ export const AppBar: React.FC<AppBarProps> = ({
     }
   };
 
-/** Header menu  */
+  /** Navigation menu in header */
   return (
     <MuiAppBar position="sticky">
       <Toolbar>
@@ -57,11 +52,7 @@ export const AppBar: React.FC<AppBarProps> = ({
           }}
           placeholder="Search..."
         />
-        <AccountMenu
-          onLogin={onLogin}
-          onLogout={onLogout}
-          currentUser={currentUser}
-        />
+        <AccountMenu />
       </Toolbar>
     </MuiAppBar>
   );

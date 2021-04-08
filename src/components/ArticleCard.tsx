@@ -1,6 +1,15 @@
 import * as React from "react";
-import { api, UserDTO } from "../services/";
-import { Button, Container, Typography } from "@material-ui/core";
+import { api, useCurrentUserContext } from "../services/";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 type Article = {
   /** Author of article */
@@ -18,20 +27,28 @@ type Article = {
 export type ArticleCardProps = {
   /** Article to display */
   article: Article;
-  /** Current authenticated user */
-  currentUser?: UserDTO;
 };
 
-/**
- * TODO:
- * [x] Refactor to Typescript
- * [ ] Type props
- */
-export const ArticleCard: React.FC<ArticleCardProps> = ({
-  article,
-  currentUser,
-}) => {
+const classes = {
+  actions: {
+    justifyContent: "center",
+  },
+  card: {
+    marginBottom: "1em",
+  },
+  media: {
+    height: 600,
+    backgroundSize: "cover",
+    objectFit: "contain" as const,
+  },
+};
+
+const useStyles = makeStyles(classes);
+
+export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
+  const { actions, card, media } = useStyles();
+  const { currentUser } = useCurrentUserContext();
 
   const { title, author, description, url, image } = article;
 
@@ -47,20 +64,36 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     }
   };
 
+  const onClick = () => {
+    window.open(url, "_blank");
+  };
+
   return (
-    <Container className="article-card">
-      {image ? <img src={image} alt={title}></img> : null}
-      <Typography variant="h2">{title}</Typography>
-      {author ? <Typography variant="h5">by: {author}</Typography> : null}
-      <p>{description}</p>
-      <a href={`${url}`}>Read article here</a>
-      <div className="user-interaction">
-        {token && currentUser ? (
-          <Button className="bookmarker" onClick={() => bookmark()}>
-            Bookmark
-          </Button>
-        ) : null}
-      </div>
-    </Container>
+    <Card className={card} elevation={0}>
+      <CardActionArea onClick={onClick}>
+        {image && (
+          <CardMedia
+            src={image}
+            component="img"
+            className={media}
+            title={title}
+          />
+        )}
+        <CardContent>
+          <Typography variant="h4" component="p" gutterBottom>
+            {title}
+          </Typography>
+          {author && (
+            <Typography variant="h5" component="p">
+              by: {author}
+            </Typography>
+          )}
+          <Typography variant="body1">{description}</Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions className={actions}>
+        {token && currentUser && <Button onClick={bookmark}>Bookmark</Button>}
+      </CardActions>
+    </Card>
   );
 };

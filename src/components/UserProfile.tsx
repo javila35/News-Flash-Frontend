@@ -5,21 +5,14 @@ import { Container, Typography, Button } from "@material-ui/core";
 import { api, UserShowResponse } from "../services/";
 import { Loader } from "./Loader";
 import { BookmarkCard } from "./BookmarkCard";
-import { UserState } from "../services";
-
-type UserProfileProps = {
-  /** Abbreviated user object */
-  currentUser: { username: string; id: number } | null;
-  /** Removes current user from state */
-  onDelete: React.Dispatch<React.SetStateAction<UserState>>;
-};
+import { useCurrentUserContext } from "../services";
 
 type UserProfileParams = {
   /** Username from URL */
   username: string;
 };
 
-/** FIXME: Return type is deeply nested with two data layers */
+/** Fix: Return type is deeply nested with two data layers */
 // data: {
 //     data: {
 //         ...
@@ -29,19 +22,13 @@ type UserProfileResponse = { data: UserShowResponse };
 
 /**
  * TODO
- * [x] Refactor to FC
- * [x] Refactor to TS
- * [x] Type props
- * [x] Refactor to React-Query
- * [x] Refactor to Material UI
  * [ ] Remove double data layer from serialized response
+ * [ ] Fix data response type
  */
 
-export const UserProfile: React.FC<UserProfileProps> = ({
-  currentUser,
-  onDelete,
-}) => {
+export const UserProfile: React.FC = () => {
   const { username } = useParams<UserProfileParams>();
+  const { currentUser, setCurrentUser } = useCurrentUserContext();
   const history = useHistory();
 
   const { data, error, isLoading } = useQuery<UserProfileResponse, Error>(
@@ -59,7 +46,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       api.users.deleteUser(id).then((data) => {
         if (data.status === "success") {
           localStorage.removeItem("token");
-          onDelete(null);
+          setCurrentUser(null);
           history.push("/");
         } else {
           console.warn("Was not able to delete");

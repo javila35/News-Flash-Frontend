@@ -1,53 +1,5 @@
-/* everything relating to main website. */
-html {
-  background-color: #faf6f6;
-  font-family: Georgia, serif;
-}
-
-/* everything relating to article pages below */
-.article {
-  margin-top: 5%;
-}
-
-/* Make them have image thumbnail on left, text on right */
-.article-card {
-  margin: 2em 1em 2em 3em;
-  border: 1px solid black;
-  background-color: #ecc8b9;
-}
-
-.article-card img {
-  max-width: 500px;
-}
-
-.article-card h,
-.article-card h5 {
-  padding: 0px;
-  margin: 0px;
-}
-
-.article-card p {
-  margin: 0px;
-  padding-left: 30%;
-  padding-right: 30%;
-}
-
 .user-interaction {
   margin: 1em;
-}
-
-.article-card a,
-.article-card a:visited {
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-  transition: 0.5s;
-  margin: 0px;
-}
-
-.article-card a:hover {
-  color: black;
-  transition: 0.5s;
 }
 
 /* styling for user page */
@@ -89,33 +41,6 @@ a.bookmark_link {
 #edit-user-form input {
   margin: 0.2em;
   border-radius: 4px;
-}
-
-#sign-up-form {
-  padding-left: 5em;
-}
-
-#sign-up-form input,
-.login-form input {
-  border-radius: 4px;
-  padding: 0.2em;
-}
-
-#sign-up-form input[type="submit" i] {
-  font-size: large;
-  justify-content: right;
-  margin-top: 0.2em;
-}
-
-#sign-up-form p,
-h3 {
-  margin: 1%;
-}
-
-#sign-up-form label {
-  font-size: larger;
-  margin: 0.5em;
-  padding: 0.2em;
 }
 
 .post-thumb img {
@@ -173,11 +98,6 @@ a.bookmark-link {
   max-height: 150px;
   height: auto;
   width: auto;
-}
-
-.bookmarker {
-  height: 30px;
-  border-radius: 10%;
 }
 
 .div-box {

@@ -22,7 +22,8 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({
   /** Fetch articles from GNews. */
   const { isLoading, error, data } = useQuery<TopArticlesResponseType, Error>(
     [reactQueryKey, category],
-    () => news_api.getArticles(category)
+    () => news_api.getArticles(category),
+    { staleTime: Infinity, cacheTime: Infinity }
   );
 
   if (isLoading) return <Loader />;

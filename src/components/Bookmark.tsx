@@ -3,7 +3,12 @@ import Loader from "react-loading";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { Container, Typography } from "@material-ui/core";
-import { api, BookmarkDTO, UserDTO } from "../services/";
+import {
+  api,
+  useCurrentUserContext,
+  BookmarkDTO,
+  // UserDTO
+} from "../services/";
 import { CommentForm } from "../components/";
 
 type BookmarkParams = {
@@ -19,11 +24,7 @@ type BookmarkQueryResponse = {
   };
 };
 
-type BookmarkState = BookmarkDTO | null;
-
-type BookmarkProps = {
-  currentUser: UserDTO;
-};
+// type BookmarkState = BookmarkDTO | null;
 
 /**
  * TODO
@@ -36,9 +37,10 @@ type BookmarkProps = {
  * [ ] Type commentsDTO
  * [ ] Ensure functionality
  */
-export const Bookmark: React.FC<BookmarkProps> = ({ currentUser }) => {
+export const Bookmark: React.FC = () => {
   const { id } = useParams<BookmarkParams>();
   const token = localStorage.getItem("token");
+  const { currentUser } = useCurrentUserContext();
   const { isLoading, error, data } = useQuery<BookmarkQueryResponse, Error>(
     ["GetBookmark", id],
     () => api.bookmarks.getBookmark((id as unknown) as number)
@@ -81,10 +83,10 @@ export const Bookmark: React.FC<BookmarkProps> = ({ currentUser }) => {
         <Container className="post-comments">
           <Typography variant="h3">Comments</Typography>
           {renderComments()}
-          {token ? (
+          {token && currentUser ? (
             <CommentForm
+              /** TODO: Fix this type coercion (?) */
               bookmarkId={(id as unknown) as number}
-              currentUserId={currentUser.id}
             />
           ) : (
             <p>Log in to comment.</p>

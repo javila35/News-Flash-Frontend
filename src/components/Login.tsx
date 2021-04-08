@@ -80,7 +80,7 @@ export const Login: React.FC<LoginProps> = ({ onAuth }) => {
       <MenuItem tabIndex={2}>
         <FormControl error={isError}>
           <InputLabel htmlFor="password">Password</InputLabel>
-          <Input name="password" onChange={handleChange} />
+          <Input name="password" type="password" onChange={handleChange} />
           {error?.message === "Incorrect password." && (
             <FormHelperText>{error.message}</FormHelperText>
           )}

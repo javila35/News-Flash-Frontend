@@ -1,17 +1,15 @@
 import * as React from "react";
 import { Typography } from "@material-ui/core";
 import { ArticleTicker } from "./ArticleTicker";
-import { UserState } from "../services";
-
-type WelcomePageProps = {
-  currentUser: UserState;
-};
+import { useCurrentUserContext } from "../services";
 
 /**
  * TODO
  * [ ] Refactor to MUI
  */
-export const WelcomePage: React.FC<WelcomePageProps> = ({ currentUser }) => {
+export const WelcomePage: React.FC = () => {
+  const { currentUser } = useCurrentUserContext();
+
   return (
     <>
       <Typography variant="h3">

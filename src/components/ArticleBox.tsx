@@ -1,19 +1,11 @@
 import * as React from "react";
 import { Button, Container } from "@material-ui/core";
-import { api } from "../services/";
+import { api, useCurrentUserContext } from "../services/";
 import { ArticleCardProps } from "./ArticleCard";
 
-/**
- * TODO
- * [x] Refactor to FC
- * [x] Refactor to TS
- * [x] Type state and props
- */
-export const ArticleBox: React.FC<ArticleCardProps> = ({
-  article,
-  currentUser,
-}) => {
+export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
+  const { currentUser } = useCurrentUserContext();
 
   const bookmarker = () => {
     return (
