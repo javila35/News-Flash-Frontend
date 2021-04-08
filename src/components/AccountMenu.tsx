@@ -3,15 +3,12 @@ import { useHistory } from "react-router";
 import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import { Login } from "./Login";
-import { AppBarProps } from "../services";
+import { useUserContext } from "../services";
 
 /** Account menu to display in AppBar */
-export const AccountMenu: React.FC<AppBarProps> = ({
-  currentUser,
-  onLogin,
-  onLogout,
-}) => {
+export const AccountMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { currentUser, setCurrentUser, removeCurrentUser } = useUserContext()!;
   const token = localStorage.getItem("token");
   const history = useHistory();
 
@@ -39,7 +36,7 @@ export const AccountMenu: React.FC<AppBarProps> = ({
         <Button onClick={handleProfileClick}>My Profile</Button>
       </MenuItem>,
       <MenuItem>
-        <Button onClick={onLogout}>Log Out</Button>
+        <Button onClick={removeCurrentUser}>Log Out</Button>
       </MenuItem>,
     ];
   };
@@ -48,7 +45,7 @@ export const AccountMenu: React.FC<AppBarProps> = ({
   const renderLoginMenu = () => {
     /** Material UI Menu component prefers an array, instead of a react fragment */
     return [
-      <Login onAuth={onLogin} />,
+      <Login onAuth={setCurrentUser} />,
       <MenuItem>
         <Button onClick={handleSignUpClick}>Sign Up</Button>
       </MenuItem>,

@@ -1,11 +1,11 @@
 # General
 
-Currently working on the Article components
+Currently working on the User Store
 
 - [x] Refactor all components to Typescript
 - [ ] Refactor custom component styles to Material UI
   - [ ] Create a palette and theme
-- [ ] Refactor to use context for currentUser instead of prop drilling OR look at architecture and refactor structure
+- [ ] Refactor all instances of currentUser to come from context instead of prop drilling
 
 ## Errors
 
