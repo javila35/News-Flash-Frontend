@@ -1,27 +1,17 @@
 import * as React from "react";
 import { useQuery } from "react-query";
 import { Container } from "@material-ui/core";
-import {
-  Article,
-  news_api,
-  TopArticlesResponseType,
-  UserState,
-} from "../services/";
+import { Article, news_api, TopArticlesResponseType } from "../services/";
 import { ArticleCard } from "./ArticleCard";
 import { Loader } from "./Loader";
 
 type ArticleBrowserProps = {
   /** Category to display in the browser */
   category: string;
-  /** Currently logged in user */
-  currentUser?: UserState;
 };
 
 /** Page to display query result */
-export const ArticleBrowser: React.FC<ArticleBrowserProps> = ({
-  category,
-  currentUser,
-}) => {
+export const ArticleBrowser: React.FC<ArticleBrowserProps> = ({ category }) => {
   /** Render query key based on category prop. */
   const reactQueryKey = `${category}ArticleBrowser`;
 
@@ -35,13 +25,7 @@ export const ArticleBrowser: React.FC<ArticleBrowserProps> = ({
   const renderArticles = () => {
     if (data?.articles) {
       return data.articles.map((article: Article, index: number) => {
-        return (
-          <ArticleCard
-            key={index}
-            article={article}
-            currentUser={currentUser}
-          />
-        );
+        return <ArticleCard key={index} article={article} />;
       });
     }
   };

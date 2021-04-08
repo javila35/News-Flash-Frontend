@@ -3,17 +3,22 @@ import { useHistory } from "react-router";
 import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import { Login } from "./Login";
-import { useUserContext } from "../services";
+import { useCurrentUserContext } from "../services";
 
 /** Account menu to display in AppBar */
 export const AccountMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { currentUser, setCurrentUser, removeCurrentUser } = useUserContext()!;
+  const { currentUser, setCurrentUser } = useCurrentUserContext();
   const token = localStorage.getItem("token");
   const history = useHistory();
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("token");
   };
 
   const handleMenuClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,7 +41,7 @@ export const AccountMenu: React.FC = () => {
         <Button onClick={handleProfileClick}>My Profile</Button>
       </MenuItem>,
       <MenuItem>
-        <Button onClick={removeCurrentUser}>Log Out</Button>
+        <Button onClick={handleLogout}>Log Out</Button>
       </MenuItem>,
     ];
   };

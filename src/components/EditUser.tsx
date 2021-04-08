@@ -1,31 +1,28 @@
 import * as React from "react";
 import { useHistory } from "react-router";
 import { Button, Container, TextField } from "@material-ui/core";
-import { api, EditUserDTO, UpdateUserResponse, UserDTO } from "../services";
-import { UserState } from "../services";
+import { api, EditUserDTO, UpdateUserResponse } from "../services";
+import { useCurrentUserContext } from "../services";
 
-type EditUserProps = {
-  /** Current user stored in state */
-  currentUser: UserDTO;
-  /** Method to set updated user in state */
-  updateCurrentUser: React.Dispatch<React.SetStateAction<UserState>>;
+/** Initializing state with the skeleton of a user object */
+const EMPTY_USER = {
+  id: 0,
+  first_name: "",
+  location: "",
+  bio: "",
+  username: "",
 };
 /**
  * TODO
- * [x] Refactor to FC
- * [x] Refactor to TS
- * [x] Type state and props
- * [x] Refactor to MUI
- * [x] Solve async issue
+ * [ ] Make sure Empty User is working as I'd expect
+ *  - Does it make sense to pass this as a prop to gaurantee existence?
  */
-export const EditUser: React.FC<EditUserProps> = ({
-  currentUser,
-  updateCurrentUser,
-}) => {
-  const [fields, setFields] = React.useState<EditUserDTO>(currentUser);
+export const EditUser: React.FC = () => {
+  const { currentUser, setCurrentUser } = useCurrentUserContext();
+  const [fields, setFields] = React.useState<EditUserDTO>(EMPTY_USER);
   const history = useHistory();
 
-  /** Bail if user prop isn't passed. */
+  /** Bail if user is not in context. */
   if (!currentUser) {
     console.error("Unable to retrieve user from state");
     history.push("/");
@@ -41,7 +38,7 @@ export const EditUser: React.FC<EditUserProps> = ({
     e.preventDefault();
     api.users.editUser(fields).then((data: UpdateUserResponse) => {
       if (data.status === 200) {
-        updateCurrentUser(data.user);
+        setCurrentUser(data.user);
         history.push(`/users/${data.user.username}`);
         return;
       }

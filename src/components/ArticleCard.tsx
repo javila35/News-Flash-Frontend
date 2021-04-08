@@ -1,5 +1,5 @@
 import * as React from "react";
-import { api, UserState } from "../services/";
+import { api, useCurrentUserContext } from "../services/";
 import {
   Button,
   Card,
@@ -27,8 +27,6 @@ type Article = {
 export type ArticleCardProps = {
   /** Article to display */
   article: Article;
-  /** Current authenticated user */
-  currentUser?: UserState;
 };
 
 const classes = {
@@ -47,12 +45,10 @@ const classes = {
 
 const useStyles = makeStyles(classes);
 
-export const ArticleCard: React.FC<ArticleCardProps> = ({
-  article,
-  currentUser,
-}) => {
+export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
   const { actions, card, media } = useStyles();
+  const { currentUser } = useCurrentUserContext();
 
   const { title, author, description, url, image } = article;
 
