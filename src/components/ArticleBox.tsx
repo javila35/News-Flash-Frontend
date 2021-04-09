@@ -26,7 +26,6 @@ export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
   };
 
   const { image, source, title, url } = article;
-  console.log("article", article);
   return (
     <GridListTile key={title} onClick={handleClick}>
       {image && (
