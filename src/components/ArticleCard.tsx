@@ -10,19 +10,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-
-type Article = {
-  /** Author of article */
-  author?: string;
-  /** First portion of article */
-  description: string;
-  /** Link to article screenshot */
-  image: string;
-  /** Title of article */
-  title: string;
-  /** Link to article */
-  url: string;
-};
+import { Article } from "../services";
 
 export type ArticleCardProps = {
   /** Article to display */
@@ -50,7 +38,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const { actions, card, media } = useStyles();
   const { currentUser } = useCurrentUserContext();
 
-  const { title, author, description, url, image } = article;
+  const { title, source, description, url, image } = article;
 
   const bookmark = () => {
     if (currentUser) {
@@ -83,9 +71,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
           <Typography variant="h4" component="p" gutterBottom>
             {title}
           </Typography>
-          {author && (
+          {source?.name && (
             <Typography variant="h5" component="p">
-              by: {author}
+              by: {source.name}
             </Typography>
           )}
           <Typography variant="body1">{description}</Typography>

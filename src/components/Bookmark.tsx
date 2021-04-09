@@ -26,17 +26,12 @@ type BookmarkQueryResponse = {
 
 // type BookmarkState = BookmarkDTO | null;
 
-/**
- * TODO
- * [x] Refactor to FC
- * [x] Refactor to TS
- * [ ] Refactor to MUI
- * [x] Type state and props
- * [ ] Type query response
- * [ ] Type payload
- * [ ] Type commentsDTO
- * [ ] Ensure functionality
- */
+// TODO: Refactor to MUI
+// TODO: Type query response
+// TODO: Type payload
+// TODO: Type commentsDTO
+// TODO: Ensure functionality
+
 export const Bookmark: React.FC = () => {
   const { id } = useParams<BookmarkParams>();
   const token = localStorage.getItem("token");
@@ -62,7 +57,7 @@ export const Bookmark: React.FC = () => {
   const renderComments = () => {
     if (data?.data?.attributes?.comments) {
       return data.data.attributes.comments.map((comment, index) => {
-        /** TODO: Figure out how to fetch username of user who created comment */
+        // TODO: Figure out how to fetch username of user who created comment
         console.log(comment);
         return (
           <Container key={index}>

@@ -3,6 +3,47 @@ import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
+type MenuOption = {
+  /** URL for Link */
+  link: string;
+  /** Text to display in Link */
+  name: string;
+};
+
+type MenuOptions = MenuOption[];
+
+// TODO Allow user to pick thier own menu options
+const menuItems: MenuOptions = [
+  {
+    link: "/",
+    name: "Home",
+  },
+  {
+    link: "/top",
+    name: "Top Articles",
+  },
+  {
+    link: "/tech",
+    name: "Technology",
+  },
+  {
+    link: "/health",
+    name: "Health",
+  },
+  {
+    link: "/business",
+    name: "Business",
+  },
+  {
+    link: "/sports",
+    name: "Sports",
+  },
+  {
+    link: "/users",
+    name: "All Users",
+  },
+];
+
 export const NavMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -16,43 +57,16 @@ export const NavMenu: React.FC = () => {
 
   const renderNavMenu = () => {
     /** Material UI Menu component prefers an array, instead of a react fragment */
-    return [
-      <MenuItem key="root">
-        <Link to="/">
-          <Button>Home</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="top-articles">
-        <Link to="/top">
-          <Button>Top US Articles</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="tech-articles">
-        <Link to="/tech">
-          <Button>Technology</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="health-articles">
-        <Link to="/health">
-          <Button>Health</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="business-articles">
-        <Link to="/business">
-          <Button>Business</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="sports-articles">
-        <Link to="/sports">
-          <Button>Sports</Button>
-        </Link>
-      </MenuItem>,
-      <MenuItem key="all-users">
-        <Link to="/users/">
-          <Button>All Users</Button>
-        </Link>
-      </MenuItem>,
-    ];
+    return menuItems.map((option: MenuOption, index) => {
+      const { link, name } = option;
+      return (
+        <MenuItem key={index} onClick={handleClose}>
+          <Link to={link}>
+            <Button>{name}</Button>
+          </Link>
+        </MenuItem>
+      );
+    });
   };
 
   return (

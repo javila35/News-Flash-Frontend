@@ -1,34 +1,42 @@
 import * as React from "react";
-import { Typography } from "@material-ui/core";
+import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { ArticleTicker } from "./ArticleTicker";
 import { useCurrentUserContext } from "../services";
 
-/**
- * TODO
- * [ ] Refactor to MUI
- */
+const classes = {
+  outerGrid: {
+    justifyContent: "center",
+  },
+};
+
+const useStyles = makeStyles(classes);
+
+// TODO Refactor to MUI
 export const WelcomePage: React.FC = () => {
   const { currentUser } = useCurrentUserContext();
+  const { outerGrid } = useStyles();
 
   return (
-    <>
-      <Typography variant="h3">
-        Welcome{currentUser ? ` ${currentUser.first_name}` : null}!
-      </Typography>
-      <div id="ticker-div">
-        <div className="ticker-box">
-          <h3 className="ticker-title">Recent Headlines</h3>
-          <ArticleTicker category="top articles" />
-        </div>
-        <div className="ticker-box">
-          <h3 className="ticker-title">Health</h3>
-          <ArticleTicker category="health" />
-        </div>
-        <div className="ticker-box">
-          <h3 className="ticker-title">Technology</h3>
-          <ArticleTicker category="technology" />
-        </div>
-      </div>
-    </>
+    <Grid
+      container
+      alignContent="space-between"
+      alignItems="stretch"
+      className={outerGrid}
+    >
+      <Grid item lg={12}>
+        <Typography variant="h3" style={{ textAlign: "center" }}>
+          Welcome{currentUser ? ` ${currentUser.first_name}` : null}!
+        </Typography>
+      </Grid>
+      <Grid container xs={3}>
+        <ArticleTicker category="top articles" />
+      </Grid>
+      <Grid container xs={3}>
+        <ArticleTicker category="health" />
+      </Grid>
+      <Grid container xs={3}>
+        <ArticleTicker category="technology" />
+      </Grid>
+    </Grid>
   );
 };

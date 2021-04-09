@@ -7,7 +7,7 @@ type CommentProps = {
   comment: string;
 };
 
-/** TODO: Convert this to a Material UI component */
+//  TODO: Convert this to a Material UI component
 export const Comment: React.FC<CommentProps> = ({ userID, comment }) => {
   return <div className="comment-card">{`${userID}: ${comment}`}</div>;
 };

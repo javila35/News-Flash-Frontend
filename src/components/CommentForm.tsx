@@ -7,12 +7,11 @@ type CommentFormProps = {
   bookmarkId: number;
 };
 
-/** TODO
- * [ ] Refactor to React-Query?
- * [ ] Refactor to Material UI
- * [ ] Handle edge case where user is not present
- *  - Currently returning a loader
- */
+// TODO: Refactor to React-Query?
+// TODO: Refactor to Material UI
+// TODO: Handle edge case where user is not present
+//  ! Currently returning a loader
+
 export const CommentForm: React.FC<CommentFormProps> = ({ bookmarkId }) => {
   const [comment, setComment] = React.useState<string>("");
   const { currentUser } = useCurrentUserContext();
