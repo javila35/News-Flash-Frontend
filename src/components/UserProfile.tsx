@@ -1,17 +1,29 @@
 import * as React from "react";
 import { useHistory, useParams } from "react-router";
 import { useQuery } from "react-query";
-import { Container, Typography, Button } from "@material-ui/core";
+import { Button, Container, Typography, makeStyles } from "@material-ui/core";
 import { api, UserShowResponse } from "../services/";
 import { Loader } from "./Loader";
 import { BookmarkCard } from "./BookmarkCard";
 import { useCurrentUserContext } from "../services";
+
+const classes = {
+  bookmarkContainer: {
+    marginTop: "1em",
+  },
+  mainContainer: {
+    marginTop: "1em",
+  },
+};
+
+const useStyles = makeStyles(classes);
 
 type UserProfileParams = {
   /** Username from URL */
   username: string;
 };
 
+// TODO Remove double data layer from serialized response
 //  ! Fix: Return type is deeply nested with two data layers */
 // data: {
 //     data: {
@@ -20,12 +32,10 @@ type UserProfileParams = {
 // }
 type UserProfileResponse = { data: UserShowResponse };
 
-// TODO Remove double data layer from serialized response
-// TODO Fix data response type
-
 export const UserProfile: React.FC = () => {
   const { username } = useParams<UserProfileParams>();
   const { currentUser, setCurrentUser } = useCurrentUserContext();
+  const { bookmarkContainer, mainContainer } = useStyles();
   const history = useHistory();
 
   const { data, error, isLoading } = useQuery<UserProfileResponse, Error>(
@@ -37,6 +47,7 @@ export const UserProfile: React.FC = () => {
     history.push("/edit-user");
   };
 
+  // TODO Add a toast, or extra button to user wants to delete
   const deleteUser = () => {
     if (currentUser) {
       const { id } = currentUser;
@@ -46,6 +57,7 @@ export const UserProfile: React.FC = () => {
           setCurrentUser(null);
           history.push("/");
         } else {
+          // TODO: Turn this into toast
           console.warn("Was not able to delete");
         }
       });
@@ -86,7 +98,7 @@ export const UserProfile: React.FC = () => {
     if (data) {
       const { first_name, username, location, bio } = data.data.attributes;
       return (
-        <Container>
+        <Container className={mainContainer}>
           <Typography variant="h5">
             Name: {first_name ? <>{first_name}</> : ""}
           </Typography>
@@ -98,7 +110,7 @@ export const UserProfile: React.FC = () => {
             About me:{" "}
             {bio ? <>{bio}</> : "Enter some information about yourself!"}
           </Typography>
-          {currentUser?.username === username ? renderUserOptions() : null}
+          {currentUser?.username === username && renderUserOptions()}
         </Container>
       );
     }
@@ -107,10 +119,12 @@ export const UserProfile: React.FC = () => {
   if (error) return <>Could not fetch user + {error.message}</>;
   if (isLoading) return <Loader />;
   return (
-    <Container>
+    <Container className={mainContainer}>
       {renderUserDetail()}
-      <Typography variant="h2">Bookmarks</Typography>
-      <Container>{renderBookmarks()!}</Container>
+      <Container className={bookmarkContainer}>
+        <Typography variant="h2">Bookmarks</Typography>
+        {renderBookmarks()}
+      </Container>
     </Container>
   );
 };
