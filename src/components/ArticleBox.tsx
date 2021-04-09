@@ -1,19 +1,13 @@
 import * as React from "react";
-import { Button, Container } from "@material-ui/core";
+import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
+import { Info } from "@material-ui/icons";
 import { api, useCurrentUserContext } from "../services/";
 import { ArticleCardProps } from "./ArticleCard";
 
+// TODO: Change the name of this component to something more descriptive after refactor
 export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
   const { currentUser } = useCurrentUserContext();
-
-  const bookmarker = () => {
-    return (
-      <Button className="bookmarker" onClick={() => postBookmark()}>
-        Bookmark
-      </Button>
-    );
-  };
 
   const postBookmark = () => {
     if (currentUser) {
@@ -27,18 +21,33 @@ export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
     }
   };
 
+  const handleClick = () => {
+    window.open(url, "_blank");
+  };
+
+  const { image, source, title, url } = article;
+  console.log("article", article);
   return (
-    <Container>
-      {article.image ? (
+    <GridListTile key={title} onClick={handleClick}>
+      {image && (
         <img
-          className="thumbnail"
-          src={article.image}
-          alt={article.title}
-        ></img>
-      ) : null}
-      <a href={article.url}>{article.title}</a>
-      <br />
-      {token ? bookmarker() : null}
-    </Container>
+          src={image}
+          alt={title}
+          style={{ height: "auto", maxWidth: "100%" }}
+        />
+      )}
+      <GridListTileBar
+        title={title}
+        subtitle={`By: ${source.name}`}
+        actionIcon={
+          token &&
+          currentUser && (
+            <IconButton onClick={postBookmark}>
+              <Info />
+            </IconButton>
+          )
+        }
+      />
+    </GridListTile>
   );
 };
