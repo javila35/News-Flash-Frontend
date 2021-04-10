@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { ArticleBrowser } from "./ArticleBrowser";
+import { ArticleBrowser } from "../views/ArticleBrowser";
 
 type SearchParams = {
   /** User input to search for */

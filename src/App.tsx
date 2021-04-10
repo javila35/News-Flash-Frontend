@@ -6,8 +6,8 @@ import {
   GetCurrentUserResponse,
   useCurrentUserContext,
 } from "./services/";
+import { Layout } from "./components";
 import {
-  AppBar,
   ArticleBrowser,
   Bookmark,
   EditUser,
@@ -16,7 +16,7 @@ import {
   UserBrowser,
   UserProfile,
   WelcomePage,
-} from "./components";
+} from "./views";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -42,8 +42,7 @@ export const App: React.FC = () => {
     <>
       <Router>
         <QueryClientProvider client={queryClient}>
-          <div>
-            <AppBar />
+          <Layout>
             <Switch>
               <Route exact path="/" component={WelcomePage} />
               <Route
@@ -78,7 +77,7 @@ export const App: React.FC = () => {
               <Route exact path="/users" component={UserBrowser} />
               <Route exact path="/edit-user" component={EditUser} />
             </Switch>
-          </div>
+          </Layout>
         </QueryClientProvider>
       </Router>
     </>

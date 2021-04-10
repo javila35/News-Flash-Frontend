@@ -2,10 +2,8 @@ import * as React from "react";
 import { useHistory, useParams } from "react-router";
 import { useQuery } from "react-query";
 import { Button, Container, Typography, makeStyles } from "@material-ui/core";
-import { api, UserShowResponse } from "../services/";
-import { Loader } from "./Loader";
-import { BookmarkCard } from "./BookmarkCard";
-import { useCurrentUserContext } from "../services";
+import { api, useCurrentUserContext, UserShowResponse } from "../services/";
+import { BookmarkCard, Loader } from "../components";
 
 const classes = {
   bookmarkContainer: {

@@ -8,8 +8,8 @@ import {
   useCurrentUserContext,
   BookmarkDTO,
   // UserDTO
-} from "../services/";
-import { CommentForm } from "../components/";
+} from "../services";
+import { CommentForm } from "../components";
 
 type BookmarkParams = {
   id: string;

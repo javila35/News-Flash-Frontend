@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useQuery } from "react-query";
 import { Container } from "@material-ui/core";
-import { Article, news_api, TopArticlesResponseType } from "../services/";
-import { ArticleCard } from "./ArticleCard";
-import { Loader } from "./Loader";
+import { Article, news_api, TopArticlesResponseType } from "../services";
+import { ArticleCard } from "../components/ArticleCard";
+import { Loader } from "../components/Loader";
 
 type ArticleBrowserProps = {
   /** Category to display in the browser */

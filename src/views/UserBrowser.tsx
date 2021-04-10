@@ -2,8 +2,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { List, ListItem } from "@material-ui/core";
-import { UserIndexResponse, api } from "../services/";
-import { Loader } from "./Loader";
+import { UserIndexResponse, api } from "../services";
+import { Loader } from "../components/Loader";
 
 export const UserBrowser: React.FC = () => {
   const { isLoading, error, data } = useQuery<UserIndexResponse, Error>(
