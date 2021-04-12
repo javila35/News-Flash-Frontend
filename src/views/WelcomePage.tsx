@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
-import { ArticleTicker } from "../components/ArticleTicker";
+import { ArticleTicker } from "../components";
 import { useCurrentUserContext } from "../services";
 
 const classes = {
