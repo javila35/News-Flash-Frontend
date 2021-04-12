@@ -35,5 +35,9 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category }) => {
   };
 
   // TODO Turn the welcome page to a grid, and article ticker to a column from MUI.
-  return <GridList cellHeight={300}>{renderBoxes()}</GridList>;
+  return (
+    <GridList cellHeight={300} cols={1}>
+      {renderBoxes()}
+    </GridList>
+  );
 };
