@@ -20,19 +20,21 @@ const classes = {
 
 const useStyles = makeStyles(classes);
 
-// TODO: Change the name of this component to something more descriptive after refactor
-export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
+/** Grid box for front page display */
+export const GridBox: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
   const { currentUser } = useCurrentUserContext();
   const { icon, tile } = useStyles();
 
-  const postBookmark = () => {
+  // TODO: Create a toast to confirm bookmark
+  const postBookmark = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
     if (currentUser) {
       const send = {
-        user_id: currentUser.id,
-        article_title: article.title,
-        article_link: article.url,
-        img_url: article.image,
+        userId: currentUser.id,
+        articleTitle: article.title,
+        articleLink: article.url,
+        imgUrl: article.image,
       };
       api.bookmarks.postBookmark(send);
     }

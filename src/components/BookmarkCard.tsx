@@ -9,9 +9,6 @@ type BookmarkCardProps = {
   handleClick: (id: number) => void;
 };
 
-// TODO: Refactor to TS
-// TODO: Refactor to MUI
-// TODO: Type props
 export const BookmarkCard: React.FC<BookmarkCardProps> = ({
   bookmark,
   handleClick,

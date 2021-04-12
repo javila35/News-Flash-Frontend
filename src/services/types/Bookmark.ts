@@ -1,11 +1,11 @@
 /** Create a new bookmark */
 export type CreateBookmarkDTO = {
   /** User ID to associate the bookmark to */
-  user_id: number;
+  userId: number;
   /** Title for the bookmark */
-  article_title: string;
+  articleTitle: string;
   /** Link to the published article */
-  article_link: string;
+  articleLink: string;
 };
 
 /** Create a new comment  */

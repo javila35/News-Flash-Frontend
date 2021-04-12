@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
-import { ArticleTicker } from "../components";
+import { GridColumn } from "../components";
 import { useCurrentUserContext } from "../services";
 
 const classes = {
@@ -34,13 +34,13 @@ export const WelcomePage: React.FC = () => {
         </Typography>
       </Grid>
       <Grid item lg={4} className={innerGrid}>
-        <ArticleTicker category="top articles" />
+        <GridColumn category="top articles" />
       </Grid>
       <Grid item lg={4} className={innerGrid}>
-        <ArticleTicker category="health" />
+        <GridColumn category="health" />
       </Grid>
       <Grid item lg={4}>
-        <ArticleTicker category="technology" />
+        <GridColumn category="technology" />
       </Grid>
     </Grid>
   );

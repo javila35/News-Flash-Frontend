@@ -40,13 +40,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
 
   const { title, source, description, url, image } = article;
 
+    // TODO: Create a toast to confirm bookmark
   const bookmark = () => {
     if (currentUser) {
       const send = {
-        user_id: currentUser.id,
-        article_title: title,
-        article_link: url,
-        img_url: image,
+        userId: currentUser.id,
+        articleTitle: title,
+        articleLink: url,
+        imgUrl: image,
       };
       api.bookmarks.postBookmark(send);
     }

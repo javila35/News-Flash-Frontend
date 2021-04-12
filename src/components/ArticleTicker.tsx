@@ -3,15 +3,15 @@ import { useQuery } from "react-query";
 import { GridList } from "@material-ui/core";
 import { news_api, TopArticlesResponseType } from "../services/";
 import { Loader } from "./Loader";
-import { ArticleBox } from "./ArticleBox";
+import { GridBox } from "./ArticleBox";
 
 type ArticleTickerProps = {
   /** Category to display in the ticker. */
   category: string;
 };
 
-// TODO: Rename this component to something more descriptive after refactor
-export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category }) => {
+/** Column to display GridBox on index page */
+export const GridColumn: React.FC<ArticleTickerProps> = ({ category }) => {
   /** Render query key based on category prop. */
   const reactQueryKey = category ? `${category}Articles` : "topArticles";
 
@@ -29,12 +29,11 @@ export const ArticleTicker: React.FC<ArticleTickerProps> = ({ category }) => {
   const renderBoxes = () => {
     if (data?.articles) {
       return data.articles.map((article, index) => {
-        return <ArticleBox key={index} article={article} />;
+        return <GridBox key={index} article={article} />;
       });
     }
   };
 
-  // TODO Turn the welcome page to a grid, and article ticker to a column from MUI.
   return (
     <GridList cellHeight={300} cols={1}>
       {renderBoxes()}
