@@ -9,8 +9,7 @@ import {
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import { useHistory } from "react-router";
-import { NavMenu } from "./NavMenu";
-import { AccountMenu } from "./AccountMenu";
+import { AccountMenu, NavMenu } from "../components";
 
 const classes = {
   title: {

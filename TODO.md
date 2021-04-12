@@ -1,12 +1,11 @@
 # General
 
-- [ ] Create a layout component
+- [x] Create a layout component
   - [ ] A layout is made up of:
-    - [ ] AppBar as Header
-    - [ ] Container as Main
-      - [ ] All components should exist in main as children
+    - [x] AppBar as Header
+    - [x] Container as Main
+      - [x] All components should exist in main as children
       - This eliminates container surrounding every component being rendered
-    - [ ] Smaller Appbar as footer
 - [x] Refactor all components to Typescript
 - [ ] Refactor custom component styles to Material UI
   - [ ] Create a palette and theme

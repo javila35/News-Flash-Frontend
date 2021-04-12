@@ -1,13 +1,30 @@
 import * as React from "react";
-import { GridListTile, GridListTileBar, IconButton } from "@material-ui/core";
-import { Info } from "@material-ui/icons";
+import {
+  GridListTile,
+  GridListTileBar,
+  IconButton,
+  makeStyles,
+} from "@material-ui/core";
+import { BookmarksOutlined } from "@material-ui/icons";
 import { api, useCurrentUserContext } from "../services/";
 import { ArticleCardProps } from "./ArticleCard";
+
+const classes = {
+  tile: {
+    width: "100%",
+  },
+  icon: {
+    color: "white",
+  },
+};
+
+const useStyles = makeStyles(classes);
 
 // TODO: Change the name of this component to something more descriptive after refactor
 export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
   const token = localStorage.getItem("token");
   const { currentUser } = useCurrentUserContext();
+  const { icon, tile } = useStyles();
 
   const postBookmark = () => {
     if (currentUser) {
@@ -27,7 +44,7 @@ export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
 
   const { image, source, title, url } = article;
   return (
-    <GridListTile key={title} onClick={handleClick}>
+    <GridListTile key={title} onClick={handleClick} className={tile}>
       {image && (
         <img
           src={image}
@@ -42,7 +59,7 @@ export const ArticleBox: React.FC<ArticleCardProps> = ({ article }) => {
           token &&
           currentUser && (
             <IconButton onClick={postBookmark}>
-              <Info />
+              <BookmarksOutlined className={icon} />
             </IconButton>
           )
         }
