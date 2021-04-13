@@ -37,3 +37,5 @@ export type BookmarkDTO = {
   /** Array of comments to display */
   comments?: CommentDTO[];
 };
+
+// TODO export create bookmark callback from this file

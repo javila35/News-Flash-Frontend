@@ -4,6 +4,7 @@ import {
   GridListTileBar,
   IconButton,
   makeStyles,
+  Snackbar,
 } from "@material-ui/core";
 import { BookmarksOutlined } from "@material-ui/icons";
 import { api, useCurrentUserContext } from "../services/";
@@ -22,11 +23,11 @@ const useStyles = makeStyles(classes);
 
 /** Grid box for front page display */
 export const GridBox: React.FC<ArticleCardProps> = ({ article }) => {
+  const [isToastOpen, setToastOpen] = React.useState<boolean>(false);
   const token = localStorage.getItem("token");
   const { currentUser } = useCurrentUserContext();
   const { icon, tile } = useStyles();
 
-  // TODO: Create a toast to confirm bookmark
   const postBookmark = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (currentUser) {
@@ -37,8 +38,11 @@ export const GridBox: React.FC<ArticleCardProps> = ({ article }) => {
         imgUrl: article.image,
       };
       api.bookmarks.postBookmark(send);
+      setToastOpen(true);
     }
   };
+
+  const handleCloseToast = () => setToastOpen(false);
 
   const handleClick = () => {
     window.open(url, "_blank");
@@ -46,26 +50,35 @@ export const GridBox: React.FC<ArticleCardProps> = ({ article }) => {
 
   const { image, source, title, url } = article;
   return (
-    <GridListTile key={title} onClick={handleClick} className={tile}>
-      {image && (
-        <img
-          src={image}
-          alt={title}
-          style={{ height: "auto", maxWidth: "100%" }}
-        />
-      )}
-      <GridListTileBar
-        title={title}
-        subtitle={`By: ${source.name}`}
-        actionIcon={
-          token &&
-          currentUser && (
-            <IconButton onClick={postBookmark}>
-              <BookmarksOutlined className={icon} />
-            </IconButton>
-          )
-        }
+    <>
+      <Snackbar
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        message="Bookmark created"
+        open={isToastOpen}
+        onClose={handleCloseToast}
       />
-    </GridListTile>
+      <GridListTile key={title} onClick={handleClick} className={tile}>
+        {image && (
+          <img
+            src={image}
+            alt={title}
+            style={{ height: "auto", maxWidth: "100%" }}
+          />
+        )}
+        <GridListTileBar
+          title={title}
+          subtitle={`By: ${source.name}`}
+          actionIcon={
+            token &&
+            currentUser && (
+              <IconButton onClick={postBookmark}>
+                <BookmarksOutlined className={icon} />
+              </IconButton>
+            )
+          }
+        />
+      </GridListTile>
+    </>
   );
 };
