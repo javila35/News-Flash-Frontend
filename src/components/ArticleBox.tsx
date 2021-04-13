@@ -7,7 +7,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 import { BookmarksOutlined } from "@material-ui/icons";
-import { api, useCurrentUserContext } from "../services/";
+import { api, createBookmark, useCurrentUserContext } from "../services/";
 import { ArticleCardProps } from "./ArticleCard";
 
 const classes = {
@@ -31,14 +31,7 @@ export const GridBox: React.FC<ArticleCardProps> = ({ article }) => {
   const postBookmark = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (currentUser) {
-      const send = {
-        userId: currentUser.id,
-        articleTitle: article.title,
-        articleLink: article.url,
-        imgUrl: article.image,
-      };
-      api.bookmarks.postBookmark(send);
-      setToastOpen(true);
+      createBookmark(article, currentUser.id, setToastOpen);
     }
   };
 
