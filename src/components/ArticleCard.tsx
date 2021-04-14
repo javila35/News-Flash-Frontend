@@ -1,5 +1,5 @@
 import * as React from "react";
-import { api, createBookmark, useCurrentUserContext } from "../services/";
+import { createBookmark, useCurrentUserContext } from "../services/";
 import {
   Button,
   Card,
@@ -35,22 +35,26 @@ const classes = {
 const useStyles = makeStyles(classes);
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
-  const [isToastOpen, setToastOpen] = React.useState<boolean>(false);
+  /** Destructure properties for easier access */
+  const { title, source, description, url, image } = article;
+
   const token = localStorage.getItem("token");
   const { actions, card, media } = useStyles();
   const { currentUser } = useCurrentUserContext();
 
-  const { title, source, description, url, image } = article;
+  /** Toast pop up state management */
+  const [isToastOpen, setToastOpen] = React.useState<boolean>(false);
+  const handleCloseToast = () => setToastOpen(false);
 
   const postBookmark = (e: React.MouseEvent<HTMLElement>) => {
+    /** Capture click to prevent link from opening in new tab */
     e.stopPropagation();
     if (currentUser) {
       createBookmark(article, currentUser.id, setToastOpen);
     }
   };
 
-  const handleCloseToast = () => setToastOpen(false);
-
+  /** On click to open article link in new tab */
   const onClick = () => {
     window.open(url, "_blank");
   };
