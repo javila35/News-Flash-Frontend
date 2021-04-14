@@ -1,11 +1,14 @@
+import { api } from "../api";
+import { Article } from "./Article";
+
 /** Create a new bookmark */
 export type CreateBookmarkDTO = {
   /** User ID to associate the bookmark to */
-  user_id: number;
+  userId: number;
   /** Title for the bookmark */
-  article_title: string;
+  articleTitle: string;
   /** Link to the published article */
-  article_link: string;
+  articleLink: string;
 };
 
 /** Create a new comment  */
@@ -23,6 +26,7 @@ export interface CommentDTO extends CreateCommentDTO {
   id: number;
 }
 
+// TODO: Convert this to camelcase
 export type BookmarkDTO = {
   /** Bookmark id */
   id: number;
@@ -38,4 +42,18 @@ export type BookmarkDTO = {
   comments?: CommentDTO[];
 };
 
-// TODO export create bookmark callback from this file
+/** Method to create a bookmark and pop up notification */
+export const createBookmark = (
+  article: Article,
+  userId: number,
+  openToastCallback: (t: boolean) => void
+) => {
+  const bookmark = {
+    userId: userId,
+    articleTitle: article.title,
+    articleLink: article.url,
+    imgUrl: article.image,
+  };
+  api.bookmarks.postBookmark(bookmark);
+  openToastCallback(true);
+};

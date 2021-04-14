@@ -1,7 +1,18 @@
 import * as React from "react";
 import { useHistory, useParams } from "react-router";
 import { useQuery } from "react-query";
-import { Button, Container, Typography, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Typography,
+  makeStyles,
+  Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@material-ui/core";
 import { api, useCurrentUserContext, UserShowResponse } from "../services/";
 import { BookmarkCard, Loader } from "../components";
 
@@ -36,16 +47,23 @@ export const UserProfile: React.FC = () => {
   const { bookmarkContainer, mainContainer } = useStyles();
   const history = useHistory();
 
+  /** State management for alerts */
+  const [isToastOpen, setToastOpen] = React.useState<boolean>(false);
+  const [isWarningOpen, setWarningOpen] = React.useState<boolean>(false);
+  const handleCloseToast = () => setToastOpen(false);
+  const handleOpenWarning = () => setWarningOpen(true);
+  const handleCloseWarning = () => setWarningOpen(false);
+
   const { data, error, isLoading } = useQuery<UserProfileResponse, Error>(
     [`fetchUser${username}`, username],
     () => api.users.getUserToDisplay(username)
   );
 
+  /** Jump to user profile edit form */
   const editBio = () => {
     history.push("/edit-user");
   };
 
-  // TODO Add a toast, or extra button to user wants to delete
   const deleteUser = () => {
     if (currentUser) {
       const { id } = currentUser;
@@ -55,8 +73,7 @@ export const UserProfile: React.FC = () => {
           setCurrentUser(null);
           history.push("/");
         } else {
-          // TODO: Turn this into toast
-          console.warn("Was not able to delete");
+          setToastOpen(true);
         }
       });
     }
@@ -75,17 +92,19 @@ export const UserProfile: React.FC = () => {
     }
   };
 
+  /** Jump to the "discussion" page for a bookmark */
   const showBookmark = (bookmarkId: number) => {
     history.push(`/bookmarks/${bookmarkId}`);
   };
 
+  /** Display user profile customization buttons */
   const renderUserOptions = () => {
     return (
       <Container>
         <Button variant="outlined" onClick={editBio}>
           Edit account details.
         </Button>
-        <Button variant="outlined" onClick={deleteUser}>
+        <Button variant="outlined" onClick={handleOpenWarning}>
           Delete my account.
         </Button>
       </Container>
@@ -117,12 +136,40 @@ export const UserProfile: React.FC = () => {
   if (error) return <>Could not fetch user + {error.message}</>;
   if (isLoading) return <Loader />;
   return (
-    <Container className={mainContainer}>
-      {renderUserDetail()}
-      <Container className={bookmarkContainer}>
-        <Typography variant="h2">Bookmarks</Typography>
-        {renderBookmarks()}
+    <>
+      <Dialog
+        open={isWarningOpen}
+        onClose={handleCloseWarning}
+        aria-labelledby="alert-dialog-title"
+        aria-aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Warning!</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete your account? All data will be lost.
+            This is irreversible.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseWarning}>No</Button>
+          <Button onClick={deleteUser} color="secondary">
+            Yes, delete my account
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar
+        autoHideDuration={5000}
+        message="Unable to delete user!"
+        onClose={handleCloseToast}
+        open={isToastOpen}
+      />
+      <Container className={mainContainer}>
+        {renderUserDetail()}
+        <Container className={bookmarkContainer}>
+          <Typography variant="h2">Bookmarks</Typography>
+          {renderBookmarks()}
+        </Container>
       </Container>
-    </Container>
+    </>
   );
 };
