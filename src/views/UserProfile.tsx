@@ -50,12 +50,16 @@ export const UserProfile: React.FC = () => {
   /** State management for alerts */
   const [isToastOpen, setToastOpen] = React.useState<boolean>(false);
   const [isWarningOpen, setWarningOpen] = React.useState<boolean>(false);
+  const handleCloseToast = () => setToastOpen(false);
+  const handleOpenWarning = () => setWarningOpen(true);
+  const handleCloseWarning = () => setWarningOpen(false);
 
   const { data, error, isLoading } = useQuery<UserProfileResponse, Error>(
     [`fetchUser${username}`, username],
     () => api.users.getUserToDisplay(username)
   );
 
+  /** Jump to user profile edit form */
   const editBio = () => {
     history.push("/edit-user");
   };
@@ -75,10 +79,6 @@ export const UserProfile: React.FC = () => {
     }
   };
 
-  const handleCloseToast = () => setToastOpen(false);
-  const handleOpenWarning = () => setWarningOpen(true);
-  const handleCloseWarning = () => setWarningOpen(false);
-
   const renderBookmarks = () => {
     if (data) {
       const { bookmarks } = data.data.attributes;
@@ -92,10 +92,12 @@ export const UserProfile: React.FC = () => {
     }
   };
 
+  /** Jump to the "discussion" page for a bookmark */
   const showBookmark = (bookmarkId: number) => {
     history.push(`/bookmarks/${bookmarkId}`);
   };
 
+  /** Display user profile customization buttons */
   const renderUserOptions = () => {
     return (
       <Container>
